@@ -4,15 +4,15 @@
     "name": "Royal Bridal Mehndi",
     "category": "bridal",
     "price": 5000,
-    "image": "https://images.pexels.com/photos/15460659/pexels-photo-15460659.jpeg",
-    "description": "Heavy full hand bridal mehndi with intricate patterns and personalized motifs"
+    "image": "https://placehold.co/500x500/8B4513/FFD700?text=Royal+Bridal",
+    "description": "Heavy full hand bridal mehndi with intricate patterns"
   },
   {
     "id": 2,
     "name": "Dulhan Special Leg Mehndi",
     "category": "bridal",
     "price": 3000,
-    "image": "photos/designs/bridal-2.jpg",
+    "image": "https://placehold.co/500x500/8B4513/FFD700?text=Dulhan+Leg",
     "description": "Beautiful leg mehndi design matching bridal hands"
   },
   {
@@ -20,7 +20,7 @@
     "name": "Elegant Arabic Design",
     "category": "arabic",
     "price": 1500,
-    "image": "photos/designs/arabic-1.jpg",
+    "image": "https://placehold.co/500x500/6B8E23/FFD700?text=Elegant+Arabic",
     "description": "Modern Arabic style with floral patterns and bold outlines"
   },
   {
@@ -28,7 +28,7 @@
     "name": "Party Arabic Mehndi",
     "category": "arabic",
     "price": 1200,
-    "image": "photos/designs/arabic-2.jpg",
+    "image": "https://placehold.co/500x500/6B8E23/FFD700?text=Party+Arabic",
     "description": "Light and elegant Arabic design perfect for parties"
   },
   {
@@ -36,7 +36,7 @@
     "name": "Simple Floral Design",
     "category": "simple",
     "price": 500,
-    "image": "photos/designs/simple-1.jpg",
+    "image": "https://placehold.co/500x500/D2691E/FFD700?text=Simple+Floral",
     "description": "Minimal floral pattern for casual occasions"
   },
   {
@@ -44,7 +44,7 @@
     "name": "Wrist Band Style",
     "category": "simple",
     "price": 300,
-    "image": "photos/designs/simple-2.jpg",
+    "image": "https://placehold.co/500x500/D2691E/FFD700?text=Wrist+Band",
     "description": "Trendy wrist band mehndi design"
   },
   {
@@ -52,7 +52,7 @@
     "name": "Sangeet Special",
     "category": "sangeet",
     "price": 2000,
-    "image": "photos/designs/sangeet-1.jpg",
+    "image": "https://placehold.co/500x500/A0522D/FFD700?text=Sangeet+Special",
     "description": "Fun and festive sangeet mehndi with glitter accents"
   },
   {
@@ -60,7 +60,7 @@
     "name": "Jaggo Night Design",
     "category": "sangeet",
     "price": 1800,
-    "image": "photos/designs/sangeet-2.jpg",
+    "image": "https://placehold.co/500x500/A0522D/FFD700?text=Jaggo+Night",
     "description": "Vibrant jaggo themed mehndi design"
   }
 ]
