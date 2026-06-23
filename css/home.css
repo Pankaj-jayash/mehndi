@@ -64,18 +64,18 @@
 .delay-4 { transition-delay: 0.8s; }
 
 /* ============================================ */
-/*  HERO SECTION — COMPACT + ATTRACTIVE         */
+/*  HERO SECTION — COMPACT + BIG TEXT           */
 /* ============================================ */
 .hero {
     background: linear-gradient(160deg, #1A0F07 0%, #2D1A0E 25%, #3D2B1A 50%, #2D1A0E 75%, #1A0F07 100%);
-    min-height: 90vh;
+    min-height: 75vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     position: relative;
     overflow: hidden;
-    padding: 60px 20px 100px;
+    padding: 50px 20px 90px;
 }
 
 /* Mandala Background */
@@ -141,7 +141,7 @@
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 700px;
+    max-width: 800px;
 }
 
 /* Henna Cone Icon */
@@ -190,15 +190,15 @@
 
 .hero-title-line {
     display: block;
-    font-size: 60px;
+    font-size: 78px;
     color: var(--accent);
     text-shadow: 0 2px 30px rgba(201, 169, 110, 0.4);
-    letter-spacing: 3px;
+    letter-spacing: 4px;
 }
 
 .hero-title-by {
     display: block;
-    font-size: 24px;
+    font-size: 26px;
     color: rgba(255, 255, 255, 0.6);
     font-style: italic;
     font-weight: 400;
@@ -215,14 +215,14 @@
 }
 
 .hero-divider span {
-    font-size: 14px;
+    font-size: 16px;
     color: var(--accent);
     opacity: 0.7;
 }
 
 /* Tagline */
 .hero-tagline {
-    font-size: 20px;
+    font-size: 22px;
     color: rgba(255, 255, 255, 0.8);
     font-style: italic;
     margin-bottom: 30px;
@@ -233,7 +233,7 @@
 .hero-stats {
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 30px;
     margin-bottom: 35px;
     flex-wrap: wrap;
 }
@@ -262,7 +262,7 @@
 }
 
 .stat-number {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     color: var(--accent);
     font-family: var(--font-heading);
@@ -455,18 +455,18 @@ html {
 /*  RESPONSIVE                                   */
 /* ============================================ */
 @media (max-width: 1024px) {
-    .hero-title-line { font-size: 50px; }
+    .hero-title-line { font-size: 60px; }
     .hero-title-by { font-size: 22px; }
     .mandala-bg { width: 380px; height: 380px; }
 }
 
 @media (max-width: 768px) {
     .hero {
-        min-height: 75vh;
-        padding: 50px 20px 90px;
+        min-height: 65vh;
+        padding: 40px 20px 80px;
     }
     
-    .hero-title-line { font-size: 38px; letter-spacing: 2px; }
+    .hero-title-line { font-size: 48px; letter-spacing: 2px; }
     .hero-title-by { font-size: 18px; }
     .hero-tagline { font-size: 16px; }
     .hero-badge { font-size: 11px; padding: 7px 16px; }
@@ -493,13 +493,13 @@ html {
 
 @media (max-width: 480px) {
     .hero {
-        min-height: 65vh;
-        padding: 40px 15px 80px;
+        min-height: 60vh;
+        padding: 35px 15px 70px;
     }
     
-    .hero-title-line { font-size: 30px; }
+    .hero-title-line { font-size: 40px; letter-spacing: 2px; }
     .hero-title-by { font-size: 16px; }
-    .hero-tagline { font-size: 13px; margin-bottom: 22px; }
+    .hero-tagline { font-size: 14px; margin-bottom: 22px; }
     .hero-badge { font-size: 10px; padding: 6px 14px; margin-bottom: 18px; }
     
     .hero-stats { gap: 10px; }
