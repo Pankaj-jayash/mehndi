@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Dashboard | Mehndi By Niraj</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+    <!-- Admin Navbar -->
+    <nav class="admin-nav">
+        <div class="container">
+            <span class="admin-brand">🌿 Mehndi By Niraj — Admin</span>
+            <div class="admin-nav-actions">
+                <a href="../index.html" class="btn btn-outline btn-small" target="_blank">View Website</a>
+                <button class="btn btn-small" style="background:#dc3545;color:white;" onclick="logout()">🚪 Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Container -->
+    <div class="admin-container">
+        <div class="container">
+            
+            <!-- Tabs -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="dashboard">📊 Dashboard</button>
+                <button class="admin-tab" data-tab="designs">🎨 Designs</button>
+                <button class="admin-tab" data-tab="reviews">⭐ Reviews</button>
+                <button class="admin-tab" data-tab="bookings">📋 Bookings</button>
+                <button class="admin-tab" data-tab="settings">⚙️ Settings</button>
+            </div>
+
+            <!-- Tab: Dashboard -->
+            <div class="admin-tab-content active" id="tab-dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎨</div>
+                        <div class="stat-number" id="statDesigns">0</div>
+                        <div class="stat-label">Total Designs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-number" id="statReviews">0</div>
+                        <div class="stat-label">Total Reviews</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-number" id="statBookings">0</div>
+                        <div class="stat-label">Total Bookings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-number" id="statRevenue">₹0</div>
+                        <div class="stat-label">Total Revenue</div>
+                    </div>
+                </div>
+                <div class="recent-bookings">
+                    <h3>📋 Recent Bookings</h3>
+                    <div id="recentBookingsTable"></div>
+                </div>
+            </div>
+
+            <!-- Tab: Designs -->
+            <div class="admin-tab-content" id="tab-designs">
+                <div class="section-actions">
+                    <h3>🎨 Manage Designs</h3>
+                    <button class="btn btn-primary" onclick="showAddDesignForm()">➕ Add New Design</button>
+                </div>
+                
+                <!-- Add/Edit Design Form -->
+                <div class="admin-form hidden" id="designForm">
+                    <h4 id="designFormTitle">Add New Design</h4>
+                    <input type="hidden" id="designId">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Design Name *</label>
+                            <input type="text" id="designName" placeholder="e.g., Royal Bridal Mehndi">
+                        </div>
+                        <div class="form-group">
+                            <label>Category *</label>
+                            <select id="designCategory">
+                                <option value="bridal">💍 Bridal</option>
+                                <option value="arabic">🌿 Arabic</option>
+                                <option value="simple">🌸 Simple</option>
+                                <option value="sangeet">🎉 Sangeet & Jaggo</option>
+                                <option value="leg">🦵 Leg Mehndi</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Price (₹) *</label>
+                            <input type="number" id="designPrice" placeholder="e.g., 5000">
+                        </div>
+                    </div>
+
+                    <!-- IMAGE UPLOAD OPTIONS -->
+                    <div class="image-upload-section">
+                        <label style="font-weight:600; margin-bottom:12px; display:block; color:var(--primary);">📸 Image — Choose One Option:</label>
+                        
+                        <!-- Option 1: File Upload -->
+                        <div class="upload-option">
+                            <input type="radio" name="imageType" id="imageTypeFile" value="file" checked>
+                            <label for="imageTypeFile"><strong>📁 Upload from Phone / Computer</strong></label>
+                            <div class="file-upload-area" id="fileUploadArea">
+                                <input type="file" id="designImageFile" accept="image/*" style="display:none;">
+                                <div class="upload-placeholder" id="uploadPlaceholder" onclick="document.getElementById('designImageFile').click()">
+                                    <span style="font-size:50px; display:block; margin-bottom:10px;">📷</span>
+                                    <p style="font-weight:500;">Click to select photo</p>
+                                    <p style="font-size:12px; color:var(--gray);">JPG, PNG, WebP | Max 5MB</p>
+                                </div>
+                                <div class="upload-preview hidden" id="uploadPreview">
+                                    <img id="previewImage" src="" alt="Preview">
+                                    <button type="button" class="btn-delete" onclick="clearFileUpload()" style="position:absolute; top:-10px; right:-10px; width:30px; height:30px; border-radius:50%; background:#dc3545; color:white; border:none; cursor:pointer; font-size:16px;">✕</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="upload-divider">
+                            <span>OR</span>
+                        </div>
+
+                        <!-- Option 2: URL -->
+                        <div class="upload-option">
+                            <input type="radio" name="imageType" id="imageTypeURL" value="url">
+                            <label for="imageTypeURL"><strong>🔗 Paste Image URL (Link)</strong></label>
+                            <input type="text" id="designImageURL" placeholder="https://example.com/mehndi-photo.jpg" disabled 
+                                   style="width:100%; padding:12px; border:2px solid var(--border); border-radius:8px; margin-top:8px; font-family:var(--font-body); font-size:14px;">
+                            <p style="font-size:11px; color:var(--gray); margin-top:5px;">Google Drive, Imgur, ya kisi bhi image hosting se link paste karein</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top:15px;">
+                        <label>Description (Optional)</label>
+                        <textarea id="designDescription" rows="2" placeholder="Short description about this design..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-primary" onclick="saveDesign()">💾 Save Design</button>
+                        <button class="btn btn-outline" onclick="hideDesignForm()">Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Designs Table -->
+                <div class="admin-table-container" id="designsTable"></div>
+            </div>
+
+            <!-- Tab: Reviews -->
+            <div class="admin-tab-content" id="tab-reviews">
+                <div class="section-actions">
+                    <h3>⭐ Manage Reviews</h3>
+                    <button class="btn btn-primary" onclick="showAddReviewForm()">➕ Add New Review</button>
+                </div>
+                
+                <!-- Add Review Form -->
+                <div class="admin-form hidden" id="reviewForm">
+                    <h4>Add Customer Review</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Customer Name *</label>
+                            <input type="text" id="reviewName" placeholder="Customer name">
+                        </div>
+                        <div class="form-group">
+                            <label>Stars (1-5) *</label>
+                            <select id="reviewStars">
+                                <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                                <option value="4">⭐⭐⭐⭐ (4)</option>
+                                <option value="3">⭐⭐⭐ (3)</option>
+                                <option value="2">⭐⭐ (2)</option>
+                                <option value="1">⭐ (1)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Customer Photo URL</label>
+                            <input type="text" id="reviewCustomerPhoto" placeholder="photos/customers/name.jpg">
+                        </div>
+                        <div class="form-group">
+                            <label>Mehndi Photo URL</label>
+                            <input type="text" id="reviewMehndiPhoto" placeholder="photos/reviews/name.jpg">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Review Text *</label>
+                        <textarea id="reviewText" rows="3" placeholder="Customer's review..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-primary" onclick="saveReview()">💾 Save Review</button>
+                        <button class="btn btn-outline" onclick="hideReviewForm()">Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Reviews Table -->
+                <div class="admin-table-container" id="reviewsTable"></div>
+            </div>
+
+            <!-- Tab: Bookings -->
+            <div class="admin-tab-content" id="tab-bookings">
+                <div class="section-actions">
+                    <h3>📋 Booking History</h3>
+                    <button class="btn btn-outline btn-small" onclick="exportBookings()">📥 Export CSV</button>
+                </div>
+                <div class="admin-table-container" id="bookingsTable">
+                    <p class="text-center" style="padding:40px;">No bookings yet. Bookings will appear here when customers book.</p>
+                </div>
+            </div>
+
+            <!-- Tab: Settings -->
+            <div class="admin-tab-content" id="tab-settings">
+                <h3>⚙️ Website Settings</h3>
+                <div class="admin-form" id="settingsForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Brand Name</label>
+                            <input type="text" id="settingBrandName">
+                        </div>
+                        <div class="form-group">
+                            <label>Tagline</label>
+                            <input type="text" id="settingTagline">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" id="settingCity">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" id="settingPhone">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>WhatsApp</label>
+                            <input type="text" id="settingWhatsapp">
+                        </div>
+                        <div class="form-group">
+                            <label>Instagram</label>
+                            <input type="text" id="settingInstagram">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Business Hours</label>
+                            <input type="text" id="settingHours">
+                        </div>
+                        <div class="form-group">
+                            <label>Admin Password</label>
+                            <input type="text" id="settingPassword">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>

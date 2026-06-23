@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse Mehndi By Niraj gallery. Select your favorite mehndi designs and book via WhatsApp. Bridal, Arabic, Simple mehndi designs.">
+    <title>Gallery | Mehndi By Niraj</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/gallery.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar"></nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>🎨 Mehndi Gallery</h1>
+            <p>Select your favorite designs & book on WhatsApp</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-layout">
+                
+                <!-- Sidebar Categories -->
+                <aside class="gallery-sidebar" id="sidebar">
+                    <h3>Categories</h3>
+                    <button class="category-btn active" data-category="all">
+                        🌿 All Designs
+                    </button>
+                    <button class="category-btn" data-category="bridal">
+                        💍 Bridal Mehndi
+                    </button>
+                    <button class="category-btn" data-category="arabic">
+                        🌿 Arabic Mehndi
+                    </button>
+                    <button class="category-btn" data-category="simple">
+                        🌸 Simple Mehndi
+                    </button>
+                    <button class="category-btn" data-category="sangeet">
+                        🎉 Sangeet & Jaggo
+                    </button>
+                    <button class="category-btn" data-category="leg">
+                        🦵 Leg Mehndi
+                    </button>
+                </aside>
+
+                <!-- Mobile Category Toggle -->
+                <button class="category-toggle" id="categoryToggle">
+                    📂 Categories <span id="activeCategoryLabel">- All</span>
+                </button>
+
+                <!-- Gallery Grid -->
+                <main class="gallery-main">
+                    <div class="gallery-grid" id="galleryGrid">
+                        <!-- Designs load honge yahan -->
+                    </div>
+                    <div class="empty-state hidden" id="emptyState">
+                        <p>😔 Is category me abhi koi design nahi hai.</p>
+                        <p>Jald hi naye designs add honge!</p>
+                    </div>
+                </main>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Booking Bar -->
+    <div class="booking-bar hidden" id="bookingBar">
+        <div class="container">
+            <div class="booking-bar-content">
+                <div class="selected-info">
+                    <span class="selected-count" id="selectedCount">0 Designs Selected</span>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn btn-outline btn-small" id="clearSelection">
+                        ❌ Clear All
+                    </button>
+                    <button class="btn btn-whatsapp" id="openBookingForm">
+                        💬 Book Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Form Modal -->
+    <div class="modal-overlay hidden" id="bookingModal">
+        <div class="modal">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div class="modal-header">
+                <h2>📋 Book Your Mehndi</h2>
+                <p>Fill your details & send on WhatsApp</p>
+            </div>
+            <div class="modal-body">
+                <div class="selected-designs-summary" id="modalSelectedDesigns">
+                    <!-- Selected designs list -->
+                </div>
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="customerName">👤 Full Name *</label>
+                        <input type="text" id="customerName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">📱 Phone Number *</label>
+                        <input type="tel" id="customerPhone" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerAddress">📍 Address *</label>
+                        <input type="text" id="customerAddress" placeholder="Your full address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDate">📅 Event Date *</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
+                    <button type="submit" class="btn btn-whatsapp btn-full">
+                        💬 Send on WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay hidden" id="confirmationModal">
+        <div class="modal modal-confirm">
+            <div class="confirm-icon">✅</div>
+            <h2>Booking Request Sent!</h2>
+            <p>Your selected designs have been sent to <strong>Niraj ji</strong> on WhatsApp.</p>
+            <p>📞 He will contact you soon for confirmation.</p>
+            <div class="confirm-designs" id="confirmDesigns">
+                <!-- Selected designs -->
+            </div>
+            <p class="confirm-contact">💬 Any questions? Call/WhatsApp: <strong>9719312956</strong></p>
+            <button class="btn btn-primary" id="closeConfirmation">Back to Gallery</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer"></footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/booking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadConfig();
+            loadNavbar('gallery');
+            loadFooter();
+            initGallery();
+            initBooking();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Login | Mehndi By Niraj</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+    <div class="admin-login-container">
+        <div class="admin-login-card">
+            <div class="admin-login-header">
+                <h1>🌿 Mehndi By Niraj</h1>
+                <p>Admin Panel</p>
+            </div>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminUsername">👤 Username</label>
+                    <input type="text" id="adminUsername" placeholder="Enter username" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">🔒 Password</label>
+                    <input type="password" id="adminPassword" placeholder="Enter password" required>
+                </div>
+                <div class="login-error hidden" id="loginError">❌ Invalid username or password!</div>
+                <button type="submit" class="btn btn-primary btn-full">🔐 Login</button>
+            </form>
+            <div class="admin-login-footer">
+                <a href="../index.html">← Back to Website</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        //  ADMIN LOGIN
+        // ============================================
+        const CORRECT_USERNAME = 'pankaj';
+        const CORRECT_PASSWORD = 'pankaj2006';
+
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('adminPassword').value;
+            const errorDiv = document.getElementById('loginError');
+
+            if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
+                // Set session
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                sessionStorage.setItem('adminLoginTime', Date.now());
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                errorDiv.classList.remove('hidden');
+                document.getElementById('adminPassword').value = '';
+                // Hide error after 3 seconds
+                setTimeout(() => {
+                    errorDiv.classList.add('hidden');
+                }, 3000);
+            }
+        });
+
+        // Enter key se bhi submit
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('adminLoginForm').dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html>

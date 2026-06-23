@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Customer reviews for Mehndi By Niraj. See what our happy brides say!">
+    <title>Reviews | Mehndi By Niraj</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reviews.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar"></nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>⭐ Customer Reviews</h1>
+            <p>What our happy clients say about us</p>
+        </div>
+    </section>
+
+    <section class="reviews-section">
+        <div class="container">
+            <div class="reviews-grid" id="reviewsGrid">
+                <!-- Reviews load honge -->
+            </div>
+            <div class="reviews-cta text-center mt-40">
+                <p>💬 Had a great experience? Share your review with us!</p>
+                <a href="https://wa.me/919719312956?text=Hi%20Niraj%20ji%2C%20I%20want%20to%20share%20my%20review!" class="btn btn-whatsapp" target="_blank">Share Review on WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="footer"></footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/reviews.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadConfig();
+            loadNavbar('reviews');
+            loadFooter();
+            loadReviews();
+        });
+    </script>
+</body>
+</html>

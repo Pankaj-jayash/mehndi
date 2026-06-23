@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Royal Bridal Mehndi",
+    "category": "bridal",
+    "price": 5000,
+    "image": "photos/designs/bridal-1.jpg",
+    "description": "Heavy full hand bridal mehndi with intricate patterns and personalized motifs"
+  },
+  {
+    "id": 2,
+    "name": "Dulhan Special Leg Mehndi",
+    "category": "bridal",
+    "price": 3000,
+    "image": "photos/designs/bridal-2.jpg",
+    "description": "Beautiful leg mehndi design matching bridal hands"
+  },
+  {
+    "id": 3,
+    "name": "Elegant Arabic Design",
+    "category": "arabic",
+    "price": 1500,
+    "image": "photos/designs/arabic-1.jpg",
+    "description": "Modern Arabic style with floral patterns and bold outlines"
+  },
+  {
+    "id": 4,
+    "name": "Party Arabic Mehndi",
+    "category": "arabic",
+    "price": 1200,
+    "image": "photos/designs/arabic-2.jpg",
+    "description": "Light and elegant Arabic design perfect for parties"
+  },
+  {
+    "id": 5,
+    "name": "Simple Floral Design",
+    "category": "simple",
+    "price": 500,
+    "image": "photos/designs/simple-1.jpg",
+    "description": "Minimal floral pattern for casual occasions"
+  },
+  {
+    "id": 6,
+    "name": "Wrist Band Style",
+    "category": "simple",
+    "price": 300,
+    "image": "photos/designs/simple-2.jpg",
+    "description": "Trendy wrist band mehndi design"
+  },
+  {
+    "id": 7,
+    "name": "Sangeet Special",
+    "category": "sangeet",
+    "price": 2000,
+    "image": "photos/designs/sangeet-1.jpg",
+    "description": "Fun and festive sangeet mehndi with glitter accents"
+  },
+  {
+    "id": 8,
+    "name": "Jaggo Night Design",
+    "category": "sangeet",
+    "price": 1800,
+    "image": "photos/designs/sangeet-2.jpg",
+    "description": "Vibrant jaggo themed mehndi design"
+  }
+]

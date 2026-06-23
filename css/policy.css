@@ -1,0 +1,17 @@
+/* Policy Page Styles */
+.policy-section { padding: 50px 0; }
+.policy-content { max-width: 800px; margin: 0 auto; }
+
+.policy-card {
+    background: var(--white);
+    padding: 25px 30px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+.policy-card h3 { margin-bottom: 15px; color: var(--primary); font-size: 18px; }
+.policy-card ol,
+.policy-card ul { padding-left: 20px; color: var(--gray); line-height: 2; }
+.policy-card li { margin-bottom: 5px; }
+

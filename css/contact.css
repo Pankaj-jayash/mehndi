@@ -1,0 +1,40 @@
+
+
+/* Contact Page Styles */
+.contact-section { padding: 50px 0; }
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.contact-card {
+    background: var(--white);
+    padding: 35px 25px;
+    text-align: center;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+.contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.main-contact { border: 2px solid #25D366; }
+
+.contact-icon { font-size: 50px; display: block; margin-bottom: 12px; }
+.contact-card h3 { font-size: 20px; margin-bottom: 8px; }
+.contact-card p { color: var(--gray); margin-bottom: 15px; }
+.contact-number { margin-top: 12px; font-weight: 600; color: var(--primary); font-size: 18px; }
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+.info-card {
+    background: var(--bg);
+    padding: 25px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+.info-card h3 { font-size: 16px; margin-bottom: 10px; }
+.info-card p { color: var(--gray); font-size: 14px; margin-bottom: 5px; }

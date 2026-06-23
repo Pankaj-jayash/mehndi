@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Priya Sharma",
+    "customerPhoto": "photos/customers/customer-1.jpg",
+    "mehndiPhoto": "photos/reviews/review-1.jpg",
+    "stars": 5,
+    "review": "Absolutely stunning bridal mehndi! Niraj ji was so patient and professional. Everyone loved the design on my wedding day. Highly recommended for all brides in Mathura!"
+  },
+  {
+    "id": 2,
+    "name": "Neha Gupta",
+    "customerPhoto": "photos/customers/customer-2.jpg",
+    "mehndiPhoto": "photos/reviews/review-2.jpg",
+    "stars": 5,
+    "review": "Best mehndi artist in Mathura! The arabic design was exactly what I wanted. She was on time and the mehndi color came out so dark and beautiful."
+  },
+  {
+    "id": 3,
+    "name": "Anjali Patel",
+    "customerPhoto": "photos/customers/customer-3.jpg",
+    "mehndiPhoto": "photos/reviews/review-3.jpg",
+    "stars": 5,
+    "review": "Niraj ji did mehndi for my entire family for my sister's wedding. Each design was unique and beautiful. True artist! Very reasonable prices too."
+  }
+]
