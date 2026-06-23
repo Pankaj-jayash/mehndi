@@ -8,36 +8,15 @@ let selectedDesigns = [];
 let currentCategory = 'all';
 
 // ============================================
-//  LOAD DESIGNS - localStorage se
+//  LOAD DESIGNS - JSON FILE SE (NO LOCALSTORAGE)
 // ============================================
 async function loadDesigns() {
-    // Sabse pehle localStorage check karo
-    const localDesigns = localStorage.getItem('mehndiDesigns');
-    
-    if (localDesigns) {
-        try {
-            const parsed = JSON.parse(localDesigns);
-            if (parsed && parsed.length > 0) {
-                allDesigns = parsed;
-                console.log('✅ Loaded from localStorage:', allDesigns.length, 'designs');
-                return allDesigns;
-            }
-        } catch (e) {
-            console.error('localStorage parse error:', e);
-        }
-    }
-    
-    // Agar localStorage khali hai to JSON file se load karo
     try {
         let response = await fetch('data/designs.json');
         if (!response.ok) {
             response = await fetch('../data/designs.json');
         }
         const jsonData = await response.json();
-        
-        // JSON data ko localStorage me save kar do taaki aage kaam kare
-        localStorage.setItem('mehndiDesigns', JSON.stringify(jsonData));
-        
         allDesigns = jsonData;
         console.log('✅ Loaded from JSON file:', allDesigns.length, 'designs');
         return allDesigns;
@@ -88,7 +67,6 @@ function renderGallery() {
         if (emptyState) emptyState.classList.add('hidden');
         grid.innerHTML = filteredDesigns.map(design => {
             const isSelected = selectedDesigns.find(s => s.id === design.id);
-            // Check if image is base64 or URL
             const imgSrc = design.image || '';
             
             return `
@@ -117,7 +95,6 @@ function renderGallery() {
         
         grid.querySelectorAll('.design-card').forEach(card => {
             card.addEventListener('click', (e) => {
-                // Don't trigger if clicking button
                 if (e.target.closest('.select-btn')) return;
                 toggleDesign(parseInt(card.dataset.id));
             });
@@ -180,14 +157,12 @@ function setupClearSelection() {
 // ============================================
 function setupCategoryListeners() {
     const buttons = document.querySelectorAll('.category-btn');
-    const label = document.getElementById('activeCategoryLabel');
 
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
             currentCategory = btn.dataset.category;
             updateActiveCategoryButton();
             renderGallery();
-            if (label) label.textContent = ` - ${btn.textContent.trim()}`;
         });
     });
 }
