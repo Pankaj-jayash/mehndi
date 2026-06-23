@@ -21,7 +21,7 @@
     "category": "arabic",
     "price": 1500,
     "image": "https://placehold.co/500x500/6B8E23/FFD700?text=Elegant+Arabic",
-    "description": "Modern Arabic style with floral patterns and bold outlines"
+    "description": "Modern Arabic style with floral patterns"
   },
   {
     "id": 4,
@@ -29,7 +29,7 @@
     "category": "arabic",
     "price": 1200,
     "image": "https://placehold.co/500x500/6B8E23/FFD700?text=Party+Arabic",
-    "description": "Light and elegant Arabic design perfect for parties"
+    "description": "Light and elegant Arabic design for parties"
   },
   {
     "id": 5,
@@ -53,7 +53,7 @@
     "category": "sangeet",
     "price": 2000,
     "image": "https://placehold.co/500x500/A0522D/FFD700?text=Sangeet+Special",
-    "description": "Fun and festive sangeet mehndi with glitter accents"
+    "description": "Fun and festive sangeet mehndi"
   },
   {
     "id": 8,
