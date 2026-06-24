@@ -99,7 +99,7 @@ function loadFooter() {
             <div class="footer-grid">
                 <div class="footer-col">
                     <h4>🌿 Niraj With Mehndi</h4>
-                    <p>Professional Mehndi Artist<br>Mathura, Uttar Pradesh</p>
+                    <p>Professional Mehndi Artist<br>Mant , Vrindavan , Uttar Pradesh</p>
                     <div class="social-links">
                         <a href="https://wa.me/919719312956" target="_blank" aria-label="WhatsApp">💬</a>
                         <a href="https://instagram.com/mehndibyniraj" target="_blank" aria-label="Instagram">📷</a>
@@ -123,11 +123,11 @@ function loadFooter() {
                     <h4>Contact</h4>
                     <p>📱 <a href="tel:+919027535231">9027535231</a></p>
                     <p>💬 <a href="https://wa.me/919719312956">9719312956</a></p>
-                    <p>📍 Mathura, UP</p>
+                    <p>📍 Mant , Vrindavan , UP</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© ${new Date().getFullYear()} Niraj With Mehndi. All Rights Reserved. | Made with ❤️ in Mathura</p>
+                <p>© ${new Date().getFullYear()} Niraj With Mehndi. All Rights Reserved. | Made with ❤️ in Mant , Vrindavan </p>
             </div>
         </div>
     `;
