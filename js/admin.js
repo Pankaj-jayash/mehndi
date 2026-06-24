@@ -1,6 +1,6 @@
 // ============================================
 //  ADMIN.JS - Admin Panel Functions
-//  Mehndi By Niraj
+//  Niraj With Mehndi
 // ============================================
 
 // ============================================
@@ -93,12 +93,12 @@ function getBookings() {
 
 function getConfig() {
     const defaultConfig = {
-        brandName: 'Mehndi By Niraj',
+        brandName: 'Niraj With Mehndi',
         tagline: 'Where Tradition Meets Art',
-        city: 'Mathura',
+        city: 'Mant',
         phone: '919027535231',
         whatsapp: '919719312956',
-        instagram: 'mehndibyniraj',
+        instagram: 'nirajwithmehndi',
         businessHours: '10:00 AM - 08:00 PM',
         adminPassword: 'pankaj2006'
     };
