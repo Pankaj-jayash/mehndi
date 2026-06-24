@@ -93,12 +93,7 @@ function renderGallery() {
             });
         });
         
-        grid.querySelectorAll('.design-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (e.target.closest('.select-btn')) return;
-                toggleDesign(parseInt(card.dataset.id));
-            });
-        });
+        
     }
 
     updateBookingBar();
