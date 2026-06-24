@@ -232,3 +232,32 @@ flipOutStyle.textContent = `
     }
 `;
 document.head.appendChild(flipOutStyle);
+
+// Price slider
+const priceSlider = document.getElementById('priceSlider');
+const priceDisplay = document.getElementById('priceDisplay');
+
+if (priceSlider && priceDisplay) {
+    priceSlider.addEventListener('input', () => {
+        const value = parseInt(priceSlider.value);
+        
+        if (value >= 10000) {
+            currentPrice = 'all';
+            priceDisplay.textContent = 'All Prices';
+        } else if (value >= 5000) {
+            currentPrice = 'above5000';
+            priceDisplay.textContent = 'Above ₹5,000';
+        } else if (value >= 3000) {
+            currentPrice = '3000to5000';
+            priceDisplay.textContent = '₹3,000 - ₹5,000';
+        } else if (value >= 1000) {
+            currentPrice = '1000to3000';
+            priceDisplay.textContent = '₹1,000 - ₹3,000';
+        } else {
+            currentPrice = 'under1000';
+            priceDisplay.textContent = 'Under ₹1,000';
+        }
+        
+        renderGallery();
+    });
+}
