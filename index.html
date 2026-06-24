@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mehndi By Niraj - Professional Mehndi Artist in Mathura. Bridal, Arabic, Party Mehndi designs. Book now on WhatsApp!">
-    <meta name="keywords" content="mehndi, mehndi artist, bridal mehndi, mathura mehndi, mehndi by niraj, henna">
-    <title>Mehndi By Niraj | Professional Mehndi Artist in Mathura</title>
+    <meta name="description" content="Niraj With Mehndi - Professional Mehndi Artist in Mathura. Bridal, Arabic, Party Mehndi designs. Book now on WhatsApp!">
+    <meta name="keywords" content="mehndi, mehndi artist, bridal mehndi, mathura mehndi, niraj with mehndi, henna">
+    <title>Niraj With Mehndi | Professional Mehndi Artist in Mathura</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/gallery.css">
     <link rel="stylesheet" href="css/home.css">
@@ -40,9 +40,9 @@
             <span class="hero-badge">🌿 Premium Mehndi Artist — Mathura</span>
             
             <h1 class="fade-in-up">
-                <span class="hero-title-line">Mehndi</span>
-                <span class="hero-title-by">By</span>
                 <span class="hero-title-line">Niraj</span>
+                <span class="hero-title-by">With</span>
+                <span class="hero-title-line">Mehndi</span>
             </h1>
             
             <div class="hero-divider">
@@ -115,9 +115,7 @@
 
                 <!-- Gallery Grid -->
                 <main class="gallery-main">
-                    <div class="gallery-grid" id="galleryGrid">
-                        <!-- Designs yahan JavaScript se load honge -->
-                    </div>
+                    <div class="gallery-grid" id="galleryGrid"></div>
                     <div class="empty-state hidden" id="emptyState">
                         <span class="empty-icon">😔</span>
                         <p>Is category me abhi koi design nahi hai.</p>
@@ -133,7 +131,7 @@
     <section class="why-choose">
         <div class="container">
             <div class="section-header fade-in-up">
-                <h2>🌟 Why Choose Mehndi By Niraj?</h2>
+                <h2>🌟 Why Choose Niraj With Mehndi?</h2>
                 <p>What makes us the preferred mehndi artist in Mathura</p>
             </div>
             <div class="features-grid">
@@ -257,13 +255,8 @@
             initScrollAnimations();
         });
 
-        // Scroll Animation Observer
         function initScrollAnimations() {
-            const observerOptions = {
-                threshold: 0.15,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
+            const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -272,11 +265,21 @@
                     }
                 });
             }, observerOptions);
-
-            document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right').forEach(el => {
-                observer.observe(el);
-            });
+            document.querySelectorAll('.fade-in-up, .fade-in-left').forEach(el => observer.observe(el));
         }
     </script>
+    <!-- Floating WhatsApp Button -->
+<a href="https://wa.me/919719312956?text=Hi%20Niraj%20ji%2C%20I%20want%20to%20book%20mehndi" 
+   class="float-whatsapp" id="floatWhatsapp" target="_blank" title="Book on WhatsApp">
+    💬
+</a>
+    <!-- Floating Magic Particle -->
+<div class="magic-particle" id="magicParticle">🌿</div>
+       <svg width="40" height="40" viewBox="0 0 40 40">
+        <polygon points="20,2 35,35 20,28 5,35" fill="#C9A96E" stroke="#8B6914" stroke-width="2"/>
+        <circle cx="20" cy="12" r="2" fill="#FFF8F0"/>
+    </svg>
+</div>
+
 </body>
 </html>
