@@ -68,7 +68,7 @@
 /* ============================================ */
 .hero {
     background: linear-gradient(160deg, #1A0F07 0%, #2D1A0E 25%, #3D2B1A 50%, #2D1A0E 75%, #1A0F07 100%);
-    min-height: 75vh;
+    min-height: 45vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -462,7 +462,7 @@ html {
 
 @media (max-width: 768px) {
     .hero {
-        min-height: 65vh;
+        min-height: 45vh;
         padding: 40px 20px 80px;
     }
     
