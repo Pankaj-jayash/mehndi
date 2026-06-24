@@ -205,4 +205,4 @@ function showConfirmation(booking) {
     designsDiv.innerHTML = designsHTML;
     
     modal.classList.remove('hidden');
-}
+} 
