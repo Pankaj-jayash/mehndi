@@ -1,7 +1,6 @@
-
 // ============================================
 //  BOOKING.JS - Form, Validation, WhatsApp
-//  Mehndi By Niraj
+//  Niraj With Mehndi
 // ============================================
 
 // ============================================
@@ -131,12 +130,13 @@ async function handleBookingSubmit() {
         selectedDesigns: selectedDesigns.map(d => ({
             id: d.id,
             name: d.name,
-            price: d.price
+            price: d.price,
+            image: d.image
         })),
         totalPrice: getTotalPrice()
     };
 
-    // Save booking to JSON (via localStorage as fallback)
+    // Save booking to localStorage
     saveBooking(booking);
 
     // Generate WhatsApp message
@@ -158,20 +158,18 @@ async function handleBookingSubmit() {
 //  SAVE BOOKING
 // ============================================
 function saveBooking(booking) {
-    // Store in localStorage
     let bookings = JSON.parse(localStorage.getItem('mehndiBookings') || '[]');
     bookings.push(booking);
     localStorage.setItem('mehndiBookings', JSON.stringify(bookings));
     
-    // Also update bookings.json (will work when hosted with server)
-    console.log('Booking Saved:', booking);
+    console.log('✅ Booking Saved:', booking);
 }
 
 // ============================================
-//  GENERATE WHATSAPP MESSAGE
+//  GENERATE WHATSAPP MESSAGE — WITH IMAGE LINKS
 // ============================================
 function generateWhatsAppMessage(booking) {
-    let message = `🌿 *Mehndi By Niraj - New Booking Request*\n\n`;
+    let message = `🌿 *Niraj With Mehndi - New Booking Request*\n\n`;
     message += `👤 *Name:* ${booking.customerName}\n`;
     message += `📱 *Phone:* ${booking.phone}\n`;
     message += `📍 *Address:* ${booking.address}\n`;
@@ -179,12 +177,14 @@ function generateWhatsAppMessage(booking) {
     message += `📋 *Selected Designs:*\n`;
     
     booking.selectedDesigns.forEach((d, i) => {
-        message += `  ${i + 1}. ${d.name} - ₹${d.price.toLocaleString('en-IN')}\n`;
+        message += `\n  ${i + 1}. *${d.name}*\n`;
+        message += `     💰 Price: ₹${d.price.toLocaleString('en-IN')}\n`;
+        message += `     🖼️ Image: ${d.image}\n`;
     });
     
-    message += `\n💰 *Total Price:* ₹${booking.totalPrice.toLocaleString('en-IN')}\n`;
     message += `\n━━━━━━━━━━━━━━━━━━\n`;
-    message += `🙏 Please confirm availability and final price.\n`;
+    message += `💰 *Total Price:* ₹${booking.totalPrice.toLocaleString('en-IN')}\n`;
+    message += `\n🙏 Please confirm availability and final price.\n`;
     message += `📞 Contact: ${booking.phone}`;
     
     return message;
