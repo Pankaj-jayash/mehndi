@@ -238,13 +238,15 @@ const priceSlider = document.getElementById('priceSlider');
 const priceDisplay = document.getElementById('priceDisplay');
 
 if (priceSlider && priceDisplay) {
+    // Initial value set
+    priceSlider.value = 10000;
+    currentPrice = 'all';
+    priceDisplay.textContent = 'All Prices';
+    
     priceSlider.addEventListener('input', () => {
         const value = parseInt(priceSlider.value);
         
-        if (value >= 10000) {
-            currentPrice = 'all';
-            priceDisplay.textContent = 'All Prices';
-        } else if (value >= 5000) {
+        if (value >= 5000) {
             currentPrice = 'above5000';
             priceDisplay.textContent = 'Above ₹5,000';
         } else if (value >= 3000) {
@@ -253,7 +255,7 @@ if (priceSlider && priceDisplay) {
         } else if (value >= 1000) {
             currentPrice = '1000to3000';
             priceDisplay.textContent = '₹1,000 - ₹3,000';
-        } else {
+        } else if (value < 1000) {
             currentPrice = 'under1000';
             priceDisplay.textContent = 'Under ₹1,000';
         }
