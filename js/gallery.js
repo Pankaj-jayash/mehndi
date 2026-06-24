@@ -186,3 +186,54 @@ function getSelectedDesigns() {
 function getTotalPrice() {
     return selectedDesigns.reduce((total, d) => total + (d.price || 0), 0);
 }
+// ============================================
+//  IMAGE ZOOM WITH 3D FLIP
+// ============================================
+document.addEventListener('click', function(e) {
+    const cardImage = e.target.closest('.design-card-image');
+    if (!cardImage) return;
+    
+    if (e.target.closest('.select-btn')) return;
+    if (e.target.closest('.design-card-body')) return;
+    
+    const bgImage = cardImage.style.backgroundImage;
+    if (!bgImage || bgImage === 'none') return;
+    
+    const imageUrl = bgImage.replace(/url\(['"]?/, '').replace(/['"]?\)/, '');
+    
+    const overlay = document.createElement('div');
+    overlay.className = 'zoom-overlay';
+    overlay.innerHTML = `
+        <span class="zoom-close">&times;</span>
+        <img src="${imageUrl}" alt="Mehndi Design Zoom">
+    `;
+    
+    document.body.appendChild(overlay);
+    
+    // Close on overlay click
+    overlay.addEventListener('click', function(event) {
+        if (event.target === overlay || event.target.classList.contains('zoom-close')) {
+            const img = overlay.querySelector('img');
+            img.style.animation = 'flipZoomOut 0.4s ease forwards';
+            setTimeout(() => {
+                overlay.remove();
+            }, 400);
+        }
+    });
+});
+
+// Flip out animation
+const flipOutStyle = document.createElement('style');
+flipOutStyle.textContent = `
+    @keyframes flipZoomOut {
+        0% {
+            transform: rotateY(0deg) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: rotateY(-90deg) scale(0.5);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(flipOutStyle);
