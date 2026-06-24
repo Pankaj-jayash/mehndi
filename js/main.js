@@ -1,6 +1,6 @@
 // ============================================
 //  MAIN.JS - Common Functions for All Pages
-//  Mehndi By Niraj
+//  Niraj With Mehndi
 // ============================================
 
 let CONFIG = {};
@@ -9,7 +9,6 @@ let CONFIG = {};
 //  LOAD CONFIG
 // ============================================
 async function loadConfig() {
-    // Pehle localStorage check karo
     const localConfig = localStorage.getItem('mehndiConfig');
     if (localConfig) {
         try {
@@ -20,7 +19,6 @@ async function loadConfig() {
         }
     }
 
-    // Fallback to JSON file
     try {
         const response = await fetch('data/config.json');
         CONFIG = await response.json();
@@ -49,7 +47,7 @@ function loadNavbar(currentPage) {
     navbar.innerHTML = `
         <div class="container">
             <a href="${isHome ? 'index.html' : '../index.html'}" class="nav-brand">
-                <span>🌿 Mehndi By Niraj</span>
+                <span>🌿 Niraj With Mehndi</span>
             </a>
             <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span>
@@ -68,7 +66,6 @@ function loadNavbar(currentPage) {
         </div>
     `;
 
-    // Mobile menu toggle
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
 
@@ -101,7 +98,7 @@ function loadFooter() {
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h4>🌿 Mehndi By Niraj</h4>
+                    <h4>🌿 Niraj With Mehndi</h4>
                     <p>Professional Mehndi Artist<br>Mathura, Uttar Pradesh</p>
                     <div class="social-links">
                         <a href="https://wa.me/919719312956" target="_blank" aria-label="WhatsApp">💬</a>
@@ -130,7 +127,7 @@ function loadFooter() {
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© ${new Date().getFullYear()} Mehndi By Niraj. All Rights Reserved. | Made with ❤️ in Mathura</p>
+                <p>© ${new Date().getFullYear()} Niraj With Mehndi. All Rights Reserved. | Made with ❤️ in Mathura</p>
             </div>
         </div>
     `;
@@ -164,4 +161,66 @@ function openWhatsApp(message) {
 document.addEventListener('DOMContentLoaded', async () => {
     await loadConfig();
     loadFooter();
+});
+
+// ============================================
+//  MEHNDI LEAF SNAKE - ZIG-ZAG POORI SCREEN
+//  POPUP / IMAGES / BUTTONS / FORM PAR NAHI AAYEGA
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    const particle = document.getElementById('magicParticle');
+    if (!particle) return;
+
+    document.addEventListener('click', function(e) {
+        // Modal ya popup ke andar? Ignore
+        if (e.target.closest('.modal-overlay')) return;
+        if (e.target.closest('.modal')) return;
+        if (e.target.closest('#bookingModal')) return;
+        if (e.target.closest('#confirmationModal')) return;
+        
+        // Booking bar? Ignore
+        if (e.target.closest('.booking-bar')) return;
+        if (e.target.closest('#bookingBar')) return;
+        
+        // Image? Ignore
+        if (e.target.closest('img')) return;
+        if (e.target.closest('.design-card-image')) return;
+        
+        // Button? Ignore
+        if (e.target.closest('button')) return;
+        if (e.target.closest('.btn')) return;
+        if (e.target.closest('.select-btn')) return;
+        
+        // Form input? Ignore
+        if (e.target.closest('input')) return;
+        if (e.target.closest('textarea')) return;
+        if (e.target.closest('select')) return;
+        
+        // Navbar link? Ignore
+        if (e.target.closest('.nav-links')) return;
+        if (e.target.closest('.nav-cta')) return;
+        
+        // Sidebar category? Ignore
+        if (e.target.closest('.category-btn')) return;
+        
+        // Design card body? Ignore
+        if (e.target.closest('.design-card-body')) return;
+        if (e.target.closest('.design-card')) return;
+
+        // Sirf khali jagah click — particle aayega
+        const x = e.clientX;
+        const y = e.clientY;
+        
+        particle.style.left = (x - 20) + 'px';
+        particle.style.top = (y - 20) + 'px';
+        particle.classList.add('fly-to-click');
+        particle.classList.remove('return-magic');
+        
+        setTimeout(() => {
+            particle.classList.remove('fly-to-click');
+            particle.classList.add('return-magic');
+            particle.style.left = '';
+            particle.style.top = '';
+        }, 1200);
+    });
 });
