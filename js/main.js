@@ -55,14 +55,14 @@ function loadNavbar(currentPage) {
                 <span></span>
             </button>
             <ul class="nav-links" id="navLinks">
-                <li><a href="${isHome ? 'index.html' : '../index.html'}" class="${currentPage === 'home' ? 'active' : ''}">🏠 Home</a></li>
-                <li><a href="${isHome ? 'index.html#gallery' : '../index.html#gallery'}">🎨 Gallery</a></li>
-                <li><a href="${isHome ? 'about.html' : '../about.html'}" class="${currentPage === 'about' ? 'active' : ''}">👤 About</a></li>
-                <li><a href="${isHome ? 'reviews.html' : '../reviews.html'}" class="${currentPage === 'reviews' ? 'active' : ''}">⭐ Reviews</a></li>
-                <li><a href="${isHome ? 'contact.html' : '../contact.html'}" class="${currentPage === 'contact' ? 'active' : ''}">📞 Contact</a></li>
-                <li><a href="${isHome ? 'faq.html' : '../faq.html'}" class="${currentPage === 'faq' ? 'active' : ''}">❓ FAQ</a></li>
-                <li><a href="https://wa.me/919719312956?text=Hi%20Niraj%20ji%2C%20I%20want%20to%20book%20mehndi" class="nav-cta" target="_blank">💬 Book Now</a></li>
-            </ul>
+    <li><a href="index.html">🏠 Home</a></li>
+    <li><a href="index.html#gallery">🎨 Gallery</a></li>
+    <li><a href="about.html">👤 About</a></li>
+    <li><a href="reviews.html">⭐ Reviews</a></li>
+    <li><a href="contact.html">📞 Contact</a></li>
+    <li><a href="faq.html">❓ FAQ</a></li>
+    <li><a href="https://wa.me/919719312956?text=Hi%20Niraj%20ji%2C%20I%20want%20to%20book%20mehndi" class="nav-cta" target="_blank">💬 Book Now</a></li>
+</ul>
         </div>
     `;
 
