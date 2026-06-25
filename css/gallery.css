@@ -307,6 +307,12 @@
 }
 
 @media (max-width: 768px) {
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
     .gallery-layout {
         flex-direction: row;
         gap: 12px;
