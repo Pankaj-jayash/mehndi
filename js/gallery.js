@@ -7,6 +7,7 @@ let allDesigns = [];
 let selectedDesigns = [];
 let currentCategory = 'all';
 let currentPrice = 'all';
+let currentGender = 'all';
 
 // ============================================
 //  LOAD DESIGNS - JSON FILE SE
@@ -72,6 +73,10 @@ function renderGallery() {
     } else if (currentPrice === 'above5000') {
         filteredDesigns = filteredDesigns.filter(d => d.price > 5000);
     }
+    // Gender filter
+if (currentGender !== 'all') {
+    filteredDesigns = filteredDesigns.filter(d => d.gender === currentGender);
+}
 
     if (filteredDesigns.length === 0) {
         grid.innerHTML = '';
@@ -203,6 +208,36 @@ function setupCategoryListeners() {
             renderGallery();
         });
     }
+    // Gender buttons with sliding indicator
+const genderScroll = document.querySelector('.gender-scroll');
+const genderBtns = document.querySelectorAll('.gender-btn');
+
+// Create slider element
+if (genderScroll && !document.querySelector('.gender-slider')) {
+    const slider = document.createElement('div');
+    slider.className = 'gender-slider';
+    genderScroll.appendChild(slider);
+    updateSlider();
+}
+
+genderBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        currentGender = btn.dataset.gender;
+        genderBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        updateSlider();
+        renderGallery();
+    });
+});
+
+function updateSlider() {
+    const activeBtn = document.querySelector('.gender-btn.active');
+    const slider = document.querySelector('.gender-slider');
+    if (activeBtn && slider) {
+        slider.style.left = activeBtn.offsetLeft + 'px';
+        slider.style.width = activeBtn.offsetWidth + 'px';
+    }
+}
 }
 
 function updateActiveCategoryButton() {
