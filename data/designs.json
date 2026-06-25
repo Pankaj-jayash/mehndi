@@ -4,6 +4,7 @@
     "name": "Royal Bridal Mehndi",
     "category": "bridal",
     "price": 5000,
+    "gender": "women",
     "image": "https://images.pexels.com/photos/15460659/pexels-photo-15460659.jpeg",
     "description": "Heavy full hand bridal mehndi with intricate patterns"
   },
@@ -12,6 +13,7 @@
     "name": "Dulhan Special Leg Mehndi",
     "category": "bridal",
     "price": 3000,
+    "gender": "women",
     "image": "https://images.pexels.com/photos/27024443/pexels-photo-27024443.jpeg",
     "description": "Beautiful leg mehndi design matching bridal hands"
   },
@@ -20,6 +22,7 @@
     "name": "Elegant Arabic Design",
     "category": "arabic",
     "price": 1500,
+    "gender": "women",
     "image": "https://images.pexels.com/photos/5088775/pexels-photo-5088775.jpeg",
     "description": "Modern Arabic style with floral patterns"
   },
@@ -28,6 +31,7 @@
     "name": "Party Arabic Mehndi",
     "category": "arabic",
     "price": 1200,
+    "gender": "women",
     "image": "https://images.pexels.com/photos/31032216/pexels-photo-31032216.jpeg",
     "description": "Light and elegant Arabic design for parties"
   },
@@ -36,6 +40,7 @@
     "name": "Simple Floral Design",
     "category": "simple",
     "price": 500,
+    "gender": "women",
     "image": "https://images.pexels.com/photos/5602863/pexels-photo-5602863.jpeg",
     "description": "Minimal floral pattern for casual occasions"
   },
@@ -44,6 +49,7 @@
     "name": "Wrist Band Style",
     "category": "simple",
     "price": 300,
+    "gender": "women",
     "image": "https://images.pexels.com/photos/5602781/pexels-photo-5602781.jpeg",
     "description": "Trendy wrist band mehndi design"
   },
@@ -52,6 +58,7 @@
     "name": "Sangeet Special",
     "category": "sangeet",
     "price": 2000,
+    "gender": "women",
     "image": "https://images.pexels.com/photos/32029488/pexels-photo-32029488.jpeg",
     "description": "Fun and festive sangeet mehndi"
   },
@@ -60,6 +67,7 @@
     "name": "Jaggo Night Design",
     "category": "sangeet",
     "price": 1800,
+    "gender": "women",
     "image": "https://images.pexels.com/photos/18633023/pexels-photo-18633023.png",
     "description": "Vibrant jaggo themed mehndi design"
   }
