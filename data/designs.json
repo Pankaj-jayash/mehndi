@@ -19,9 +19,9 @@
   },
   {
     "id": 3,
-    "name": "Elegant Arabic Design",
-    "category": "arabic",
-    "price": 1500,
+    "name": "Elegant simple Design",
+    "category": "simple",
+    "price": 600,
     "gender": "women",
     "image": "https://images.pexels.com/photos/5088775/pexels-photo-5088775.jpeg",
     "description": "Modern Arabic style with floral patterns"
@@ -64,9 +64,9 @@
   },
   {
     "id": 8,
-    "name": "Jaggo Night Design",
-    "category": "sangeet",
-    "price": 1800,
+    "name": "dulhan Jaggo design",
+    "category": "bridal",
+    "price": 4000,
     "gender": "women",
     "image": "https://images.pexels.com/photos/18633023/pexels-photo-18633023.png",
     "description": "Vibrant jaggo themed mehndi design"
