@@ -78,11 +78,7 @@
     "price": 500,
     "gender": "men",
     "image": "https://images.pexels.com/photos/2643556/pexels-photo-2643556.jpeg",
-    "description": "Heavy full hand bridal design",
-    "video": { "url":"https://www.instagram.com/reel/DXoLgXGDAZn/?igsh=dXR1aXkwcWhyNHBv",
-        "platform": "instagram",
-        "channelName": "@nirajwithmehndi",
-        "channelImage": "https://placehold.co/100x100/C9A96E/white?text=N"
+    "description": "Heavy full hand bridal design"
     }
 }
 
