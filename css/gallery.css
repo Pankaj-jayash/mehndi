@@ -665,3 +665,228 @@
     .gender-icon { font-size: 14px; }
     .gender-text { font-size: 11px; }
 }
+
+/* ============================================ */
+/*  VIDEO PLAY ICON ON DESIGN CARD              */
+/* ============================================ */
+.video-icon-wrapper {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.video-icon-wrapper:hover {
+    background: rgba(0,0,0,0.75);
+    transform: scale(1.05);
+}
+
+.video-icon {
+    font-size: 16px;
+    animation: videoPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes videoPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.video-text {
+    font-size: 11px;
+    color: white;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+/* Cursor blink */
+.video-text::after {
+    content: '|';
+    animation: blink 0.8s infinite;
+    color: var(--accent);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* ============================================ */
+/*  VIDEO POPUP MODAL                           */
+/* ============================================ */
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: videoFadeIn 0.3s ease;
+}
+
+.video-overlay.closing {
+    animation: videoFadeOut 0.3s ease forwards;
+}
+
+@keyframes videoFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes videoFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.video-modal {
+    background: var(--white);
+    border-radius: 16px;
+    max-width: 700px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: videoSlideUp 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+    position: relative;
+}
+
+.video-overlay.closing .video-modal {
+    animation: videoSlideDown 0.3s ease forwards;
+}
+
+@keyframes videoSlideUp {
+    from { transform: translateY(60px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes videoSlideDown {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(60px); opacity: 0; }
+}
+
+.video-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.video-close:hover {
+    background: #dc3545;
+    transform: rotate(90deg);
+}
+
+/* Channel Info */
+.video-channel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+}
+
+.video-channel-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    object-fit: cover;
+}
+
+.video-channel-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--primary);
+}
+
+/* Video Container */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    background: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Platform Button */
+.video-platform-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    margin: 15px 20px 15px auto;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: fit-content;
+}
+
+.video-platform-btn.youtube {
+    background: #FF0000;
+    color: white;
+}
+
+.video-platform-btn.instagram {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: white;
+}
+
+.video-platform-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 600px) {
+    .video-modal {
+        max-width: 100%;
+        border-radius: 12px;
+    }
+    .video-channel {
+        padding: 10px 15px;
+    }
+    .video-platform-btn {
+        margin: 10px 15px 10px auto;
+        padding: 10px 16px;
+        font-size: 12px;
+    }
+}
