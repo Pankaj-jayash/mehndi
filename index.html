@@ -118,7 +118,7 @@
         </button>
         <button class="gender-btn" data-gender="guest">
             <span class="gender-icon">🎉</span>
-            <span class="gender-text">W-Guest</span>
+            <span class="gender-text">Guest</span>
         </button>
     </div>
 </div>
@@ -234,64 +234,50 @@
     </div>
 
     <!-- Booking Form Modal -->
-<div class="modal-overlay hidden" id="bookingModal">
-    <div class="modal modal-booking">
-        <!-- Mehndi top bar -->
-        <div class="modal-top-bar"></div>
-        
-        <!-- Header -->
-        <div class="modal-head">
-            <button class="modal-close-btn" id="closeModal">✕</button>
-            <div class="modal-head-icon">🪷</div>
-            <h2>Book Your Mehndi</h2>
-            <p>Fill details & send on WhatsApp</p>
-        </div>
-        
-        <!-- Scrollable body -->
-        <div class="modal-scroll">
-            <div class="selected-designs-summary" id="modalSelectedDesigns"></div>
-            <form id="bookingForm">
-                <div class="input-group">
-                    <span class="input-icon">👤</span>
-                    <input type="text" id="customerName" placeholder="Full Name" required>
-                </div>
-                <div class="input-group">
-                    <span class="input-icon">📱</span>
-                    <input type="tel" id="customerPhone" placeholder="Phone Number" pattern="[0-9]{10}" maxlength="10" required>
-                </div>
-                <div class="input-group">
-                    <span class="input-icon">📍</span>
-                    <input type="text" id="customerAddress" placeholder="Address" required>
-                </div>
-                <div class="input-group">
-                    <span class="input-icon">📅</span>
-                    <input type="date" id="eventDate" required>
-                </div>
-            </form>
-        </div>
-        
-        <!-- Fixed bottom button -->
-        <div class="modal-footer">
-            <button type="submit" form="bookingForm" class="btn-whatsapp-fixed">
-                <span>💬 Send on WhatsApp</span>
-            </button>
+    <div class="modal-overlay hidden" id="bookingModal">
+        <div class="modal">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div class="modal-header">
+                <h2>📋 Book Your Mehndi</h2>
+                <p>Fill your details & send on WhatsApp</p>
+            </div>
+            <div class="modal-body">
+                <div class="selected-designs-summary" id="modalSelectedDesigns"></div>
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="customerName">👤 Full Name *</label>
+                        <input type="text" id="customerName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">📱 Phone Number *</label>
+                        <input type="tel" id="customerPhone" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerAddress">📍 Address *</label>
+                        <input type="text" id="customerAddress" placeholder="Your full address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDate">📅 Event Date *</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
+                    <button type="submit" class="btn btn-whatsapp btn-full">💬 Send on WhatsApp</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Confirmation Modal -->
-<div class="modal-overlay hidden" id="confirmationModal">
-    <div class="modal modal-done">
-        <div class="done-top-bar"></div>
-        <div class="done-check">✓</div>
-        <h2>Booking Sent!</h2>
-        <p>Niraj ji will confirm on WhatsApp</p>
-        <div class="confirm-designs" id="confirmDesigns"></div>
-        <p class="done-contact">📞 9719312956</p>
-        <button class="btn btn-primary" id="closeConfirmation">Back to Gallery</button>
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay hidden" id="confirmationModal">
+        <div class="modal modal-confirm">
+            <div class="confirm-icon">✅</div>
+            <h2>Booking Request Sent!</h2>
+            <p>Your selected designs have been sent to <strong>Niraj ji</strong> on WhatsApp.</p>
+            <p>📞 He will contact you soon for confirmation.</p>
+            <div class="confirm-designs" id="confirmDesigns"></div>
+            <p class="confirm-contact">💬 Any questions? Call/WhatsApp: <strong>9719312956</strong></p>
+            <button class="btn btn-primary" id="closeConfirmation">Back to Gallery</button>
+        </div>
     </div>
-</div>
-    
 
     <!-- Footer -->
     <footer class="footer" id="footer"></footer>
@@ -336,4 +322,4 @@
 </div>
 
 </body>
-</html>
+</html> 
