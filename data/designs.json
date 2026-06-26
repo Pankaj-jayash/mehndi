@@ -3,14 +3,14 @@
     "id": 1,
     "name": "Royal Bridal Mehndi",
     "category": "bridal",
-    "price": 5000,
+    "price": 3000,
     "gender": "women",
     "image": "https://images.pexels.com/photos/15460659/pexels-photo-15460659.jpeg",
     "description": "Heavy full hand bridal mehndi with intricate patterns"
   },
   {
     "id": 2,
-    "name": "Dulhan Special Leg Mehndi",
+    "name": "Dulhan Special Mehndi",
     "category": "bridal",
     "price": 3000,
     "gender": "women",
