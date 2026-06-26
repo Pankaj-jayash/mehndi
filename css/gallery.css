@@ -723,7 +723,7 @@
 }
 
 /* ============================================ */
-/*  VIDEO POPUP MODAL                           */
+/*  VIDEO POPUP MODAL — INSTAGRAM REEL SIZE     */
 /* ============================================ */
 .video-overlay {
     position: fixed;
@@ -731,12 +731,12 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.95);
     z-index: 10000;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 10px;
     animation: videoFadeIn 0.3s ease;
 }
 
@@ -757,10 +757,10 @@
 .video-modal {
     background: var(--white);
     border-radius: 16px;
-    max-width: 700px;
+    max-width: 400px;
     width: 100%;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     animation: videoSlideUp 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2);
     position: relative;
 }
@@ -770,25 +770,25 @@
 }
 
 @keyframes videoSlideUp {
-    from { transform: translateY(60px); opacity: 0; }
+    from { transform: translateY(80px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes videoSlideDown {
     from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(60px); opacity: 0; }
+    to { transform: translateY(80px); opacity: 0; }
 }
 
 .video-close {
     position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 28px;
-    background: rgba(0,0,0,0.5);
+    top: 12px;
+    right: 12px;
+    font-size: 24px;
+    background: rgba(0,0,0,0.6);
     color: white;
     border: none;
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 10;
@@ -808,14 +808,14 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 15px 20px;
+    padding: 12px 16px;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
 }
 
 .video-channel-img {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     border: 2px solid var(--accent);
     object-fit: cover;
@@ -827,21 +827,23 @@
     color: var(--primary);
 }
 
-/* Video Container */
+/* Video Container — Instagram Reel Ratio */
 .video-container {
     position: relative;
-    padding-bottom: 56.25%;
+    padding-bottom: 177.77%;
     height: 0;
     background: #000;
 }
 
-.video-container iframe {
+.video-container iframe,
+.video-container video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border: none;
+    object-fit: cover;
 }
 
 /* Platform Button */
@@ -851,7 +853,7 @@
     justify-content: center;
     gap: 8px;
     padding: 12px 20px;
-    margin: 15px 20px 15px auto;
+    margin: 12px 16px 12px auto;
     border-radius: 50px;
     font-family: var(--font-body);
     font-size: 14px;
@@ -876,16 +878,16 @@
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 420px) {
     .video-modal {
         max-width: 100%;
         border-radius: 12px;
     }
     .video-channel {
-        padding: 10px 15px;
+        padding: 10px 12px;
     }
     .video-platform-btn {
-        margin: 10px 15px 10px auto;
+        margin: 10px 12px 10px auto;
         padding: 10px 16px;
         font-size: 12px;
     }
