@@ -176,11 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Init video after gallery render
-const originalRenderGallery = renderGallery;
-renderGallery = function() {
-    originalRenderGallery();
-    setTimeout(initVideoFeature, 300);
-};
+
 
 // ============================================
 //  RENDER GALLERY
@@ -234,6 +230,7 @@ const videoHTML = design.video ? `
                 <div class="design-card-image" style="background-image:url('${imgSrc}'); background-size:cover; background-position:center;">
                     ${!imgSrc ? '🎨' : ''}
                 </div>
+                 ${videoHTML}
                 <div class="design-card-body">
                     <h4>${design.name}</h4>
                     <div class="design-card-price">₹${design.price.toLocaleString('en-IN')}</div>
@@ -443,3 +440,9 @@ flipOutStyle.textContent = `
     }
 `;
 document.head.appendChild(flipOutStyle);
+
+const originalRenderGallery = renderGallery;
+renderGallery = function() {
+    originalRenderGallery();
+    setTimeout(initVideoFeature, 300);
+};
