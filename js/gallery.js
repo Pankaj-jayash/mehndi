@@ -370,32 +370,39 @@ function startMagicType(textElement) {
 // Open video popup
 function openVideoPopup(design) {
     const overlay = document.getElementById('videoOverlay');
-    const frame = document.getElementById('videoFrame');
+    const container = document.getElementById('videoContainer');
     const channelName = document.getElementById('videoChannelName');
     const channelImg = document.getElementById('videoChannelImg');
     const platformBtn = document.getElementById('videoPlatformBtn');
     const platformIcon = document.getElementById('videoPlatformIcon');
     const platformText = document.getElementById('videoPlatformText');
     
-    if (!overlay || !frame || !design.video) return;
+    if (!overlay || !container || !design.video) return;
     
-    // Set video URL
-    let embedUrl = design.video.url;
+    // Clear previous content
+    container.innerHTML = '';
+    
+    // Set video content based on platform
     if (design.video.platform === 'youtube') {
         const videoId = getYouTubeId(design.video.url);
         if (videoId) {
-            embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
         }
         platformBtn.className = 'video-platform-btn youtube';
         platformIcon.textContent = '▶️';
         platformText.textContent = 'Open in YouTube';
     } else if (design.video.platform === 'instagram') {
+        // Instagram reel — embed via iframe
+        const reelUrl = design.video.url;
+        container.innerHTML = `<iframe src="${reelUrl}embed/" 
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen 
+            style="width:100%;height:100%;"></iframe>`;
         platformBtn.className = 'video-platform-btn instagram';
         platformIcon.textContent = '📷';
         platformText.textContent = 'Open in Instagram';
     }
     
-    frame.src = embedUrl;
     channelName.textContent = design.video.channelName || '@nirajwithmehndi';
     channelImg.src = design.video.channelImage || 'photos/logo/logo.png';
     platformBtn.href = design.video.url;
@@ -403,55 +410,3 @@ function openVideoPopup(design) {
     overlay.classList.remove('hidden', 'closing');
     document.body.style.overflow = 'hidden';
 }
-
-// Close video popup
-function closeVideoPopup() {
-    const overlay = document.getElementById('videoOverlay');
-    const frame = document.getElementById('videoFrame');
-    
-    if (!overlay) return;
-    
-    overlay.classList.add('closing');
-    
-    setTimeout(() => {
-        overlay.classList.add('hidden');
-        overlay.classList.remove('closing');
-        frame.src = '';
-        document.body.style.overflow = '';
-    }, 300);
-}
-
-// Get YouTube video ID from URL
-function getYouTubeId(url) {
-    const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-    return match ? match[1] : null;
-}
-
-// Event listeners
-document.addEventListener('DOMContentLoaded', () => {
-    // Close button
-    const closeBtn = document.getElementById('videoClose');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeVideoPopup);
-    }
-    
-    // Overlay click
-    const overlay = document.getElementById('videoOverlay');
-    if (overlay) {
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) closeVideoPopup();
-        });
-    }
-    
-    // ESC key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeVideoPopup();
-    });
-});
-
-// Call after gallery render
-const originalRender = renderGallery;
-renderGallery = function() {
-    originalRender();
-    setTimeout(addVideoIcons, 100);
-};
