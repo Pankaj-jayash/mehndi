@@ -175,121 +175,319 @@
     to { transform: translateY(0); }
 }
 
-/* Modal */
+
+/* ============================================ */
+/*  BOOKING MODAL — MEHNDI THEME                */
+/* ============================================ */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.7);
     z-index: 2000;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
-.modal {
-    background: var(--white);
-    border-radius: var(--radius);
+
+.modal-overlay:not(.hidden) {
+    animation: overlayIn 0.4s ease;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+@keyframes overlayIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Booking Modal */
+.modal-booking {
+    background: linear-gradient(180deg, #fffdf7 0%, #fff8f0 50%, #fef5e7 100%);
+    border-radius: 20px;
     max-width: 500px;
     width: 100%;
     max-height: 85vh;
     overflow-y: auto;
     position: relative;
-    animation: modalIn 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    border: 2px solid rgba(201, 169, 110, 0.3);
+    animation: modalSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.modal-confirm { text-align: center; padding: 40px 30px; }
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-mehndi-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #C9A96E, #8B6914, #C9A96E, #6B3A1F, #C9A96E);
+    background-size: 200% 100%;
+    animation: mehndiBorder 3s linear infinite;
+    border-radius: 20px 20px 0 0;
+}
+
+@keyframes mehndiBorder {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
 .modal-close {
     position: absolute;
-    top: 12px;
-    right: 16px;
-    font-size: 28px;
-    background: none;
+    top: 16px;
+    right: 20px;
+    font-size: 30px;
+    background: rgba(0,0,0,0.05);
     border: none;
     cursor: pointer;
-    color: var(--gray);
+    color: #888;
     z-index: 1;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
 }
-.modal-close:hover { color: var(--black); }
-.modal-header {
-    padding: 25px 25px 15px;
-    border-bottom: 1px solid var(--border);
-}
-.modal-header h2 { font-size: 22px; margin-bottom: 5px; }
-.modal-header p { color: var(--gray); font-size: 14px; }
-.modal-body { padding: 20px 25px 25px; }
 
-@keyframes modalIn {
-    from { opacity: 0; transform: scale(0.9) translateY(-20px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
+.modal-close:hover {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    transform: rotate(90deg);
+}
+
+.modal-header {
+    padding: 30px 30px 15px;
+    text-align: center;
+}
+
+.modal-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    animation: floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.modal-header h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: var(--primary);
+}
+
+.modal-header p {
+    color: var(--gray);
+    font-size: 14px;
+}
+
+.modal-body {
+    padding: 15px 30px 30px;
 }
 
 /* Form */
 .form-group { margin-bottom: 18px; }
 .form-group label {
     display: block;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 6px;
-    font-size: 14px;
-    color: var(--black);
+    font-size: 13px;
+    color: var(--primary);
+    letter-spacing: 0.5px;
 }
 .form-group input {
     width: 100%;
-    padding: 12px 15px;
-    border: 2px solid var(--border);
-    border-radius: 8px;
+    padding: 14px 16px;
+    border: 2px solid #e8ddd0;
+    border-radius: 12px;
     font-family: var(--font-body);
     font-size: 15px;
-    transition: var(--transition);
+    transition: all 0.3s ease;
+    background: var(--white);
 }
 .form-group input:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+    box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Submit Button */
+.btn-whatsapp {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: btnShine 2s ease-in-out infinite;
+}
+
+@keyframes btnShine {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
+}
+
+/* ============================================ */
+/*  CONFIRMATION MODAL                           */
+/* ============================================ */
+.modal-confirm {
+    background: linear-gradient(180deg, #f0fff0 0%, #fffdf7 100%);
+    text-align: center;
+    padding: 40px 30px;
+    border-radius: 20px;
+    max-width: 460px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    border: 2px solid rgba(40, 167, 69, 0.3);
+    animation: confirmPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes confirmPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) rotate(-5deg);
+    }
+    60% {
+        transform: scale(1.03) rotate(2deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.confirm-mehndi-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #28a745, #20c997, #28a745);
+    background-size: 200% 100%;
+    animation: mehndiBorder 3s linear infinite;
+    border-radius: 20px 20px 0 0;
+}
+
+.confirm-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    animation: confirmBounce 0.8s ease;
+}
+
+@keyframes confirmBounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+.confirm-icon-anim {
+    font-size: 40px;
+    animation: tickDraw 0.6s ease forwards;
+}
+
+@keyframes tickDraw {
+    from { opacity: 0; transform: scale(0) rotate(-45deg); }
+    to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.modal-confirm h2 {
+    color: #28a745;
+    margin-bottom: 12px;
+    font-size: 24px;
+}
+
+.modal-confirm p {
+    color: var(--gray);
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.confirm-designs {
+    background: rgba(201, 169, 110, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    margin: 15px 0;
+    text-align: left;
+    border: 1px solid rgba(201, 169, 110, 0.2);
+}
+
+.confirm-contact {
+    font-size: 14px;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.confirm-whatsapp {
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 20px;
 }
 
 /* Selected Designs Summary */
 .selected-designs-summary {
-    background: var(--bg);
+    background: rgba(201, 169, 110, 0.08);
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-bottom: 20px;
+    border: 1px solid rgba(201, 169, 110, 0.2);
 }
-.selected-designs-summary h4 { font-size: 14px; margin-bottom: 10px; }
+.selected-designs-summary h4 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
 .summary-item {
     display: flex;
     justify-content: space-between;
-    padding: 6px 0;
+    padding: 8px 0;
     font-size: 14px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px dashed rgba(201, 169, 110, 0.2);
 }
 .summary-item:last-child { border-bottom: none; }
 .summary-total {
     font-weight: 700;
     font-size: 16px;
-    margin-top: 8px;
-    padding-top: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
     border-top: 2px solid var(--accent);
     color: var(--primary);
 }
-
-/* Confirmation Modal */
-.confirm-icon { font-size: 60px; margin-bottom: 15px; }
-.modal-confirm h2 { color: #28a745; margin-bottom: 10px; }
-.modal-confirm p { margin-bottom: 10px; color: var(--gray); }
-.confirm-designs {
-    background: var(--bg);
-    padding: 15px;
-    border-radius: 8px;
-    margin: 15px 0;
-    text-align: left;
-}
-.confirm-contact {
-    font-size: 14px;
-    margin: 15px 0;
-}
-
 /* ============================================ */
 /*  RESPONSIVE - SIDEBAR HAR DEVICE PE DIKHEGI  */
 /* ============================================ */
