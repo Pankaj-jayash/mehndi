@@ -50,6 +50,7 @@ async function initGallery() {
 // ============================================
 //  RENDER GALLERY
 // ============================================
+     
 function renderGallery() {
     const grid = document.getElementById('galleryGrid');
     const emptyState = document.getElementById('emptyState');
@@ -73,10 +74,11 @@ function renderGallery() {
     } else if (currentPrice === 'above5000') {
         filteredDesigns = filteredDesigns.filter(d => d.price > 5000);
     }
+
     // Gender filter
-if (currentGender !== 'all') {
-    filteredDesigns = filteredDesigns.filter(d => d.gender === currentGender);
-}
+    if (currentGender !== 'all') {
+        filteredDesigns = filteredDesigns.filter(d => d.gender === currentGender);
+    }
 
     if (filteredDesigns.length === 0) {
         grid.innerHTML = '';
@@ -88,15 +90,11 @@ if (currentGender !== 'all') {
             const imgSrc = design.image || '';
 
             return `
-<div class="design-card ${isSelected ? 'selected' : ''}" data-id="${design.id}">
-    ${design.video ? `
-    <div class="video-icon" data-video='${JSON.stringify(design.video)}' title="Watch Video">
-        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-    </div>` : ''}
-    <div class="design-card-image" style="background-image:url('${imgSrc}'); background-size:cover; background-position:center;">
-        ${!imgSrc ? '🎨' : ''}
-    </div>
             <div class="design-card ${isSelected ? 'selected' : ''}" data-id="${design.id}">
+                ${design.video ? `
+                <div class="video-icon" data-video='${JSON.stringify(design.video)}' title="Watch Video">
+                    <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                </div>` : ''}
                 <div class="design-card-image" style="background-image:url('${imgSrc}'); background-size:cover; background-position:center;">
                     ${!imgSrc ? '🎨' : ''}
                 </div>
@@ -121,7 +119,6 @@ if (currentGender !== 'all') {
 
     updateBookingBar();
 }
-
 // ============================================
 //  TOGGLE DESIGN SELECTION
 // ============================================
