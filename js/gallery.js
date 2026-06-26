@@ -46,137 +46,6 @@ async function initGallery() {
     setupCategoryListeners();
     setupClearSelection();
 }
-// ============================================
-//  VIDEO ICON — MAGIC TYPE + MODAL
-// ============================================
-function initVideoFeature() {
-    const videoIcons = document.querySelectorAll('.video-icon');
-    
-    videoIcons.forEach(icon => {
-        const textEl = icon.querySelector('.video-icon-text');
-        const cursorEl = icon.querySelector('.video-icon-cursor');
-        const fullText = 'Play Video';
-        let charIndex = 0;
-        let isTyping = true;
-        
-        // Magic type animation
-        function typeAnimation() {
-            if (isTyping) {
-                if (charIndex < fullText.length) {
-                    textEl.textContent = fullText.substring(0, charIndex + 1);
-                    charIndex++;
-                    setTimeout(typeAnimation, 120);
-                } else {
-                    isTyping = false;
-                    setTimeout(typeAnimation, 1000);
-                }
-            } else {
-                if (charIndex > 0) {
-                    charIndex--;
-                    textEl.textContent = fullText.substring(0, charIndex);
-                    setTimeout(typeAnimation, 80);
-                } else {
-                    isTyping = true;
-                    cursorEl.style.display = 'inline-block';
-                    setTimeout(typeAnimation, 5000);
-                }
-            }
-            
-            if (charIndex === 0 && !isTyping) {
-                cursorEl.style.display = 'none';
-            } else {
-                cursorEl.style.display = 'inline-block';
-            }
-        }
-        
-        setTimeout(typeAnimation, 2000);
-        
-        // Click to open video
-        icon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const videoData = JSON.parse(icon.dataset.video);
-            const designName = icon.dataset.name;
-            openVideoModal(videoData, designName);
-        });
-    });
-}
-
-// ============================================
-//  OPEN VIDEO MODAL
-// ============================================
-function openVideoModal(videoData, designName) {
-    const modal = document.getElementById('videoModal');
-    const player = document.getElementById('videoPlayer');
-    const channelImg = document.getElementById('videoChannelImg');
-    const channelName = document.getElementById('videoChannelName');
-    const openBtn = document.getElementById('videoOpenBtn');
-    const openIcon = document.getElementById('videoOpenIcon');
-    const openText = document.getElementById('videoOpenText');
-    
-    // Channel info
-    channelImg.src = videoData.channelImage || 'https://placehold.co/35x35/C9A96E/white?text=N';
-    channelName.textContent = videoData.channelName || '@nirajwithmehndi';
-    
-    // Video embed
-    let embedHTML = '';
-    if (videoData.platform === 'youtube') {
-        const videoId = getYouTubeID(videoData.url);
-        embedHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-        
-        openBtn.className = 'video-open-btn youtube';
-        openIcon.textContent = '▶️';
-        openText.textContent = 'Open in YouTube';
-    } else if (videoData.platform === 'instagram') {
-        embedHTML = `<iframe src="${videoData.url}embed/?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-        
-        openBtn.className = 'video-open-btn instagram';
-        openIcon.textContent = '📷';
-        openText.textContent = 'Open in Instagram';
-    }
-    
-    player.innerHTML = embedHTML;
-    openBtn.href = videoData.url;
-    
-    // Show modal
-    modal.classList.remove('hidden', 'closing');
-    document.body.style.overflow = 'hidden';
-}
-
-// Get YouTube video ID
-function getYouTubeID(url) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : '';
-}
-
-// Close modal
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('videoModal');
-    const closeBtn = document.getElementById('videoClose');
-    
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            modal.classList.add('closing');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('closing');
-                document.getElementById('videoPlayer').innerHTML = '';
-                document.body.style.overflow = '';
-            }, 300);
-        });
-    }
-    
-    if (modal) {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeBtn.click();
-            }
-        });
-    }
-});
-
-// Init video after gallery render
-
 
 // ============================================
 //  RENDER GALLERY
@@ -217,20 +86,12 @@ if (currentGender !== 'all') {
         grid.innerHTML = filteredDesigns.map(design => {
             const isSelected = selectedDesigns.find(s => s.id === design.id);
             const imgSrc = design.image || '';
-            
-const videoHTML = design.video ? `
-    <div class="video-icon" data-video='${JSON.stringify(design.video)}' data-name="${design.name}">
-        <span class="video-icon-play">▶️</span>
-        <span class="video-icon-text"></span>
-        <span class="video-icon-cursor"></span>
-    </div>
-` : '';
+
             return `
             <div class="design-card ${isSelected ? 'selected' : ''}" data-id="${design.id}">
                 <div class="design-card-image" style="background-image:url('${imgSrc}'); background-size:cover; background-position:center;">
                     ${!imgSrc ? '🎨' : ''}
                 </div>
-                 ${videoHTML}
                 <div class="design-card-body">
                     <h4>${design.name}</h4>
                     <div class="design-card-price">₹${design.price.toLocaleString('en-IN')}</div>
@@ -440,9 +301,3 @@ flipOutStyle.textContent = `
     }
 `;
 document.head.appendChild(flipOutStyle);
-
-const originalRenderGallery = renderGallery;
-renderGallery = function() {
-    originalRenderGallery();
-    setTimeout(initVideoFeature, 300);
-};
