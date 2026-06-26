@@ -71,4 +71,19 @@
     "image": "https://images.pexels.com/photos/18633023/pexels-photo-18633023.png",
     "description": "Vibrant jaggo themed mehndi design"
   }
+{
+    "id": 9,
+    "name": "Boys Simple Mehndi",
+    "category": "simple",
+    "price": 500,
+    "gender": "women",
+    "image": "https://images.pexels.com/photos/2643556/pexels-photo-2643556.jpeg",
+    "description": "Heavy full hand bridal design",
+    "video": { "url":"https://www.instagram.com/reel/DXoLgXGDAZn/?igsh=dXR1aXkwcWhyNHBv",
+        "platform": "instagram",
+        "channelName": "@nirajwithmehndi",
+        "channelImage": "https://placehold.co/100x100/C9A96E/white?text=N"
+    }
+}
+
 ] 
