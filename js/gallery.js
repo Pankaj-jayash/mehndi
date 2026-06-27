@@ -45,7 +45,18 @@ async function initGallery() {
     renderGallery();
     setupCategoryListeners();
     setupClearSelection();
+
 }
+// Auto open/close Instagram labels every 7 seconds
+setInterval(() => {
+    document.querySelectorAll('.insta-label').forEach(label => {
+        label.classList.add('show');
+        setTimeout(() => {
+            label.classList.remove('show');
+        }, 2000);
+    });
+}, 7000);
+
 
 // ============================================
 //  RENDER GALLERY
@@ -86,6 +97,17 @@ if (currentGender !== 'all') {
         grid.innerHTML = filteredDesigns.map(design => {
             const isSelected = selectedDesigns.find(s => s.id === design.id);
             const imgSrc = design.image || '';
+      <div class="insta-btn-wrapper">
+    <a href="https://instagram.com/nirajwithmehndi" target="_blank" class="insta-btn" onclick="event.stopPropagation();" title="See on Instagram">📷</a>
+    <span class="insta-label" data-instalabel>
+        See Design
+        <span class="insta-dots">
+            <span class="insta-dot"></span>
+            <span class="insta-dot"></span>
+            <span class="insta-dot"></span>
+        </span>
+    </span>
+</div>
 
             return `
             <div class="design-card ${isSelected ? 'selected' : ''}" data-id="${design.id}">
