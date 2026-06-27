@@ -91,9 +91,8 @@ function openBookingModal() {
         </div>
     `;
     summaryDiv.innerHTML = summaryHTML;
-
-    // Clear form
-    document.getElementById('bookingForm').reset();
+// Load saved user details
+loadSavedDetails();
     
     // Show modal
     modal.classList.remove('hidden');
@@ -136,8 +135,11 @@ async function handleBookingSubmit() {
         totalPrice: getTotalPrice()
     };
 
-    // Save booking to localStorage
-    saveBooking(booking);
+   // Save booking to localStorage
+saveBooking(booking);
+
+// Save user details for next time
+saveUserDetails(name, phone, address);
 
     // Generate WhatsApp message
     const message = generateWhatsAppMessage(booking);
@@ -206,3 +208,31 @@ function showConfirmation(booking) {
     
     modal.classList.remove('hidden');
 } 
+// ============================================
+//  SAVE USER DETAILS FOR NEXT BOOKING
+// ============================================
+function saveUserDetails(name, phone, address) {
+    const userDetails = {
+        name: name,
+        phone: phone,
+        address: address
+    };
+    localStorage.setItem('mehndiUserDetails', JSON.stringify(userDetails));
+}
+
+// ============================================
+//  LOAD SAVED USER DETAILS
+// ============================================
+function loadSavedDetails() {
+    const saved = localStorage.getItem('mehndiUserDetails');
+    
+    if (saved) {
+        const details = JSON.parse(saved);
+        document.getElementById('customerName').value = details.name || '';
+        document.getElementById('customerPhone').value = details.phone || '';
+        document.getElementById('customerAddress').value = details.address || '';
+        document.getElementById('eventDate').value = '';
+    } else {
+        document.getElementById('bookingForm').reset();
+    }
+}
