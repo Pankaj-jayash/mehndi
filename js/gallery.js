@@ -8,9 +8,6 @@ let selectedDesigns = [];
 let currentCategory = 'all';
 let currentPrice = 'all';
 let currentGender = 'all';
-let isUrgent = false;
-const URGENT_EXTRA = 300;
-
 
 // ============================================
 //  LOAD DESIGNS - JSON FILE SE
@@ -48,9 +45,7 @@ async function initGallery() {
     renderGallery();
     setupCategoryListeners();
     setupClearSelection();
-    setupUrgentBooking();
 }
-
 
 // ============================================
 //  RENDER GALLERY
@@ -93,17 +88,13 @@ if (currentGender !== 'all') {
             const imgSrc = design.image || '';
 
             return `
-            const displayPrice = isUrgent ? (design.price + URGENT_EXTRA) : design.price;
             <div class="design-card ${isSelected ? 'selected' : ''}" data-id="${design.id}">
                 <div class="design-card-image" style="background-image:url('${imgSrc}'); background-size:cover; background-position:center;">
                     ${!imgSrc ? '🎨' : ''}
                 </div>
                 <div class="design-card-body">
                     <h4>${design.name}</h4>
-                    <div class="design-card-price">
-    ₹${displayPrice.toLocaleString('en-IN')}
-    ${isUrgent ? '<span style="font-size:11px;color:#b8860b;"> (+₹300)</span>' : ''}
-</div>
+                    <div class="design-card-price">₹${design.price.toLocaleString('en-IN')}</div>
                     <button class="select-btn ${isSelected ? 'selected-text' : ''}" data-id="${design.id}">
                         ${isSelected ? '✅ Selected' : '❤️ Select Design'}
                     </button>
@@ -266,8 +257,7 @@ function getSelectedDesigns() {
 }
 
 function getTotalPrice() {
-    const total = selectedDesigns.reduce((total, d) => total + (d.price || 0), 0);
-    return isUrgent ? total + URGENT_EXTRA : total;
+    return selectedDesigns.reduce((total, d) => total + (d.price || 0), 0);
 }
 
 // ============================================
@@ -311,57 +301,3 @@ flipOutStyle.textContent = `
     }
 `;
 document.head.appendChild(flipOutStyle);
-// ============================================
-//  URGENT BOOKING SETUP
-// ============================================
-function setupUrgentBooking() {
-    const urgentBtn = document.getElementById('urgentBtn');
-    const urgentBanner = document.getElementById('urgentBanner');
-    const urgentToggle = document.getElementById('urgentToggle');
-    const urgentCancel = document.getElementById('urgentCancel');
-    const urgentTime = document.getElementById('urgentTime');
-
-    if (!urgentBtn) return;
-
-    // Calculate available time (1.5 hours from now)
-    function updateUrgentTime() {
-        const now = new Date();
-        const available = new Date(now.getTime() + 90 * 60000); // +90 minutes
-        const hours = available.getHours();
-        const minutes = available.getMinutes();
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        const displayHours = hours > 12 ? hours - 12 : hours;
-        const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
-        return `${displayHours}:${displayMinutes} ${ampm}`;
-    }
-
-    urgentBtn.addEventListener('click', () => {
-        isUrgent = !isUrgent;
-
-        if (isUrgent) {
-            urgentBtn.classList.add('active');
-            urgentBanner.classList.remove('hidden');
-            urgentToggle.textContent = 'ON';
-            if (urgentTime) {
-                urgentTime.textContent = `Available after ${updateUrgentTime()}`;
-            }
-        } else {
-            urgentBtn.classList.remove('active');
-            urgentBanner.classList.add('hidden');
-            urgentToggle.textContent = 'OFF';
-        }
-
-        renderGallery();
-    });
-
-    if (urgentCancel) {
-        urgentCancel.addEventListener('click', (e) => {
-            e.stopPropagation();
-            isUrgent = false;
-            urgentBtn.classList.remove('active');
-            urgentBanner.classList.add('hidden');
-            urgentToggle.textContent = 'OFF';
-            renderGallery();
-        });
-    }
-} 
