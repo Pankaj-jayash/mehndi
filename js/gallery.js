@@ -364,4 +364,4 @@ function setupUrgentBooking() {
             renderGallery();
         });
     }
-}
+} 
