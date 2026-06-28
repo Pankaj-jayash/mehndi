@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
+<!-- Day/Night Power Button -->
+<div class="power-btn-wrapper">
+    <button class="power-btn" id="powerBtn" aria-label="Toggle theme">
+        <span class="power-icon">⏻</span>
+        <span class="power-ring"></span>
+    </button>
+</div>
     <!-- Navbar -->
     <nav class="navbar" id="navbar"></nav>
 
@@ -100,6 +107,37 @@
                 <h2>🎨 Our Mehndi Designs</h2>
                 <p>Select your favorite designs & book directly on WhatsApp</p>
             </div>
+            <!-- Urgent Toggle - Center -->
+<div class="urgent-toggle-center">
+    <button class="urgent-switch" id="urgentSwitch">
+        <span class="urgent-label"><strong>⚡ Today Urgent Mehndi Book Now</strong></span>
+        <span class="urgent-price-tag">Extra Pay+₹300</span>
+        <span class="urgent-knob"></span>
+    </button>
+</div>
+</div>
+            
+            <!-- Urgent Popup -->
+<div class="urgent-overlay hidden" id="urgentOverlay">
+    <div class="urgent-popup-card" id="urgentPopupCard">
+        <div class="urgent-popup-ring"></div>
+        <div class="urgent-popup-ring2"></div>
+        <span class="urgent-popup-icon">⚡</span>
+        <h2>Urgent Booking <strong>Active!</strong></h2>
+        <p class="urgent-popup-sub">Your mehndi will be <strong>prioritized</strong> today</p>
+        <div class="urgent-select-msg">
+            <span class="urgent-arrow">👇</span>
+            <p><strong>Now select your mehndi designs</strong></p> 
+            <p class="urgent-select-sub">Choose from gallery below</p>
+        </div>
+        <div class="urgent-features">
+            <span>🚀 Express Service</span>
+            <span>⏰ Same Day</span>
+            <span>⭐ Priority</span>
+        </div>
+        <p class="urgent-tap-hint">Tap anywhere to continue →</p>
+    </div>
+</div>
 
             <!-- Gender Filter -->
 <div class="gender-filter">
@@ -122,6 +160,7 @@
         </button>
     </div>
 </div>
+            
             
 <!-- Price Scroller -->
 <div class="price-scroller">
@@ -157,6 +196,7 @@
             </div>
         </div>
     </section>
+  
 
     <!-- Why Choose Section -->
     <section class="why-choose">
