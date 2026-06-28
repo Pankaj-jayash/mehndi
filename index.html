@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/gallery.css">
     <link rel="stylesheet" href="css/home.css">
+     <!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2D5016">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Niraj With Mehndi">
+<link rel="apple-touch-icon" href="photos/icons/icon-192.png">
 </head>
 <body>
     <!-- Navbar -->
@@ -320,6 +327,19 @@
         <circle cx="20" cy="12" r="2" fill="#FFF8F0"/>
     </svg>
 </div>
-
+<!-- Register Service Worker -->
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(function(registration) {
+                    console.log('✅ Service Worker registered');
+                })
+                .catch(function(err) {
+                    console.log('❌ Service Worker failed:', err);
+                });
+        });
+    }
+</script>
 </body>
 </html> 
