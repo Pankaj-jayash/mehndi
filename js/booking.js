@@ -172,10 +172,6 @@ function saveBooking(booking) {
 // ============================================
 function generateWhatsAppMessage(booking) {
     let message = `🌿 *Niraj With Mehndi - New Booking Request*\n\n`;
-    if (isUrgent) {
-    message += `\n⚡ *URGENT BOOKING*\n`;
-    message += `💰 Extra Charge: +₹300\n`;
-}
     message += `👤 *Name:* ${booking.customerName}\n`;
     message += `📱 *Phone:* ${booking.phone}\n`;
     message += `📍 *Address:* ${booking.address}\n`;
@@ -187,9 +183,9 @@ function generateWhatsAppMessage(booking) {
         message += `     💰 Price: ₹${d.price.toLocaleString('en-IN')}\n`;
         message += `     🖼️ Image: ${d.image}\n`;
     });
-    const finalTotal = isUrgent ? booking.totalPrice + 300 : booking.totalPrice;
-message += `\n━━━━━━━━━━━━━━━━━━\n`;
-message += `💰 *Total Price:* ₹${finalTotal.toLocaleString('en-IN')}\n`;
+    
+    message += `\n━━━━━━━━━━━━━━━━━━\n`;
+    message += `💰 *Total Price:* ₹${booking.totalPrice.toLocaleString('en-IN')}\n`;
     message += `\n🙏 Please confirm availability and final price.\n`;
     message += `📞 Contact: ${booking.phone}`;
     
@@ -240,4 +236,3 @@ function loadSavedDetails() {
         document.getElementById('bookingForm').reset();
     }
 }
- 
