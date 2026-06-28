@@ -144,6 +144,42 @@ saveUserDetails(name, phone, address);
     // Generate WhatsApp message
     const message = generateWhatsAppMessage(booking);
     
+    function generateWhatsAppMessage(booking) {
+    let message = `🌿 *Niraj With Mehndi - New Booking Request*\n\n`;
+    
+    // Urgent check
+    const isUrgent = document.getElementById('urgentToggle')?.classList.contains('active');
+    if (isUrgent) {
+        message += `⚡ *URGENT BOOKING - TODAY!*\n`;
+        message += `💰 Extra Charge: +₹500\n\n`;
+    }
+    
+    message += `👤 *Name:* ${booking.customerName}\n`;
+    message += `📱 *Phone:* ${booking.phone}\n`;
+    message += `📍 *Address:* ${booking.address}\n`;
+    message += `📅 *Event Date:* ${booking.eventDate}\n\n`;
+    message += `📋 *Selected Designs:*\n`;
+    
+    booking.selectedDesigns.forEach((d, i) => {
+        message += `\n  ${i + 1}. *${d.name}*\n`;
+        message += `     💰 Price: ₹${d.price.toLocaleString('en-IN')}\n`;
+        message += `     🖼️ Image: ${d.image}\n`;
+    });
+    
+    // Add urgent charge to total
+    let totalPrice = booking.totalPrice;
+    if (isUrgent) {
+        totalPrice += 500;
+        message += `\n⚡ Urgent Charge: +₹500\n`;
+    }
+    
+    message += `\n━━━━━━━━━━━━━━━━━━\n`;
+    message += `💰 *Total Price:* ₹${totalPrice.toLocaleString('en-IN')}\n`;
+    message += `\n🙏 Please confirm availability and final price.\n`;
+    message += `📞 Contact: ${booking.phone}`;
+    
+    return message;
+}
     // Close booking modal
     document.getElementById('bookingModal').classList.add('hidden');
     
