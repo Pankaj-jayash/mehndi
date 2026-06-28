@@ -341,7 +341,7 @@
         });
     }
 </script>
-<!-- Auto Install Prompt -->
+<!-- Auto Install Prompt - Every Visit -->
 <script>
     let deferredPrompt;
     
@@ -387,15 +387,7 @@
         
         document.getElementById('installNo').addEventListener('click', function() {
             popup.remove();
-            // 2 दिन बाद फिर दिखाओ
-            localStorage.setItem('installLater', Date.now() + 2 * 24 * 60 * 60 * 1000);
         });
-    }
-    
-    // 2 दिन बाद फिर दिखाओ
-    const installLater = localStorage.getItem('installLater');
-    if (!installLater || Date.now() > parseInt(installLater)) {
-        localStorage.removeItem('installLater');
     }
 </script>
 </body>
