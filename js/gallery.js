@@ -174,6 +174,42 @@ function setupCategoryListeners() {
             renderGallery();
         });
     });
+    // Urgent Toggle + Immersive Popup + Vibration
+const urgentSwitch = document.getElementById('urgentSwitch');
+const urgentOverlay = document.getElementById('urgentOverlay');
+let isUrgent = false;
+
+if (urgentSwitch && urgentOverlay) {
+    urgentSwitch.addEventListener('click', () => {
+        isUrgent = !isUrgent;
+        
+        if (isUrgent) {
+            urgentSwitch.classList.add('active');
+            urgentOverlay.classList.remove('hidden');
+            
+            // Phone vibration
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 100, 50, 200]);
+            }
+        } else {
+            urgentSwitch.classList.remove('active');
+            urgentOverlay.classList.add('hidden');
+        }
+    });
+    
+    // Tap to close overlay
+    urgentOverlay.addEventListener('click', () => {
+        urgentOverlay.classList.add('hidden');
+        
+        // Scroll to gallery
+        const gallery = document.getElementById('gallery');
+        if (gallery) {
+            gallery.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+}
+    
+    
 
     // Price Slider
     const priceSlider = document.getElementById('priceSlider');
