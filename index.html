@@ -341,52 +341,136 @@
         });
     }
 </script>
-<!-- Auto Install Prompt - Every Visit -->
+<!-- Custom Install Popup - Always Works -->
 <script>
     let deferredPrompt;
+    let popupShown = false;
     
+    // Try PWA install prompt
     window.addEventListener('beforeinstallprompt', function(e) {
         e.preventDefault();
         deferredPrompt = e;
-        
-        // 3 सेकंड बाद इंस्टॉल पॉपअप दिखाओ
+    });
+    
+    // Show custom popup after 3 seconds - EVERY VISIT
+    window.addEventListener('load', function() {
         setTimeout(function() {
-            showInstallPopup();
+            if (!popupShown) {
+                showCustomInstallPopup();
+                popupShown = true;
+            }
         }, 3000);
     });
     
-    function showInstallPopup() {
-        if (!deferredPrompt) return;
-        
+    function showCustomInstallPopup() {
         const popup = document.createElement('div');
         popup.className = 'install-popup';
+        popup.id = 'installPopup';
         popup.innerHTML = `
             <div class="install-popup-card">
                 <div class="install-icon">🪷</div>
-                <h3>Install Niraj With Mehndi</h3>
-                <p>Get quick access & book mehndi faster!</p>
+                <h3>Add to Home Screen</h3>
+                <p>Install Niraj With Mehndi app for quick access!</p>
                 <div class="install-buttons">
-                    <button class="install-yes" id="installYes">📲 Install Now</button>
-                    <button class="install-no" id="installNo">Later</button>
+                    <button class="install-yes" id="installYes">📲 How to Install</button>
+                    <button class="install-no" id="installNo">✕</button>
                 </div>
             </div>
         `;
         
         document.body.appendChild(popup);
         
+        // "How to Install" button
         document.getElementById('installYes').addEventListener('click', function() {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then(function(result) {
-                if (result.outcome === 'accepted') {
-                    console.log('✅ App installed');
-                }
-                deferredPrompt = null;
+            // Try PWA install first
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(function(result) {
+                    deferredPrompt = null;
+                    popup.remove();
+                });
+            } else {
+                // Show manual install guide
+                showInstallGuide();
                 popup.remove();
-            });
+            }
         });
         
+        // Close button
         document.getElementById('installNo').addEventListener('click', function() {
             popup.remove();
+        });
+        
+        // Auto close after 15 seconds
+        setTimeout(function() {
+            if (popup.parentNode) {
+                popup.remove();
+            }
+        }, 15000);
+    }
+    
+    function showInstallGuide() {
+        const guide = document.createElement('div');
+        guide.className = 'install-guide-overlay';
+        guide.id = 'installGuide';
+        
+        const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+        const isAndroid = /Android/.test(navigator.userAgent);
+        
+        let guideHTML = '';
+        
+        if (isIOS) {
+            guideHTML = `
+                <div class="install-guide-card">
+                    <h3>📱 Install on iPhone/iPad</h3>
+                    <div class="guide-steps">
+                        <p>1️⃣ Tap <strong>Share</strong> button below</p>
+                        <p style="font-size:30px;">📤</p>
+                        <p>2️⃣ Scroll and tap <strong>"Add to Home Screen"</strong></p>
+                        <p>3️⃣ Tap <strong>"Add"</strong> on top right</p>
+                    </div>
+                    <button class="install-yes" onclick="document.getElementById('installGuide').remove()">Got it! ✅</button>
+                </div>
+            `;
+        } else if (isAndroid) {
+            guideHTML = `
+                <div class="install-guide-card">
+                    <h3>📱 Install on Android</h3>
+                    <div class="guide-steps">
+                        <p>1️⃣ Tap <strong>⋮</strong> (3 dots) menu</p>
+                        <p>2️⃣ Tap <strong>"Add to Home Screen"</strong></p>
+                        <p>3️⃣ Tap <strong>"Install"</strong></p>
+                    </div>
+                    <button class="install-yes" onclick="document.getElementById('installGuide').remove()">Got it! ✅</button>
+                </div>
+            `;
+        } else {
+            guideHTML = `
+                <div class="install-guide-card">
+                    <h3>💻 Install on Desktop</h3>
+                    <div class="guide-steps">
+                        <p>1️⃣ Look for <strong>➕ or 📲</strong> icon in address bar</p>
+                        <p>2️⃣ Click <strong>"Install"</strong></p>
+                    </div>
+                    <button class="install-yes" onclick="document.getElementById('installGuide').remove()">Got it! ✅</button>
+                </div>
+            `;
+        }
+        
+        guide.innerHTML = guideHTML;
+        document.body.appendChild(guide);
+    }
+    
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(function(registration) {
+                    console.log('✅ Service Worker registered');
+                })
+                .catch(function(err) {
+                    console.log('Service Worker:', err);
+                });
         });
     }
 </script>
