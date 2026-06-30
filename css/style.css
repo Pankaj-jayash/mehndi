@@ -415,137 +415,347 @@ img { max-width: 100%; height: auto; display: block; }
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
 /* ============================================ */
-/*  DIRECT INSTALL POPUP - SHORT & WIDE         */
+/*  PREMIUM INSTALL POPUP - MODERN DESIGN       */
 /* ============================================ */
 .install-popup {
     position: fixed;
-    bottom: 20px;
+    bottom: 30px;
     left: 50%;
-    transform: translateX(-50%) translateY(120px);
+    transform: translateX(-50%) translateY(150px);
     z-index: 10000;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     width: 92%;
-    max-width: 500px;
+    max-width: 520px;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
 }
 
 .install-popup.show {
     transform: translateX(-50%) translateY(0);
+    animation: popupEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popupEntrance {
+    0% {
+        transform: translateX(-50%) translateY(150px) scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-50%) translateY(0) scale(1);
+        opacity: 1;
+    }
 }
 
 .install-popup-card {
-    background: linear-gradient(135deg, #1A0F07, #2D1A0E);
-    border-radius: 16px;
-    padding: 14px 18px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-radius: 20px;
+    padding: 20px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-    border: 1px solid rgba(201, 169, 110, 0.3);
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Animated gradient border */
+.install-popup-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+        45deg,
+        #ffd700,
+        #ff6b6b,
+        #4ecdc4,
+        #ffd700
+    );
+    background-size: 400% 400%;
+    border-radius: 22px;
+    z-index: -1;
+    animation: gradientBorder 3s ease infinite;
+    opacity: 0.3;
+}
+
+@keyframes gradientBorder {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Glass morphism effect */
+.install-popup-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at 50% 0%,
+        rgba(255, 255, 255, 0.1),
+        transparent 70%
+    );
+    pointer-events: none;
 }
 
 .install-popup-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     flex: 1;
     min-width: 0;
+    position: relative;
+    z-index: 1;
 }
 
 .install-popup-icon {
-    font-size: 40px;
-    animation: iconFloat 2s ease-in-out infinite;
+    font-size: 48px;
+    animation: iconFloat3D 3s ease-in-out infinite;
     flex-shrink: 0;
+    filter: drop-shadow(0 10px 20px rgba(255, 215, 0, 0.3));
+    position: relative;
 }
 
-@keyframes iconFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+/* Glowing effect behind icon */
+.install-popup-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(
+        circle,
+        rgba(255, 215, 0, 0.3),
+        transparent 70%
+    );
+    border-radius: 50%;
+    z-index: -1;
+}
+
+@keyframes iconFloat3D {
+    0%, 100% {
+        transform: translateY(0) rotateY(0deg);
+    }
+    25% {
+        transform: translateY(-8px) rotateY(10deg);
+    }
+    75% {
+        transform: translateY(-4px) rotateY(-10deg);
+    }
 }
 
 .install-popup-text {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
     min-width: 0;
+    position: relative;
+    z-index: 1;
 }
 
 .install-popup-text strong {
-    color: var(--accent);
-    font-size: 15px;
+    background: linear-gradient(135deg, #ffd700, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 16px;
+    font-weight: 700;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: 0.5px;
 }
 
 .install-popup-text span {
-    color: rgba(255,255,255,0.6);
-    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: 0.3px;
 }
 
 .install-popup-right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     flex-shrink: 0;
+    position: relative;
+    z-index: 1;
 }
 
 .install-btn {
-    padding: 10px 22px;
-    background: linear-gradient(135deg, var(--accent), #b8860b);
-    color: white;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+    color: #1a1a2e;
     border: none;
     border-radius: 50px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     letter-spacing: 0.5px;
-    animation: btnPulse 2s ease-in-out infinite;
-    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 8px 20px rgba(255, 215, 0, 0.4),
+        0 2px 5px rgba(255, 140, 0, 0.3);
+    text-transform: uppercase;
 }
 
-@keyframes btnPulse {
-    0%, 100% { box-shadow: 0 0 12px rgba(201, 169, 110, 0.3); }
-    50% { box-shadow: 0 0 22px rgba(201, 169, 110, 0.6); }
+/* Button shine effect */
+.install-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.5s;
+}
+
+.install-btn:hover::before {
+    left: 100%;
 }
 
 .install-btn:hover {
-    transform: scale(1.05);
-    background: var(--accent-light);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 
+        0 12px 25px rgba(255, 215, 0, 0.5),
+        0 4px 8px rgba(255, 140, 0, 0.4);
+}
+
+.install-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Pulsing animation */
+.install-btn {
+    animation: buttonGlow 2s ease-in-out infinite;
+}
+
+@keyframes buttonGlow {
+    0%, 100% {
+        box-shadow: 
+            0 8px 20px rgba(255, 215, 0, 0.4),
+            0 2px 5px rgba(255, 140, 0, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 12px 30px rgba(255, 215, 0, 0.7),
+            0 4px 10px rgba(255, 140, 0, 0.5);
+    }
 }
 
 .install-close-btn {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.05);
-    color: rgba(255,255,255,0.5);
-    font-size: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.install-close-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .install-close-btn:hover {
-    background: rgba(255,255,255,0.1);
-    color: white;
+    background: rgba(255, 71, 87, 0.2);
+    border-color: rgba(255, 71, 87, 0.5);
+    color: #ff4757;
+    transform: rotate(90deg);
 }
 
+.install-close-btn:hover::before {
+    opacity: 1;
+}
+
+/* Mobile optimization */
 @media (max-width: 480px) {
-    .install-popup-card {
-        padding: 12px 14px;
-        gap: 8px;
+    .install-popup {
+        bottom: 20px;
+        width: 94%;
     }
-    .install-popup-icon { font-size: 32px; }
-    .install-popup-text strong { font-size: 13px; }
-    .install-popup-text span { font-size: 10px; }
-    .install-btn { padding: 8px 16px; font-size: 12px; }
-} 
+    
+    .install-popup-card {
+        padding: 16px 18px;
+        gap: 12px;
+    }
+    
+    .install-popup-icon {
+        font-size: 36px;
+    }
+    
+    .install-popup-text strong {
+        font-size: 14px;
+    }
+    
+    .install-popup-text span {
+        font-size: 11px;
+    }
+    
+    .install-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .install-popup-card {
+        background: linear-gradient(135deg, #0a0a1a 0%, #0f0f2e 50%, #1a1a3e 100%);
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .install-popup,
+    .install-popup-icon,
+    .install-btn,
+    .install-popup-card::before {
+        animation: none;
+    }
+    
+    .install-popup.show {
+        animation: none;
+    }
+}
