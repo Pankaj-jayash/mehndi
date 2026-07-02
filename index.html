@@ -341,7 +341,8 @@
         });
     }
 </script>
-<!-- Direct Install Popup - Short & Wide -->
+
+<!-- Universal Install Popup -->
 <script>
     let deferredPrompt;
     let popupShown = false;
@@ -361,31 +362,26 @@
     });
 
     function showInstallPopup() {
+        const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent);
         const popup = document.createElement('div');
         popup.className = 'install-popup';
         popup.id = 'installPopup';
+        
         popup.innerHTML = `
             <div class="install-popup-card">
-                <div class="install-popup-left">
-                    <span class="install-popup-icon">🪷</span>
-                    <div class="install-popup-text">
-                        <strong>Niraj With Mehndi</strong>
-                        <span>Install for quick booking</span>
-                    </div>
-                </div>
-                <div class="install-popup-right">
-                    <button class="install-btn" id="installBtn">Install</button>
-                    <button class="install-close-btn" id="installClose">✕</button>
-                </div>
+                <span class="install-popup-close" id="installClose">&times;</span>
+                <div class="install-popup-icon">🪷</div>
+                <h4>Niraj With Mehndi</h4>
+                <p>${isMobile ? 'Install app for quick booking' : 'Add to desktop for easy access'}</p>
+                <button class="install-popup-btn" id="installBtn">
+                    ${isMobile ? '📲 Install App' : '💻 Install App'}
+                </button>
             </div>
         `;
 
         document.body.appendChild(popup);
 
-        // Slide in animation
-        setTimeout(() => {
-            popup.classList.add('show');
-        }, 100);
+        setTimeout(() => popup.classList.add('show'), 100);
 
         document.getElementById('installBtn').addEventListener('click', function() {
             if (deferredPrompt) {
@@ -396,7 +392,8 @@
                     setTimeout(() => popup.remove(), 400);
                 });
             } else {
-                alert('Please open in Chrome browser for direct install 📲');
+                popup.classList.remove('show');
+                setTimeout(() => popup.remove(), 400);
             }
         });
 
@@ -406,7 +403,6 @@
         });
     }
 
-    // Register Service Worker
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('service-worker.js')
             .then(() => console.log('✅ SW registered'))
