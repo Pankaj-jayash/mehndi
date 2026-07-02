@@ -314,7 +314,43 @@ img { max-width: 100%; height: auto; display: block; }
     .container { padding: 0 15px; }
 }
 
+/* ============================================ */
+/*  INSTALL POPUP                                */
+/* ============================================ */
+.install-popup {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    animation: popupSlideUp 0.5s ease;
+}
 
+.install-popup-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px 30px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 350px;
+    border: 2px solid var(--accent);
+}
+
+.install-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.install-popup-card h3 {
+    font-size: 20px;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.install-popup-card p {
+    font-size: 14px;
+    color: var(--gray);
     margin-bottom: 18px;
 }
 
@@ -365,53 +401,4 @@ img { max-width: 100%; height: auto; display: block; }
         opacity: 1;
         transform: translateX(-50%) translateY(0);
     }
-}
-/* ============================================ */
-/*  INSTALL GUIDE OVERLAY                        */
-/* ============================================ */
-.install-guide-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 10001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    animation: fadeIn 0.3s ease;
-}
-
-.install-guide-card {
-    background: white;
-    border-radius: 20px;
-    padding: 30px 25px;
-    text-align: center;
-    max-width: 350px;
-    width: 100%;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-}
-
-.install-guide-card h3 {
-    font-size: 20px;
-    color: var(--primary);
-    margin-bottom: 18px;
-}
-
-.guide-steps {
-    text-align: left;
-    margin-bottom: 20px;
-}
-
-.guide-steps p {
-    font-size: 15px;
-    margin-bottom: 12px;
-    color: #444;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
