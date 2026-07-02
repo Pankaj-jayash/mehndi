@@ -35,8 +35,8 @@
 
         <!-- Mandala Background -->
         <div class="mandala-bg"></div>
-        
-        
+
+
         <div class="hero-content">
             <!-- Henna Cone Icon -->
             <div class="hero-icon">
@@ -129,7 +129,7 @@
         </button>
     </div>
 </div>
-            
+
 <!-- Price Scroller -->
 <div class="price-scroller">
     <span class="price-label">💰 Select Price</span>
@@ -147,8 +147,8 @@
                     <button class="category-btn" data-category="simple">🌸 Simple Mehndi</button>
                     <button class="category-btn" data-category="sangeet">🎉 Sangeet & Jaggo</button>
                     <button class="category-btn" data-category="leg">🦵 Leg Mehndi</button>
-                    
-                    
+
+
                 </aside>
 
                 <!-- Gallery Grid -->
@@ -222,7 +222,7 @@
                 <a href="https://wa.me/919719312956?text=Hi%20Niraj%20ji%2C%20I%20want%20to%20book%20mehndi" class="btn btn-whatsapp btn-lg pulse" target="_blank">💬 Chat on WhatsApp Now</a>
             </div>
         </div>
-        
+
     </section>
 
     <!-- Bottom Booking Bar -->
@@ -341,6 +341,54 @@
         });
     }
 </script>
+<!-- Auto Install Prompt - Every Visit -->
+<script>
+    let deferredPrompt;
 
+    window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        deferredPrompt = e;
+
+        // 3 सेकंड बाद इंस्टॉल पॉपअप दिखाओ
+        setTimeout(function() {
+            showInstallPopup();
+        }, 3000);
+    });
+
+    function showInstallPopup() {
+        if (!deferredPrompt) return;
+
+        const popup = document.createElement('div');
+        popup.className = 'install-popup';
+        popup.innerHTML = `
+            <div class="install-popup-card">
+                <div class="install-icon">🪷</div>
+                <h3>Install Niraj With Mehndi</h3>
+                <p>Get quick access & book mehndi faster!</p>
+                <div class="install-buttons">
+                    <button class="install-yes" id="installYes">📲 Install Now</button>
+                    <button class="install-no" id="installNo">Later</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(popup);
+
+        document.getElementById('installYes').addEventListener('click', function() {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function(result) {
+                if (result.outcome === 'accepted') {
+                    console.log('✅ App installed');
+                }
+                deferredPrompt = null;
+                popup.remove();
+            });
+        });
+
+        document.getElementById('installNo').addEventListener('click', function() {
+            popup.remove();
+        });
+    }
+</script>
 </body>
 </html> 
