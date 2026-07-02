@@ -341,55 +341,6 @@
         });
     }
 </script>
-<!-- Premium Direct Install Popup -->
-<script>
-    let deferredPrompt;
-    let popupShown = false;
 
-    window.addEventListener('beforeinstallprompt', function(e) {
-        e.preventDefault();
-        deferredPrompt = e;
-    });
-
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            if (!popupShown && deferredPrompt) {
-                showInstallPopup();
-                popupShown = true;
-            }
-        }, 3000);
-    });
-
-    function showInstallPopup() {
-        if (!deferredPrompt) return;
-
-        var popup = document.createElement('div');
-        popup.className = 'premium-popup';
-        popup.innerHTML = '<div class="premium-popup-bg"></div><div class="premium-popup-card"><div class="premium-glow"></div><div class="premium-rings"><span></span><span></span><span></span></div><div class="premium-icon"><span>🪷</span></div><h3>Niraj With Mehndi</h3><div class="premium-divider"><span>✦</span><span>🌿</span><span>✦</span></div><p>Install the app for a beautiful experience</p><div class="premium-features"><span>⚡ Fast Booking</span><span>📸 HD Designs</span><span>🔔 Instant Updates</span></div><button class="premium-btn" id="premiumInstall"><span>📲 Install Now</span><span class="btn-shine"></span></button><span class="premium-skip" id="premiumSkip">Maybe Later</span></div>';
-
-        document.body.appendChild(popup);
-        setTimeout(function() { popup.classList.add('active'); }, 100);
-
-        document.getElementById('premiumInstall').addEventListener('click', function() {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then(function(result) {
-                deferredPrompt = null;
-                popup.classList.remove('active');
-                setTimeout(function() { popup.remove(); }, 500);
-            });
-        });
-
-        document.getElementById('premiumSkip').addEventListener('click', function() {
-            popup.classList.remove('active');
-            setTimeout(function() { popup.remove(); }, 500);
-        });
-    }
-
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js').then(function() {
-            console.log('Service Worker registered');
-        }).catch(function() {});
-    }
-</script>
 </body>
 </html> 
