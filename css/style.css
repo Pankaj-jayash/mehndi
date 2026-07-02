@@ -417,124 +417,262 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ============================================ */
-/*  UNIVERSAL INSTALL POPUP                      */
+/*  PREMIUM INSTALL POPUP                        */
 /* ============================================ */
-.install-popup {
+.premium-popup {
     position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(150px);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 10000;
-    width: 90%;
-    max-width: 380px;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.install-popup.show {
-    transform: translateX(-50%) translateY(0);
-}
-
-.install-popup-card {
-    background: white;
-    border-radius: 24px;
-    padding: 28px 24px 22px;
-    text-align: center;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    position: relative;
-    border: 2px solid rgba(201, 169, 110, 0.3);
-}
-
-.install-popup-close {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    font-size: 22px;
-    color: #999;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    line-height: 1;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
-.install-popup-close:hover {
-    background: #f5f5f5;
-    color: #333;
+.premium-popup.active {
+    opacity: 1;
 }
 
-.install-popup-icon {
-    font-size: 55px;
-    display: block;
-    margin-bottom: 12px;
-    animation: installBounce 2s ease-in-out infinite;
+.premium-popup-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 5, 2, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
-@keyframes installBounce {
-    0%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-12px); }
-    50% { transform: translateY(0); }
-    70% { transform: translateY(-6px); }
-}
-
-.install-popup-card h4 {
-    font-size: 20px;
-    color: #2D1A0E;
-    margin-bottom: 6px;
-    font-family: 'Playfair Display', serif;
-}
-
-.install-popup-card p {
-    font-size: 13px;
-    color: #888;
-    margin-bottom: 18px;
-}
-
-.install-popup-btn {
+.premium-popup-card {
+    position: relative;
+    background: linear-gradient(160deg, #1A0F07 0%, #2D1A0E 40%, #3D2B1A 100%);
+    border-radius: 28px;
+    padding: 35px 28px 28px;
+    text-align: center;
+    max-width: 380px;
     width: 100%;
-    padding: 14px 20px;
-    background: linear-gradient(135deg, #2D5016, #1A3A0A);
-    color: white;
-    border: none;
+    border: 2px solid rgba(201, 169, 110, 0.3);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(201, 169, 110, 0.1);
+    overflow: hidden;
+    transform: scale(0.9) translateY(30px);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.premium-popup.active .premium-popup-card {
+    transform: scale(1) translateY(0);
+}
+
+.premium-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(201, 169, 110, 0.08) 0%, transparent 60%);
+    animation: premiumGlowRotate 8s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes premiumGlowRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.premium-rings {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.premium-rings span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: ringBounce 1.5s ease-in-out infinite;
+}
+
+.premium-rings span:nth-child(1) { animation-delay: 0s; }
+.premium-rings span:nth-child(2) { animation-delay: 0.2s; }
+.premium-rings span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes ringBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.4; }
+    50% { transform: translateY(-8px); opacity: 1; }
+}
+
+.premium-icon {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 12px;
+}
+
+.premium-icon span {
+    font-size: 60px;
+    display: inline-block;
+    animation: iconFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(201, 169, 110, 0.5));
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-10px) rotate(5deg); }
+    75% { transform: translateY(-5px) rotate(-5deg); }
+}
+
+.premium-popup-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 2px;
+    text-shadow: 0 0 30px rgba(201, 169, 110, 0.3);
+}
+
+.premium-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+}
+
+.premium-divider span {
+    color: var(--accent);
+    font-size: 12px;
+    opacity: 0.7;
+    animation: dividerPulse 2s ease-in-out infinite;
+}
+
+.premium-divider span:nth-child(2) { animation-delay: 0.4s; }
+.premium-divider span:nth-child(3) { animation-delay: 0.8s; }
+
+@keyframes dividerPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+}
+
+.premium-popup-card p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+    font-style: italic;
+}
+
+.premium-features {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.premium-features span {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 6px 14px;
     border-radius: 50px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
+    font-size: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(45, 80, 22, 0.3);
 }
 
-.install-popup-btn:hover {
+.premium-features span:hover {
+    background: rgba(201, 169, 110, 0.15);
+    border-color: rgba(201, 169, 110, 0.4);
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(45, 80, 22, 0.4);
-    background: linear-gradient(135deg, #3D6B1E, #2D5016);
 }
 
-.install-popup-btn:active {
-    transform: scale(0.97);
+.premium-btn {
+    width: 100%;
+    padding: 15px 24px;
+    background: linear-gradient(135deg, var(--accent), #b8860b, var(--accent));
+    background-size: 200% 200%;
+    color: #1A0F07;
+    border: none;
+    border-radius: 50px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    animation: btnShine 3s ease-in-out infinite;
+    box-shadow: 0 8px 30px rgba(201, 169, 110, 0.3);
+    transition: all 0.3s ease;
 }
 
-/* Desktop larger screens */
-@media (min-width: 768px) {
-    .install-popup {
-        max-width: 400px;
-        bottom: 30px;
-    }
+@keyframes btnShine {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
 
-/* Desktop large screens */
-@media (min-width: 1200px) {
-    .install-popup {
-        right: 30px;
-        left: auto;
-        transform: translateX(150px);
-        bottom: 30px;
+.premium-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(201, 169, 110, 0.5);
+    letter-spacing: 2px;
+}
+
+.premium-btn:active {
+    transform: scale(0.95);
+}
+
+.btn-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shineSweep 2s ease-in-out infinite;
+}
+
+@keyframes shineSweep {
+    0% { left: -100%; }
+    50%, 100% { left: 100%; }
+}
+
+.premium-skip {
+    display: block;
+    margin-top: 14px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.premium-skip:hover {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .premium-popup-card {
+        padding: 28px 20px 22px;
+        border-radius: 22px;
     }
-    .install-popup.show {
-        transform: translateX(0);
-    }
+    .premium-popup-card h3 { font-size: 22px; }
+    .premium-icon span { font-size: 48px; }
+    .premium-btn { padding: 13px 20px; font-size: 15px; }
 }
