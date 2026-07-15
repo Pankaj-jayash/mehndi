@@ -224,3 +224,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1200);
     });
 });
+// ============================================
+//  HOME REVIEWS — ANIMATED SCROLLING
+// ============================================
+async function loadHomeReviews() {
+    const scroll = document.getElementById('homeReviewsScroll');
+    const dots = document.getElementById('reviewsDots');
+    if (!scroll || !dots) return;
+
+    try {
+        let response = await fetch('data/reviews.json');
+        if (!response.ok) response = await fetch('../data/reviews.json');
+        const reviews = await response.json();
+
+        if (reviews.length === 0) return;
+
+        scroll.innerHTML = reviews.map((r, i) => `
+            <div class="review-slide-card">
+                <div class="review-card-header">
+                    <div class="review-avatar">${r.name.charAt(0)}</div>
+                    <div class="review-card-info">
+                        <div class="review-card-name">${r.name}</div>
+                        <div class="review-card-stars">
+                            ${Array(r.stars).fill('<span>⭐</span>').join('')}
+                        </div>
+                    </div>
+                </div>
+                <p class="review-card-text">"${r.review.substring(0, 120)}..."</p>
+                <div class="review-card-mehndi" style="background-image:url('${r.mehndiPhoto}');"></div>
+            </div>
+        `).join('');
+
+        // Dots
+        dots.innerHTML = reviews.map((_, i) => `
+            <div class="reviews-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>
+        `).join('');
+
+        // Scroll event
+        scroll.addEventListener('scroll', () => {
+            const index = Math.round(scroll.scrollLeft / (scroll.scrollWidth / reviews.length));
+            document.querySelectorAll('.reviews-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === index);
+            });
+        });
+
+        // Dot click
+        document.querySelectorAll('.reviews-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                const index = parseInt(dot.dataset.index);
+                const card = scroll.children[index];
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            });
+        });
+
+    } catch (e) {
+        console.error('Reviews load failed:', e);
+    }
+}
