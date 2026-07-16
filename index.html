@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/gallery.css">
     <link rel="stylesheet" href="css/home.css">
-     <!-- PWA Manifest -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+ <!-- PWA Manifest -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2D5016">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -422,9 +425,25 @@
 
     // Register Service Worker
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
-            .then(() => console.log('✅ SW registered'))
-            .catch(() => {});
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(function(registration) {
+                    console.log('✅ SW registered');
+                    // Auto update on new version
+                    registration.addEventListener('updatefound', function() {
+                        const newWorker = registration.installing;
+                        newWorker.addEventListener('statechange', function() {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                // New version available - reload
+                                window.location.reload();
+                            }
+                        });
+                    });
+                })
+                .catch(function(err) {
+                    console.log('SW error:', err);
+                });
+        });
     }
 </script>
 </body>
