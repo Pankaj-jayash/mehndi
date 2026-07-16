@@ -102,7 +102,7 @@ function loadFooter() {
                     <p>Professional Mehndi Artist<br>Mant , Vrindavan , Uttar Pradesh</p>
                     <div class="social-links">
                         <a href="https://wa.me/919719312956" target="_blank" aria-label="WhatsApp">💬</a>
-                        <a href="https://instagram.com/mehndibyniraj" target="_blank" aria-label="Instagram">📷</a>
+                        <a href="https://instagram.com/nirajwithmehndi" target="_blank" aria-label="Instagram">📷</a>
                         <a href="tel:+919027535231" aria-label="Phone">📞</a>
                     </div>
                 </div>
