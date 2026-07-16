@@ -121,7 +121,7 @@ function loadFooter() {
                 </div>
                 <div class="footer-col">
                     <h4>Contact</h4>
-                    <p>📱 <a href="tel:+919027535231">9027535231</a></p>
+                    <p>📱 <a href="tel:+919027535231">90275XXXXX</a></p>
                     <p>💬 <a href="https://wa.me/919719312956">9719312956</a></p>
                     <p>📍 Mant , Vrindavan , UP</p>
                 </div>
