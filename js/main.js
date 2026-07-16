@@ -283,3 +283,41 @@ async function loadHomeReviews() {
         console.error('Reviews load failed:', e);
     }
 }
+// ============================================
+//  INSTAGRAM COUNTER ANIMATION
+// ============================================
+function animateInstaCounters() {
+    const counters = document.querySelectorAll('.insta-stat-num');
+    if (counters.length === 0) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current) + '+';
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target + '+';
+                        counter.classList.add('counted');
+                    }
+                };
+                updateCounter();
+                observer.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => observer.observe(counter));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    animateInstaCounters();
+});
