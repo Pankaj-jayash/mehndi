@@ -300,4 +300,4 @@ flipOutStyle.textContent = `
         100% { transform: rotateY(-90deg) scale(0.5); opacity: 0; }
     }
 `;
-document.head.appendChild(flipOutStyle); 
+document.head.appendChild(flipOutStyle);
