@@ -34,7 +34,7 @@ async function loadDesigns() {
 // ============================================
 async function initGallery() {
     await loadDesigns();
-    updateCategoryCounts();
+
     const urlParams = new URLSearchParams(window.location.search);
     const urlCategory = urlParams.get('category');
     if (urlCategory) {
@@ -55,7 +55,7 @@ function renderGallery() {
     const emptyState = document.getElementById('emptyState');
 
     if (!grid) return;
-    updateCategoryCounts();
+
     let filteredDesigns = allDesigns;
 
     // Category filter
@@ -301,30 +301,3 @@ flipOutStyle.textContent = `
     }
 `;
 document.head.appendChild(flipOutStyle);
-
-// ============================================
-//  UPDATE CATEGORY COUNTS
-// ============================================
-function updateCategoryCounts() {
-    document.querySelectorAll('.category-btn').forEach(btn => {
-        const category = btn.dataset.category;
-        const countSpan = btn.querySelector('.category-count');
-        if (!countSpan) return;
-        
-        let count;
-        if (category === 'all') {
-            count = allDesigns.length;
-        } else {
-            count = allDesigns.filter(d => d.category === category).length;
-        }
-        
-        countSpan.textContent = count;
-        
-        // Show/hide based on count
-        if (count === 0) {
-            btn.style.opacity = '0.5';
-        } else {
-            btn.style.opacity = '1';
-        }
-    });
-}
