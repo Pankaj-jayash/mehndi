@@ -208,6 +208,71 @@ function setupCategoryListeners() {
             renderGallery();
         });
     }
+    // Rainbow Magnetic Switch
+const highlight = document.getElementById('switchHighlight');
+const sidebarInner = document.querySelector('.sidebar-inner');
+const switchBtns = document.querySelectorAll('.switch-btn');
+
+const glowColors = {
+    'all': { bg: 'rgba(201,169,110,0.2)', border: '#C9A96E', ripple: 'rgba(201,169,110,0.3)', class: 'glow-all' },
+    'bridal': { bg: 'rgba(196,30,58,0.2)', border: '#C41E3A', ripple: 'rgba(196,30,58,0.3)', class: 'glow-bridal' },
+    'arabic': { bg: 'rgba(123,45,142,0.2)', border: '#7B2D8E', ripple: 'rgba(123,45,142,0.3)', class: 'glow-arabic' },
+    'simple': { bg: 'rgba(233,30,99,0.2)', border: '#E91E63', ripple: 'rgba(233,30,99,0.3)', class: 'glow-simple' },
+    'sangeet': { bg: 'rgba(255,111,0,0.2)', border: '#FF6F00', ripple: 'rgba(255,111,0,0.3)', class: 'glow-sangeet' },
+    'leg': { bg: 'rgba(0,137,123,0.2)', border: '#00897B', ripple: 'rgba(0,137,123,0.3)', class: 'glow-leg' }
+};
+
+function updateGlow(category) {
+    if (!highlight || !sidebarInner) return;
+    
+    const colors = glowColors[category] || glowColors['all'];
+    
+    // Highlight color
+    highlight.style.background = `linear-gradient(135deg, ${colors.bg}, rgba(255,255,255,0.7))`;
+    highlight.style.borderColor = colors.border;
+    highlight.style.boxShadow = `0 2px 12px ${colors.bg}, 0 0 0 1px ${colors.bg}`;
+    
+    // Sidebar border glow
+    Object.values(glowColors).forEach(c => sidebarInner.classList.remove(c.class));
+    sidebarInner.classList.add(colors.class);
+}
+
+if (highlight && switchBtns.length) {
+    function moveHighlight() {
+        const active = document.querySelector('.switch-btn.active');
+        if (active) {
+            highlight.style.top = active.offsetTop + 'px';
+            highlight.style.height = active.offsetHeight + 'px';
+        }
+    }
+    moveHighlight();
+    updateGlow(currentCategory);
+
+    switchBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            currentCategory = this.dataset.category;
+            switchBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            moveHighlight();
+            updateGlow(currentCategory);
+
+            // Ripple
+            const ripple = document.createElement('span');
+            ripple.className = 'click-ripple';
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+            const colors = glowColors[currentCategory] || glowColors['all'];
+            ripple.style.background = colors.ripple;
+            this.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+
+            renderGallery();
+        });
+    });
+}
     // Gender buttons with sliding indicator
 const genderScroll = document.querySelector('.gender-scroll');
 const genderBtns = document.querySelectorAll('.gender-btn');
