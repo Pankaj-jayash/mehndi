@@ -141,15 +141,15 @@
 </div>
             <div class="gallery-layout">
 
-                
-                <!-- Left Sidebar -->
-                <aside class="gallery-sidebar fade-in-left">
-    <div class="sidebar-inner">
+  <!-- Left Sidebar -->
+<aside class="gallery-sidebar fade-in-left">
+    <!-- Categories Section -->
+    <div class="sidebar-inner" id="catSidebarInner">
         <div class="sidebar-label">
             <span class="label-icon">🎨</span>
-            <span class="label-text">CATE GORY</span>
+            <span class="label-text">Cate Gories</span>
         </div>
-        <div class="category-switch">
+        <div class="category-switch" id="catSwitch">
             <button class="switch-btn active" data-category="all">
                 <span class="switch-icon">🌿</span>
                 <span class="switch-text">All</span>
@@ -160,7 +160,7 @@
             </button>
             <button class="switch-btn" data-category="arabic">
                 <span class="switch-icon">🌙</span>
-                <span cl0ass="switch-text">Arabic</span>
+                <span class="switch-text">Arabic</span>
             </button>
             <button class="switch-btn" data-category="simple">
                 <span class="switch-icon">🌸</span>
@@ -175,10 +175,40 @@
                 <span class="switch-text">Leg</span>
             </button>
         </div>
-        <div class="switch-highlight" id="switchHighlight"></div>
+        <div class="switch-highlight" id="catHighlight"></div>
+    </div>
+
+    <!-- Price Section -->
+    <div class="sidebar-inner" id="priceSidebarInner" style="margin-top:16px;">
+        <div class="sidebar-label">
+            <span class="label-icon">💰</span>
+            <span class="label-text">Price Range</span>
+        </div>
+        <div class="category-switch" id="priceSwitch">
+            <button class="switch-btn active" data-price="all">
+                <span class="switch-icon">💎</span>
+                <span class="switch-text">All Prices</span>
+            </button>
+            <button class="switch-btn" data-price="under1000">
+                <span class="switch-icon">🪙</span>
+                <span class="switch-text">Under ₹1,000</span>
+            </button>
+            <button class="switch-btn" data-price="1000to3000">
+                <span class="switch-icon">💵</span>
+                <span class="switch-text">₹1,000 - ₹3,000</span>
+            </button>
+            <button class="switch-btn" data-price="3000to5000">
+                <span class="switch-icon">💎</span>
+                <span class="switch-text">₹3,000 - ₹5,000</span>
+            </button>
+            <button class="switch-btn" data-price="above5000">
+                <span class="switch-icon">👑</span>
+                <span class="switch-text">Above ₹5,000</span>
+            </button>
+        </div>
+        <div class="switch-highlight" id="priceHighlight"></div>
     </div>
 </aside>
-
 
                 <!-- Gallery Grid -->
                 <main class="gallery-main">
@@ -452,7 +482,7 @@
                 showInstallPopup();
                 popupShown = true;
             }
-        }, 2500);
+        }, 14000);
     });
 
     function showInstallPopup() {
@@ -525,4 +555,4 @@
     }
 </script>
 </body>
-</html>
+</html> 
