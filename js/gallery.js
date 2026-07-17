@@ -96,7 +96,7 @@ if (currentGender !== 'all') {
     <div class="design-card-body">
         <div class="design-card-name">${design.name}</div>
         <button class="select-btn" data-id="${design.id}">
-            ${isSelected ? 'Selected Mehndi' : 'Select Mehndi'}
+            ${isSelected ? 'Remove from List' : 'Add to My List'}
         </button>
     </div>
 </div>
@@ -312,10 +312,30 @@ function setupCategoryListeners() {
                 movePriceHighlight();
                 updatePriceGlow(currentPrice);
                 updateSliderFromPrice(currentPrice);
+                updateSliderUI(currentPrice);
                 addRipple(this, e);
                 renderGallery();
             });
         });
+        function updateSliderUI(priceKey) {
+    const priceSlider = document.getElementById('priceSlider');
+    const priceDisplay = document.getElementById('priceDisplay');
+    if (!priceSlider || !priceDisplay) return;
+
+    let sliderValue = 10000;
+    let displayText = 'All Prices';
+
+    switch(priceKey) {
+        case 'under1000': sliderValue = 500; displayText = 'Under ₹1,000'; break;
+        case '1000to3000': sliderValue = 2000; displayText = '₹1,000 - ₹3,000'; break;
+        case '3000to5000': sliderValue = 4000; displayText = '₹3,000 - ₹5,000'; break;
+        case 'above5000': sliderValue = 7500; displayText = 'Above ₹5,000'; break;
+        default: sliderValue = 10000; displayText = 'All Prices';
+    }
+
+    priceSlider.value = sliderValue;
+    priceDisplay.textContent = displayText;
+}
         // Gender buttons with sliding indicator
 const genderScroll = document.querySelector('.gender-scroll');
 const genderBtns = document.querySelectorAll('.gender-btn');
@@ -439,48 +459,49 @@ function addRipple(btn, e) {
     ripple.addEventListener('animationend', () => ripple.remove());
 }
 // ============================================
-//  PRICE SLIDER — Sync with Switch
+//  PRICE SLIDER — Direct Working
 // ============================================
 function setupPriceSlider() {
     const priceSlider = document.getElementById('priceSlider');
     const priceDisplay = document.getElementById('priceDisplay');
 
-    if (priceSlider && priceDisplay) {
-        priceSlider.max = 10000;
-        priceSlider.value = 10000;
-        currentPrice = 'all';
-        priceDisplay.textContent = 'All Prices';
+    if (!priceSlider || !priceDisplay) return;
 
-        priceSlider.addEventListener('input', function() {
-            const val = parseInt(this.value);
+    priceSlider.min = 0;
+    priceSlider.max = 10000;
+    priceSlider.value = 10000;
+    priceSlider.step = 100;
+    currentPrice = 'all';
+    priceDisplay.textContent = 'All Prices';
 
-            if (val >= 10000) {
-                currentPrice = 'all';
-                priceDisplay.textContent = 'All Prices';
-            } else if (val >= 5000) {
-                currentPrice = 'above5000';
-                priceDisplay.textContent = 'Above ₹5,000';
-            } else if (val >= 3000) {
-                currentPrice = '3000to5000';
-                priceDisplay.textContent = '₹3,000 - ₹5,000';
-            } else if (val >= 1000) {
-                currentPrice = '1000to3000';
-                priceDisplay.textContent = '₹1,000 - ₹3,000';
-            } else {
-                currentPrice = 'under1000';
-                priceDisplay.textContent = 'Under ₹1,000';
-            }
+    priceSlider.addEventListener('input', function() {
+        const val = parseInt(this.value);
 
-            // Switch update
-            updatePriceSwitch(currentPrice);
-            
-            // Render gallery
-            renderGallery();
-            
-            console.log('Slider:', val, 'Price:', currentPrice);
-        });
-    }
+        if (val >= 10000) {
+            currentPrice = 'all';
+            priceDisplay.textContent = 'All Prices';
+        } else if (val >= 5000) {
+            currentPrice = 'above5000';
+            priceDisplay.textContent = 'Above ₹5,000';
+        } else if (val >= 3000) {
+            currentPrice = '3000to5000';
+            priceDisplay.textContent = '₹3,000 - ₹5,000';
+        } else if (val >= 1000) {
+            currentPrice = '1000to3000';
+            priceDisplay.textContent = '₹1,000 - ₹3,000';
+        } else {
+            currentPrice = 'under1000';
+            priceDisplay.textContent = 'Under ₹1,000';
+        }
+
+        // Switch sync
+        updatePriceSwitchUI(currentPrice);
+        
+        // DIRECT render call
+        renderGallery();
+    });
 }
+
 // Slider update from price switch
 function updateSliderFromPrice(priceKey) {
     const priceSlider = document.getElementById('priceSlider');
@@ -516,8 +537,9 @@ function updateSliderFromPrice(priceKey) {
     priceDisplay.textContent = displayText;
 }
 
-// Switch update helper
-function updatePriceSwitch(priceKey) {
+
+// UI only update — no render call
+function updatePriceSwitchUI(priceKey) {
     const priceBtns = document.querySelectorAll('#priceSwitch .switch-btn');
     const priceHighlight = document.getElementById('priceHighlight');
     
@@ -528,7 +550,6 @@ function updatePriceSwitch(priceKey) {
         }
     });
 
-    // Move highlight
     if (priceHighlight) {
         setTimeout(() => {
             const active = document.querySelector('#priceSwitch .switch-btn.active');
@@ -538,6 +559,7 @@ function updatePriceSwitch(priceKey) {
             }
         }, 50);
     }
+}
 
     // Update glow
     updatePriceGlow(priceKey);
