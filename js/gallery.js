@@ -166,15 +166,75 @@ function setupClearSelection() {
 //  CATEGORY + PRICE LISTENERS
 // ============================================
 function setupCategoryListeners() {
-    // Category buttons
-    document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            currentCategory = btn.dataset.category;
-            updateActiveCategoryButton();
+// Matching Theme Switch
+const highlight = document.getElementById('switchHighlight');
+const sidebarInner = document.querySelector('.sidebar-inner');
+const switchBtns = document.querySelectorAll('.switch-btn');
+
+const accentColors = {
+    'all':       { class: 'glow-all',     highlightClass: '' },
+    'bridal':    { class: 'glow-bridal',   highlightClass: 'accent-bridal' },
+    'arabic':    { class: 'glow-arabic',   highlightClass: 'accent-arabic' },
+    'simple':    { class: 'glow-simple',   highlightClass: 'accent-simple' },
+    'sangeet':   { class: 'glow-sangeet',  highlightClass: 'accent-sangeet' },
+    'leg':       { class: 'glow-leg',      highlightClass: 'accent-leg' }
+};
+
+function updateGlow(category) {
+    if (!sidebarInner) return;
+    const config = accentColors[category] || accentColors['all'];
+    
+    // Sidebar border
+    Object.values(accentColors).forEach(c => sidebarInner.classList.remove(c.class));
+    sidebarInner.classList.add(config.class);
+    
+    // Highlight accent
+    if (highlight && config.highlightClass) {
+        Object.values(accentColors).forEach(c => {
+            if (c.highlightClass) highlight.classList.remove(c.highlightClass);
+        });
+        highlight.classList.add(config.highlightClass);
+    } else if (highlight) {
+        Object.values(accentColors).forEach(c => {
+            if (c.highlightClass) highlight.classList.remove(c.highlightClass);
+        });
+    }
+}
+
+if (highlight && switchBtns.length) {
+    function moveHighlight() {
+        const active = document.querySelector('.switch-btn.active');
+        if (active) {
+            highlight.style.top = active.offsetTop + 'px';
+            highlight.style.height = active.offsetHeight + 'px';
+        }
+    }
+    moveHighlight();
+    updateGlow(currentCategory);
+
+    switchBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            currentCategory = this.dataset.category;
+            switchBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            moveHighlight();
+            updateGlow(currentCategory);
+
+            // Ripple
+            const ripple = document.createElement('span');
+            ripple.className = 'click-ripple';
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+            this.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+
             renderGallery();
         });
     });
-
+}
     // Price Slider
     const priceSlider = document.getElementById('priceSlider');
     const priceDisplay = document.getElementById('priceDisplay');
