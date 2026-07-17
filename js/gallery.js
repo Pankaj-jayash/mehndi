@@ -96,7 +96,7 @@ if (currentGender !== 'all') {
     <div class="design-card-body">
         <div class="design-card-name">${design.name}</div>
         <button class="select-btn" data-id="${design.id}">
-            ${isSelected ? 'Select Mehndi' : 'Selected Mehndi'}
+            ${isSelected ? 'Selected Mehndi' : 'Select Mehndi'}
         </button>
     </div>
 </div>
