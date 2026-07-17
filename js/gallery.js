@@ -312,6 +312,7 @@ function setupCategoryListeners() {
                 this.classList.add('active');
                 movePriceHighlight();
                 updatePriceGlow(currentPrice);
+                updateSliderFromPrice(currentPrice);
                 addRipple(this, e);
                 renderGallery();
             });
@@ -439,11 +440,12 @@ function addRipple(btn, e) {
     ripple.addEventListener('animationend', () => ripple.remove());
 }
 // ============================================
-//  PRICE SLIDER
+//  PRICE SLIDER — Sync with Switch
 // ============================================
 function setupPriceSlider() {
     const priceSlider = document.getElementById('priceSlider');
     const priceDisplay = document.getElementById('priceDisplay');
+    const priceBtns = document.querySelectorAll('#priceSwitch .switch-btn');
 
     if (priceSlider && priceDisplay) {
         priceSlider.max = 10000;
@@ -453,25 +455,94 @@ function setupPriceSlider() {
 
         priceSlider.addEventListener('input', function() {
             const val = parseInt(this.value);
+            let priceKey = 'all';
+            let displayText = 'All Prices';
 
             if (val >= 10000) {
-                currentPrice = 'all';
-                priceDisplay.textContent = 'All Prices';
+                priceKey = 'all';
+                displayText = 'All Prices';
             } else if (val >= 5000) {
-                currentPrice = 'above5000';
-                priceDisplay.textContent = 'Above ₹5,000';
+                priceKey = 'above5000';
+                displayText = 'Above ₹5,000';
             } else if (val >= 3000) {
-                currentPrice = '3000to5000';
-                priceDisplay.textContent = '₹3,000 - ₹5,000';
+                priceKey = '3000to5000';
+                displayText = '₹3,000 - ₹5,000';
             } else if (val >= 1000) {
-                currentPrice = '1000to3000';
-                priceDisplay.textContent = '₹1,000 - ₹3,000';
+                priceKey = '1000to3000';
+                displayText = '₹1,000 - ₹3,000';
             } else {
-                currentPrice = 'under1000';
-                priceDisplay.textContent = 'Under ₹1,000';
+                priceKey = 'under1000';
+                displayText = 'Under ₹1,000';
             }
+
+            currentPrice = priceKey;
+            priceDisplay.textContent = displayText;
+
+            // Switch update karo
+            updatePriceSwitch(priceKey);
 
             renderGallery();
         });
     }
+}
+// Slider update from price switch
+function updateSliderFromPrice(priceKey) {
+    const priceSlider = document.getElementById('priceSlider');
+    const priceDisplay = document.getElementById('priceDisplay');
+    if (!priceSlider || !priceDisplay) return;
+
+    let sliderValue = 10000;
+    let displayText = 'All Prices';
+
+    switch(priceKey) {
+        case 'under1000':
+            sliderValue = 500;
+            displayText = 'Under ₹1,000';
+            break;
+        case '1000to3000':
+            sliderValue = 2000;
+            displayText = '₹1,000 - ₹3,000';
+            break;
+        case '3000to5000':
+            sliderValue = 4000;
+            displayText = '₹3,000 - ₹5,000';
+            break;
+        case 'above5000':
+            sliderValue = 7500;
+            displayText = 'Above ₹5,000';
+            break;
+        default:
+            sliderValue = 10000;
+            displayText = 'All Prices';
+    }
+
+    priceSlider.value = sliderValue;
+    priceDisplay.textContent = displayText;
+}
+
+// Switch update helper
+function updatePriceSwitch(priceKey) {
+    const priceBtns = document.querySelectorAll('#priceSwitch .switch-btn');
+    const priceHighlight = document.getElementById('priceHighlight');
+    
+    priceBtns.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.price === priceKey) {
+            btn.classList.add('active');
+        }
+    });
+
+    // Move highlight
+    if (priceHighlight) {
+        setTimeout(() => {
+            const active = document.querySelector('#priceSwitch .switch-btn.active');
+            if (active) {
+                priceHighlight.style.top = active.offsetTop + 'px';
+                priceHighlight.style.height = active.offsetHeight + 'px';
+            }
+        }, 50);
+    }
+
+    // Update glow
+    updatePriceGlow(priceKey);
 }
