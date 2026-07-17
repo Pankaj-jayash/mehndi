@@ -91,12 +91,10 @@ if (currentGender !== 'all') {
             return `
 <div class="design-card ${isSelected ? 'selected' : ''}" data-id="${design.id}">
     <div class="design-card-image" style="background-image:url('${imgSrc}');">
-        <div class="design-card-info">
-            <span class="design-card-name">${design.name}</span>
-            <span class="design-card-price-overlay">₹${design.price.toLocaleString('en-IN')}</span>
-        </div>
+        <span class="design-card-price-overlay">₹${design.price.toLocaleString('en-IN')}</span>
     </div>
     <div class="design-card-body">
+        <div class="design-card-name">${design.name}</div>
         <button class="select-btn" data-id="${design.id}">
             ${isSelected ? 'Remove from List' : 'Add to My List'}
         </button>
