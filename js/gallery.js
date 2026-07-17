@@ -459,49 +459,48 @@ function addRipple(btn, e) {
     ripple.addEventListener('animationend', () => ripple.remove());
 }
 // ============================================
-//  PRICE SLIDER — Direct Working
+//  PRICE SLIDER — Sync with Switch
 // ============================================
 function setupPriceSlider() {
     const priceSlider = document.getElementById('priceSlider');
     const priceDisplay = document.getElementById('priceDisplay');
 
-    if (!priceSlider || !priceDisplay) return;
+    if (priceSlider && priceDisplay) {
+        priceSlider.max = 10000;
+        priceSlider.value = 10000;
+        currentPrice = 'all';
+        priceDisplay.textContent = 'All Prices';
 
-    priceSlider.min = 0;
-    priceSlider.max = 10000;
-    priceSlider.value = 10000;
-    priceSlider.step = 100;
-    currentPrice = 'all';
-    priceDisplay.textContent = 'All Prices';
+        priceSlider.addEventListener('input', function() {
+            const val = parseInt(this.value);
 
-    priceSlider.addEventListener('input', function() {
-        const val = parseInt(this.value);
+            if (val >= 10000) {
+                currentPrice = 'all';
+                priceDisplay.textContent = 'All Prices';
+            } else if (val >= 5000) {
+                currentPrice = 'above5000';
+                priceDisplay.textContent = 'Above ₹5,000';
+            } else if (val >= 3000) {
+                currentPrice = '3000to5000';
+                priceDisplay.textContent = '₹3,000 - ₹5,000';
+            } else if (val >= 1000) {
+                currentPrice = '1000to3000';
+                priceDisplay.textContent = '₹1,000 - ₹3,000';
+            } else {
+                currentPrice = 'under1000';
+                priceDisplay.textContent = 'Under ₹1,000';
+            }
 
-        if (val >= 10000) {
-            currentPrice = 'all';
-            priceDisplay.textContent = 'All Prices';
-        } else if (val >= 5000) {
-            currentPrice = 'above5000';
-            priceDisplay.textContent = 'Above ₹5,000';
-        } else if (val >= 3000) {
-            currentPrice = '3000to5000';
-            priceDisplay.textContent = '₹3,000 - ₹5,000';
-        } else if (val >= 1000) {
-            currentPrice = '1000to3000';
-            priceDisplay.textContent = '₹1,000 - ₹3,000';
-        } else {
-            currentPrice = 'under1000';
-            priceDisplay.textContent = 'Under ₹1,000';
-        }
-
-        // Switch sync
-        updatePriceSwitchUI(currentPrice);
-        
-        // DIRECT render call
-        renderGallery();
-    });
+            // Switch update
+            updatePriceSwitch(currentPrice);
+            
+            // Render gallery
+            renderGallery();
+            
+            console.log('Slider:', val, 'Price:', currentPrice);
+        });
+    }
 }
-
 // Slider update from price switch
 function updateSliderFromPrice(priceKey) {
     const priceSlider = document.getElementById('priceSlider');
@@ -537,9 +536,8 @@ function updateSliderFromPrice(priceKey) {
     priceDisplay.textContent = displayText;
 }
 
-
-// UI only update — no render call
-function updatePriceSwitchUI(priceKey) {
+// Switch update helper
+function updatePriceSwitch(priceKey) {
     const priceBtns = document.querySelectorAll('#priceSwitch .switch-btn');
     const priceHighlight = document.getElementById('priceHighlight');
     
@@ -550,6 +548,7 @@ function updatePriceSwitchUI(priceKey) {
         }
     });
 
+    // Move highlight
     if (priceHighlight) {
         setTimeout(() => {
             const active = document.querySelector('#priceSwitch .switch-btn.active');
@@ -559,7 +558,6 @@ function updatePriceSwitchUI(priceKey) {
             }
         }, 50);
     }
-}
 
     // Update glow
     updatePriceGlow(priceKey);
