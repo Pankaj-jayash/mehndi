@@ -444,7 +444,6 @@ function addRipple(btn, e) {
 function setupPriceSlider() {
     const priceSlider = document.getElementById('priceSlider');
     const priceDisplay = document.getElementById('priceDisplay');
-    const priceBtns = document.querySelectorAll('#priceSwitch .switch-btn');
 
     if (priceSlider && priceDisplay) {
         priceSlider.max = 10000;
@@ -454,33 +453,31 @@ function setupPriceSlider() {
 
         priceSlider.addEventListener('input', function() {
             const val = parseInt(this.value);
-            let priceKey = 'all';
-            let displayText = 'All Prices';
 
             if (val >= 10000) {
-                priceKey = 'all';
-                displayText = 'All Prices';
+                currentPrice = 'all';
+                priceDisplay.textContent = 'All Prices';
             } else if (val >= 5000) {
-                priceKey = 'above5000';
-                displayText = 'Above ₹5,000';
+                currentPrice = 'above5000';
+                priceDisplay.textContent = 'Above ₹5,000';
             } else if (val >= 3000) {
-                priceKey = '3000to5000';
-                displayText = '₹3,000 - ₹5,000';
+                currentPrice = '3000to5000';
+                priceDisplay.textContent = '₹3,000 - ₹5,000';
             } else if (val >= 1000) {
-                priceKey = '1000to3000';
-                displayText = '₹1,000 - ₹3,000';
+                currentPrice = '1000to3000';
+                priceDisplay.textContent = '₹1,000 - ₹3,000';
             } else {
-                priceKey = 'under1000';
-                displayText = 'Under ₹1,000';
+                currentPrice = 'under1000';
+                priceDisplay.textContent = 'Under ₹1,000';
             }
 
-            currentPrice = priceKey;
-            priceDisplay.textContent = displayText;
-
-            // Switch update karo
-            updatePriceSwitch(priceKey);
-
+            // Switch update
+            updatePriceSwitch(currentPrice);
+            
+            // Render gallery
             renderGallery();
+            
+            console.log('Slider:', val, 'Price:', currentPrice);
         });
     }
 }
