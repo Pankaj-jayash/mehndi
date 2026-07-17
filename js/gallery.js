@@ -89,19 +89,20 @@ if (currentGender !== 'all') {
             const imgSrc = design.image || '';
 
             return `
-            <div class="design-card ${isSelected ? 'selected' : ''}" data-id="${design.id}">
-                <div class="design-card-image" style="background-image:url('${imgSrc}'); background-size:cover; background-position:center;">
-                    ${!imgSrc ? '🎨' : ''}
-                </div>
-                <div class="design-card-body">
-                    <h4>${design.name}</h4>
-                    <div class="design-card-price">₹${design.price.toLocaleString('en-IN')}</div>
-                    <button class="select-btn ${isSelected ? 'selected-text' : ''}" data-id="${design.id}">
-                        ${isSelected ? '✅ Selected' : '❤️ Select Design'}
-                    </button>
-                </div>
-            </div>
-            `;
+<div class="design-card ${isSelected ? 'selected' : ''}" data-id="${design.id}">
+    <div class="design-card-image" style="background-image:url('${imgSrc}');">
+        <div class="design-card-info">
+            <span class="design-card-name">${design.name}</span>
+            <span class="design-card-price-overlay">₹${design.price.toLocaleString('en-IN')}</span>
+        </div>
+    </div>
+    <div class="design-card-body">
+        <button class="select-btn" data-id="${design.id}">
+            ${isSelected ? 'Remove from List' : 'Add to My List'}
+        </button>
+    </div>
+</div>
+`;
         }).join('');
 
         grid.querySelectorAll('.select-btn').forEach(btn => {
