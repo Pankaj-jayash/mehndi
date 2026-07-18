@@ -190,4 +190,4 @@ function loadSavedDetails() {
     } else {
         document.getElementById('bookingForm').reset();
     }
-}
+} 
