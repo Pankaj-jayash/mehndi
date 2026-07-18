@@ -1178,17 +1178,45 @@
 .booking-total { text-align: center; font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
 
 .btn-whatsapp-submit {
-    width: 100%;
-    padding: 11px;
+    width: calc(100% - 8px);
+    margin: 8px 4px 4px 4px;
+    padding: 13px;
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     background: linear-gradient(135deg, #25D366, #1DA851);
     color: white;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
-    margin-top: 4px;
-    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37,211,102,0.25);
+}
+
+.btn-whatsapp-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+}
+
+/* Click ripple */
+.btn-whatsapp-submit::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-whatsapp-submit:active::after {
+    width: 300px;
+    height: 300px;
 }
 
 .modal-close {
