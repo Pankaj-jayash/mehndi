@@ -122,32 +122,11 @@ async function handleBookingSubmit() {
     if (!name || !phone || !eventDate) { alert('⚠️ Please fill required fields!'); return; }
     if (phone.length !== 10 || !/^\d{10}$/.test(phone)) { alert('⚠️ Valid 10-digit phone number!'); return; }
 
-    // Upload selfie to ImgBB
-    let selfieLink = '';
-    if (selfie) {
-        document.querySelector('.btn-whatsapp-submit').textContent = '⏳ Uploading photo...';
-        document.querySelector('.btn-whatsapp-submit').disabled = true;
-        try {
-            const formData = new FormData();
-            formData.append('image', selfie.split(',')[1]);
-            const res = await fetch('https://api.imgbb.com/1/upload?key=6910f0739a8cf85883df9e9457549de4', {
-                method: 'POST', body: formData
-            });
-            const data = await res.json();
-            if (data.success) {
-                selfieLink = data.data.url;
-            }
-        } catch(e) {
-            selfieLink = '';
-        }
-        document.querySelector('.btn-whatsapp-submit').textContent = '💬 Send on WhatsApp';
-        document.querySelector('.btn-whatsapp-submit').disabled = false;
-    }
-
+    // Booking turant
     const booking = {
         id: Date.now(), date: new Date().toISOString(),
         customerName: name, phone, eventDate,
-        time: selectedTime, location, selfieLink,
+        time: selectedTime, location, selfieLink: '',
         selectedDesigns: selectedDesigns.map(d => ({ id: d.id, name: d.name, price: d.price, image: d.image })),
         totalPrice: getTotalPrice()
     };
@@ -158,6 +137,22 @@ async function handleBookingSubmit() {
     document.getElementById('bookingModal').classList.add('hidden');
     showConfirmation(booking);
     openWhatsApp(message);
+
+    // Photo background mein upload
+    if (selfie) {
+        try {
+            const formData = new FormData();
+            formData.append('image', selfie.split(',')[1]);
+            const res = await fetch('https://api.imgbb.com/1/upload?key=6910f0739a8cf85883df9e9457549de4', {
+                method: 'POST', body: formData
+            });
+            const data = await res.json();
+            if (data.success) {
+                booking.selfieLink = data.data.url;
+                saveBooking(booking);
+            }
+        } catch(e) {}
+    }
 }
 
 function saveBooking(booking) {
@@ -167,23 +162,24 @@ function saveBooking(booking) {
 }
 
 function generateWhatsAppMessage(booking) {
-    let msg = `*Niraj With Mehndi - New Booking*%0A%0A`;
-    msg += `*Name:* ${booking.customerName}%0A`;
-    msg += `*Phone:* ${booking.phone}%0A`;
-    msg += `*Event Date:* ${booking.eventDate}%0A`;
+    let msg = `🌿 *Niraj With Mehndi - New Booking Request*%0A%0A`;
+    msg += `👤 *Name:* ${booking.customerName}%0A`;
+    msg += `📱 *Phone:* ${booking.phone}%0A`;
+    msg += `📍 *Address:* ${booking.location || 'Not shared'}%0A`;
+    msg += `📅 *Event Date:* ${booking.eventDate}%0A`;
     if (booking.time) {
         const timeLabel = booking.time === 'morning' ? 'Morning (8AM-12PM)' : booking.time === 'afternoon' ? 'Afternoon (12PM-4PM)' : 'Evening (4PM-8PM)';
-        msg += `*Time:* ${timeLabel}%0A`;
+        msg += `⏰ *Time:* ${timeLabel}%0A`;
     }
-    if (booking.location) msg += `*Location:* ${booking.location}%0A`;
-    msg += `%0A*Selected Designs:*%0A`;
+    msg += `%0A📋 *Selected Designs:*%0A`;
     booking.selectedDesigns.forEach((d, i) => {
-        msg += `  ${i+1}. ${d.name} - Rs.${d.price.toLocaleString('en-IN')}%0A`;
-        msg += `  Image: ${d.image}%0A`;
+        msg += `  ${i+1}. ${d.name} - ₹${d.price.toLocaleString('en-IN')}%0A`;
     });
-    msg += `%0A*Total:* Rs.${booking.totalPrice.toLocaleString('en-IN')}%0A`;
-    if (booking.selfieLink) msg += `%0A*Selfie:* ${booking.selfieLink}`;
-    msg += `%0A%0APlease confirm booking.`;
+    msg += `%0A💰 *Total Price:* ₹${booking.totalPrice.toLocaleString('en-IN')}%0A`;
+    if (booking.selfieLink) msg += `%0A📸 *Selfie:* ${booking.selfieLink}`;
+    msg += `%0A%0A━━━━━━━━━━━━━━━━━━%0A`;
+    msg += `🙏 Please confirm availability and final price.%0A`;
+    msg += `📞 Contact: ${booking.phone}`;
     return msg;
 }
 
