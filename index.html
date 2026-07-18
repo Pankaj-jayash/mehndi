@@ -483,26 +483,42 @@
         });
     }
 </script>
-<!-- Direct Install Popup - Short & Wide -->
+<!-- Direct Install Popup - Smart -->
 <script>
     let deferredPrompt;
     let popupShown = false;
+
+    // Check if already installed
+    function isAppInstalled() {
+        return window.matchMedia('(display-mode: standalone)').matches || 
+               navigator.standalone || 
+               localStorage.getItem('appInstalled') === 'true';
+    }
 
     window.addEventListener('beforeinstallprompt', function(e) {
         e.preventDefault();
         deferredPrompt = e;
     });
 
+    window.addEventListener('appinstalled', function() {
+        localStorage.setItem('appInstalled', 'true');
+    });
+
     window.addEventListener('load', function() {
-        setTimeout(function() {
-            if (!popupShown) {
-                showInstallPopup();
-                popupShown = true;
-            }
-        }, 41000);
+        // Only show if NOT already installed
+        if (!isAppInstalled()) {
+            setTimeout(function() {
+                if (!popupShown) {
+                    showInstallPopup();
+                    popupShown = true;
+                }
+            }, 41000);
+        }
     });
 
     function showInstallPopup() {
+        if (!deferredPrompt) return;
+
         const popup = document.createElement('div');
         popup.className = 'install-popup';
         popup.id = 'installPopup';
@@ -523,16 +539,24 @@
         `;
 
         document.body.appendChild(popup);
+        setTimeout(() => popup.classList.add('show'), 100);
 
-        // Slide in animation
-        setTimeout(() => {
-            popup.classList.add('show');
-        }, 100);
+        // Auto hide after 6 seconds
+        const autoHide = setTimeout(() => {
+            if (popup.parentNode) {
+                popup.classList.remove('show');
+                setTimeout(() => { if (popup.parentNode) popup.remove(); }, 400);
+            }
+        }, 6000);
 
         document.getElementById('installBtn').addEventListener('click', function() {
+            clearTimeout(autoHide);
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then(function(result) {
+                    if (result.outcome === 'accepted') {
+                        localStorage.setItem('appInstalled', 'true');
+                    }
                     deferredPrompt = null;
                     popup.classList.remove('show');
                     setTimeout(() => popup.remove(), 400);
@@ -543,6 +567,7 @@
         });
 
         document.getElementById('installClose').addEventListener('click', function() {
+            clearTimeout(autoHide);
             popup.classList.remove('show');
             setTimeout(() => popup.remove(), 400);
         });
@@ -554,12 +579,10 @@
             navigator.serviceWorker.register('service-worker.js')
                 .then(function(registration) {
                     console.log('✅ SW registered');
-                    // Auto update on new version
                     registration.addEventListener('updatefound', function() {
                         const newWorker = registration.installing;
                         newWorker.addEventListener('statechange', function() {
                             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                // New version available - reload
                                 window.location.reload();
                             }
                         });
