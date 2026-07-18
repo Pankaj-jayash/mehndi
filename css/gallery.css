@@ -1011,39 +1011,30 @@
 /* ============================================ */
 .booking-modal {
     max-width: 460px;
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: visible;
     background: white;
     box-shadow: 
-        0 0 40px rgba(201, 169, 110, 0.15),
-        0 0 80px rgba(201, 169, 110, 0.08),
-        0 20px 60px rgba(0,0,0,0.12);
+        0 0 20px rgba(201, 169, 110, 0.12),
+        0 0 40px rgba(201, 169, 110, 0.06),
+        0 20px 60px rgba(0,0,0,0.1);
     position: relative;
+    border: 2px solid rgba(201, 169, 110, 0.3);
+    animation: bookingGlow 2.5s ease-in-out infinite;
 }
 
-/* Soft glow ring */
-.booking-modal::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 22px;
-    background: transparent;
-    border: 2px solid transparent;
-    pointer-events: none;
-    animation: priceLikeGlow 2.5s ease-in-out infinite;
-    z-index: -1;
-}
-
-@keyframes priceLikeGlow {
+@keyframes bookingGlow {
     0%, 100% { 
-        border-color: rgba(201, 169, 110, 0.15);
-        box-shadow: 0 0 15px rgba(201, 169, 110, 0.08), 0 0 30px rgba(201, 169, 110, 0.04);
+        border-color: rgba(201, 169, 110, 0.25);
+        box-shadow: 0 0 20px rgba(201, 169, 110, 0.1), 0 0 40px rgba(201, 169, 110, 0.04);
     }
     50% { 
-        border-color: rgba(201, 169, 110, 0.4);
-        box-shadow: 0 0 20px rgba(201, 169, 110, 0.15), 0 0 40px rgba(201, 169, 110, 0.08);
+        border-color: rgba(201, 169, 110, 0.5);
+        box-shadow: 0 0 30px rgba(201, 169, 110, 0.2), 0 0 60px rgba(201, 169, 110, 0.08);
     }
 }
+
+
 .booking-header {
     background: linear-gradient(135deg, #FEF9F0, #FDF5E6, #FEF9F0);
     padding: 14px 20px;
