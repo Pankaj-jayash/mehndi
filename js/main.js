@@ -91,45 +91,54 @@ function loadFooter() {
     const footer = document.getElementById('footer');
     if (!footer) return;
 
-    const isHome = window.location.pathname.includes('index.html') || 
-                   !window.location.pathname.includes('/');
-
     footer.innerHTML = `
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>🌿 Niraj With Mehndi</h4>
-                    <p>Professional Mehndi Artist<br>Mant , Vrindavan , Uttar Pradesh</p>
-                    <div class="social-links">
-                        <a href="https://wa.me/919719312956" target="_blank" aria-label="WhatsApp">💬</a>
-                        <a href="https://instagram.com/nirajwithmehndi" target="_blank" aria-label="Instagram">📷</a>
-                        <a href="tel:+919027535231" aria-label="Phone">📞</a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <p><a href="${isHome ? 'index.html' : '../index.html'}">Home</a></p>
-                    <p><a href="${isHome ? 'index.html#gallery' : '../index.html#gallery'}">Gallery</a></p>
-                    <p><a href="${isHome ? 'about.html' : '../about.html'}">About</a></p>
-                    <p><a href="${isHome ? 'reviews.html' : '../reviews.html'}">Reviews</a></p>
-                    <p><a href="${isHome ? 'contact.html' : '../contact.html'}">Contact</a></p>
-                </div>
-                <div class="footer-col">
-                    <h4>Help</h4>
-                    <p><a href="${isHome ? 'faq.html' : '../faq.html'}">FAQ</a></p>
-                    <p><a href="${isHome ? 'policy.html' : '../policy.html'}">Booking Policy</a></p>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <p>📱 <a href="tel:+919027535231">90275XXXXX</a></p>
-                    <p>💬 <a href="https://wa.me/919719312956">9719312956</a></p>
-                    <p>📍 Mant , Vrindavan , UP</p>
-                </div>
+    <div class="footer-bg"></div>
+    <div class="footer-container">
+        
+        <!-- Logo + Brand -->
+        <div class="footer-brand">
+            <div class="footer-logo">
+                <span style="font-size:40px;">🪷</span>
             </div>
-            <div class="footer-bottom">
-                <p>© ${new Date().getFullYear()} Niraj With Mehndi. All Rights Reserved. | Made with ❤️ in Mant , Vrindavan </p>
-            </div>
+            <h3>Niraj With Mehndi</h3>
+            <p>Premium Mehndi Artist</p>
+            <p class="footer-location">📍 Mant, Vrindavan</p>
         </div>
+
+        <!-- Contact Buttons -->
+<div class="footer-contact">
+    <a href="tel:+919027535231" class="footer-glass-btn">
+        <span class="btn-icon">📞</span> Call
+    </a>
+    <a href="https://wa.me/919719312956" target="_blank" class="footer-glass-btn">
+        <span class="btn-icon">💬</span> WhatsApp
+    </a>
+    <a href="https://instagram.com/nirajwithmehndi" target="_blank" class="footer-glass-btn">
+        <span class="btn-icon">📷</span> Instagram
+    </a>
+</div>
+
+        <!-- Quick Links -->
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <span>•</span>
+            <a href="index.html#gallery">Gallery</a>
+            <span>•</span>
+            <a href="about.html">About</a>
+            <span>•</span>
+            <a href="reviews.html">Reviews</a>
+            <span>•</span>
+            <a href="faq.html">FAQ</a>
+            <span>•</span>
+            <a href="policy.html">Policy</a>
+        </div>
+
+        <!-- Bottom -->
+        <div class="footer-bottom">
+            <p>© 2026 Niraj With Mehndi</p>
+            <p>Made with ❤️ in Mant, Vrindavan</p>
+        </div>
+    </div>
     `;
 }
 
