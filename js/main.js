@@ -118,20 +118,15 @@ function loadFooter() {
     </a>
 </div>
 
-        <!-- Quick Links -->
-        <div class="footer-links">
-            <a href="index.html">Home</a>
-            <span>•</span>
-            <a href="index.html#gallery">Gallery</a>
-            <span>•</span>
-            <a href="about.html">About</a>
-            <span>•</span>
-            <a href="reviews.html">Reviews</a>
-            <span>•</span>
-            <a href="faq.html">FAQ</a>
-            <span>•</span>
-            <a href="policy.html">Policy</a>
-        </div>
+      <!-- Quick Links -->
+<div class="footer-links">
+    <a href="index.html">🏠 Home</a>
+    <a href="index.html#gallery">🎨 Gallery</a>
+    <a href="about.html">👤 About</a>
+    <a href="reviews.html">⭐ Reviews</a>
+    <a href="faq.html">❓ FAQ</a>
+    <a href="policy.html">📄 Policy</a>
+</div>
 
         <!-- Bottom -->
         <div class="footer-bottom">
