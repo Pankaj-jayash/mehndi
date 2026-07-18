@@ -171,7 +171,7 @@ function generateWhatsAppMessage(booking) {
         msg += `\nLocation: ${booking.location}\n`;
     }
     
-    msg += `\n━━━━━━━━━━━━━━━━━━\n`;
+    msg += `━━━━━━━━━━━━━━━━━━\n`;
     msg += `Selected Designs:\n`;
     
     booking.selectedDesigns.forEach((d, i) => {
@@ -179,7 +179,7 @@ function generateWhatsAppMessage(booking) {
         msg += `   Image: ${d.image}\n`;
     });
     
-    msg += `\n━━━━━━━━━━━━━━━━━━\n`;
+    msg += `━━━━━━━━━━━━━━━━━━\n`;
     msg += `Total: Rs.${booking.totalPrice.toLocaleString('en-IN')}\n`;
     
     if (booking.selfie) {
