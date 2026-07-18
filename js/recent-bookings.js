@@ -28,23 +28,30 @@ function isModalOpen() {
 }
 let soundEnabled = false;
 
-// First click — silent sound enable
-document.addEventListener('click', function() {
+function enableSound() {
     if (!soundEnabled) {
         soundEnabled = true;
-        // Silent test — enable audio context only
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            gain.gain.setValueAtTime(0, audioCtx.currentTime); // Volume = 0
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
             osc.start(audioCtx.currentTime);
             osc.stop(audioCtx.currentTime + 0.001);
         } catch(e) {}
     }
-}, { once: false });
+}
+
+// Click se enable
+document.addEventListener('click', enableSound, { once: false });
+
+// Scroll se enable
+document.addEventListener('scroll', enableSound, { once: false });
+
+// Touch se enable (mobile)
+document.addEventListener('touchstart', enableSound, { once: false });
 
 function playNotificationSound() {
     try {
