@@ -61,25 +61,7 @@ if (locationBox) {
     });
 }
 
-    // Selfie
-    const selfieBox = document.getElementById('selfieBox');
-    const selfieInput = document.getElementById('selfieInput');
-    if (selfieBox && selfieInput) {
-        selfieBox.addEventListener('click', () => selfieInput.click());
-        selfieInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('selfiePreview').src = e.target.result;
-                    document.getElementById('selfiePreview').classList.remove('hidden');
-                    document.querySelector('.selfie-text').textContent = 'Photo added ✓';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    }
-}
+    
 
 function openBookingModal() {
     const modal = document.getElementById('bookingModal');
@@ -107,9 +89,7 @@ function openBookingModal() {
     document.querySelectorAll('.time-chip').forEach(c => c.classList.remove('active'));
     document.getElementById('locationBox').classList.remove('shared');
     document.getElementById('locationText').textContent = 'Tap to share location';
-    document.getElementById('selfiePreview').classList.add('hidden');
-    document.querySelector('.selfie-text').textContent = 'Add photo (optional)';
-    if (document.getElementById('selfieInput')) document.getElementById('selfieInput').value = '';
+    
 
     modal.classList.remove('hidden');
 }
@@ -122,8 +102,7 @@ async function handleBookingSubmit() {
     const locationBox = document.getElementById('locationBox');
 const location = locationBox && locationBox.classList.contains('shared') ? 
     document.getElementById('locationText').textContent : '';
-    const selfieSrc = document.getElementById('selfiePreview').src;
-    const selfie = selfieSrc && !document.getElementById('selfiePreview').classList.contains('hidden') ? selfieSrc : '';
+    
 
     if (!name || !phone || !eventDate) { alert('⚠️ Please fill required fields!'); return; }
     if (phone.length !== 10 || !/^\d{10}$/.test(phone)) { alert('⚠️ Valid 10-digit phone number!'); return; }
@@ -132,7 +111,7 @@ const location = locationBox && locationBox.classList.contains('shared') ?
         id: Date.now(),
         date: new Date().toISOString(),
         customerName: name, phone, eventDate,
-        time: selectedTime, location, selfie,
+        time: selectedTime, location, 
         selectedDesigns: selectedDesigns.map(d => ({ id: d.id, name: d.name, price: d.price, image: d.image })),
         totalPrice: getTotalPrice()
     };
@@ -143,7 +122,7 @@ const location = locationBox && locationBox.classList.contains('shared') ?
     document.getElementById('bookingModal').classList.add('hidden');
     showConfirmation(booking);
 
-    setTimeout(() => { openWhatsApp(message); }, 500);
+     openWhatsApp(message);
 }
 
 function saveBooking(booking) {
@@ -182,9 +161,7 @@ function generateWhatsAppMessage(booking) {
     msg += `━━━━━━━━━━━━━━━━━━\n`;
     msg += `Total: Rs.${booking.totalPrice.toLocaleString('en-IN')}\n`;
     
-    if (booking.selfie) {
-        msg += `Customer Photo: ${booking.selfie}\n\n`;
-    }
+    
     
     msg += `Please confirm the booking.\n`;
     msg += `Thank you for using our service.`;
