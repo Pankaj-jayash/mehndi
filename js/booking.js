@@ -187,7 +187,7 @@ function generateWhatsAppMessage(booking) {
     }
     
     msg += `Please confirm the booking.\n`;
-    msg += `Contact: 9719312956`;
+    msg += `Thank you for using our service.`;
     
     return msg;
 }
