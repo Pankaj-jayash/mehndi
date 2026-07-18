@@ -152,8 +152,8 @@ function saveBooking(booking) {
     localStorage.setItem('mehndiBookings', JSON.stringify(bookings));
 }
 function generateWhatsAppMessage(booking) {
-    let msg = `*NIRAJ WITH MEHNDI - NEW BOOKING*\n\n`;
-    msg += `━━━━━━━━━━━━━━━━━━\n\n`;
+    let msg = `*NIRAJ WITH MEHNDI - NEW BOOKING*\n`;
+    msg += `━━━━━━━━━━━━━━━━━━\n`;
     
     msg += `Customer Details:\n`;
     msg += `Name: ${booking.customerName}\n`;
@@ -171,7 +171,7 @@ function generateWhatsAppMessage(booking) {
         msg += `\nLocation: ${booking.location}\n`;
     }
     
-    msg += `\n━━━━━━━━━━━━━━━━━━\n\n`;
+    msg += `\n━━━━━━━━━━━━━━━━━━\n`;
     msg += `Selected Designs:\n`;
     
     booking.selectedDesigns.forEach((d, i) => {
@@ -179,8 +179,8 @@ function generateWhatsAppMessage(booking) {
         msg += `   Image: ${d.image}\n`;
     });
     
-    msg += `\n━━━━━━━━━━━━━━━━━━\n\n`;
-    msg += `Total: Rs.${booking.totalPrice.toLocaleString('en-IN')}\n\n`;
+    msg += `\n━━━━━━━━━━━━━━━━━━\n`;
+    msg += `Total: Rs.${booking.totalPrice.toLocaleString('en-IN')}\n`;
     
     if (booking.selfie) {
         msg += `Customer Photo: ${booking.selfie}\n\n`;
