@@ -379,20 +379,19 @@
             <form id="bookingForm">
                 <div class="booking-inputs">
                     <div class="input-row">
-                        <div class="input-box">
-                            <span class="input-icon">👤</span>
-                            <input type="text" id="customerName" placeholder="Full Name *" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="input-icon">📱</span>
-                            <input type="tel" id="customerPhone" placeholder="Phone *" pattern="[0-9]{10}" maxlength="10" required>
-                        </div>
+                        <div class="input-box" data-label="Full Name">
+    <span class="input-icon">👤</span>
+    <input type="text" id="customerName" placeholder="Enter name" required>
+</div>
+                        <div class="input-box" data-label="Phone Number">
+    <span class="input-icon">📱</span>
+    <input type="tel" id="customerPhone" placeholder="10 digits" pattern="[0-9]{10}" maxlength="10" required>
+</div>
                     </div>
-                    <div class="input-row">
-                        <div class="input-box">
-                            <span class="input-icon">📅</span>
-                            <input type="date" id="eventDate" required>
-                        </div>
+                    <div class="input-box" data-label="Event Date">
+    <span class="input-icon">📅</span>
+    <input type="date" id="eventDate" required>
+</div>
                         <div class="input-box time-slots">
                             <button type="button" class="time-chip" data-time="morning">🌅 AM</button>
                             <button type="button" class="time-chip" data-time="afternoon">☀️ PM</button>
@@ -400,12 +399,12 @@
                         </div>
                     </div>
                     <div class="input-row">
-                        <div class="input-box location-box" id="locationBox">
+                        <div class="input-box location-box" id="locationBox" data-label="Location (Optional)">
                             <span class="input-icon">📍</span>
                             <span class="location-text" id="locationText">Tap to share location</span>
                             <span class="location-status" id="locationStatus"></span>
                         </div>
-                        <div class="input-box selfie-box" id="selfieBox">
+                        <div class="input-box selfie-box" id="selfieBox" data-label="Photo (Optional)">
                             <span class="input-icon">📸</span>
                             <span class="selfie-text">Add photo (optional)</span>
                             <input type="file" id="selfieInput" accept="image/*" capture="user" style="display:none;">
