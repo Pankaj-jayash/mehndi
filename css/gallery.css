@@ -1007,76 +1007,106 @@
     transition: all 0.4s ease;
 }
 /* ============================================ */
-/*  BOOKING MODAL — ELEGANT + LIGHT             */
+/*  BOOKING MODAL — SOFT GLOW + BIGGER          */
 /* ============================================ */
 .booking-modal {
-    max-width: 440px;
-    border-radius: 16px;
+    max-width: 460px;
+    border-radius: 20px;
     overflow: visible;
     background: white;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    box-shadow: 
+        0 0 40px rgba(201, 169, 110, 0.15),
+        0 0 80px rgba(201, 169, 110, 0.08),
+        0 20px 60px rgba(0,0,0,0.12);
     position: relative;
-    border: 2px solid rgba(201, 169, 110, 0.3);
-    animation: bookingBorderLight 3s linear infinite;
 }
 
-@keyframes bookingBorderLight {
-    0%   { border-color: rgba(201, 169, 110, 0.3); }
-    25%  { border-color: rgba(180, 140, 80, 0.4); }
-    50%  { border-color: rgba(160, 120, 60, 0.35); }
-    75%  { border-color: rgba(190, 150, 90, 0.4); }
-    100% { border-color: rgba(201, 169, 110, 0.3); }
-}
-
-/* Close button — visible */
-.booking-modal .modal-close {
+/* Soft glow ring */
+.booking-modal::before {
+    content: '';
     position: absolute;
-    top: 10px;
-    right: 14px;
-    font-size: 24px;
-    color: #999;
-    cursor: pointer;
-    z-index: 10;
-    background: rgba(255,255,255,0.9);
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
+    inset: -4px;
+    border-radius: 22px;
+    background: transparent;
+    border: 2px solid transparent;
+    pointer-events: none;
+    animation: priceLikeGlow 2.5s ease-in-out infinite;
+    z-index: -1;
 }
 
-.booking-modal .modal-close:hover {
-    color: #333;
-    background: #f5f5f5;
+@keyframes priceLikeGlow {
+    0%, 100% { 
+        border-color: rgba(201, 169, 110, 0.15);
+        box-shadow: 0 0 15px rgba(201, 169, 110, 0.08), 0 0 30px rgba(201, 169, 110, 0.04);
+    }
+    50% { 
+        border-color: rgba(201, 169, 110, 0.4);
+        box-shadow: 0 0 20px rgba(201, 169, 110, 0.15), 0 0 40px rgba(201, 169, 110, 0.08);
+    }
 }
 
 .booking-header {
-    background: #FEF9F0;
-    padding: 12px 20px;
+    background: linear-gradient(135deg, #FEF9F0, #FDF5E6, #FEF9F0);
+    padding: 14px 20px;
     text-align: center;
-    border-bottom: 1px solid rgba(201, 169, 110, 0.15);
-    border-radius: 16px 16px 0 0;
+    border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+    position: relative;
 }
 
 .booking-header .booking-icon {
-    font-size: 22px;
-    display: block;
+    font-size: 26px;
 }
 
 .booking-header h3 {
     color: #5C3A1E;
-    font-size: 15px;
+    font-size: 16px;
     margin: 2px 0 0;
     font-weight: 700;
     letter-spacing: 0.5px;
 }
 
-.booking-body {
-    padding: 14px 16px 16px;
+/* Soft light inside header */
+.booking-header::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+    animation: headerLight 4s ease-in-out infinite;
+}
+
+@keyframes headerLight {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(10px, -5px); }
+}
+
+.booking-header .booking-icon {
+    font-size: 28px;
     position: relative;
     z-index: 1;
+    animation: iconFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.booking-header h3 {
+    color: var(--accent);
+    font-size: 17px;
+    margin: 4px 0 0;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+}
+
+.booking-body {
+    padding: 16px 18px 18px;
+    position: relative;
 }
 
 /* Design Preview */
@@ -1084,8 +1114,8 @@
     display: flex;
     gap: 8px;
     overflow-x: auto;
-    padding-bottom: 8px;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
     scrollbar-width: none;
 }
 .booking-designs::-webkit-scrollbar { display: none; }
@@ -1095,7 +1125,7 @@
     align-items: center;
     gap: 8px;
     background: #fef9f0;
-    padding: 6px 10px;
+    padding: 7px 10px;
     border-radius: 10px;
     flex-shrink: 0;
     font-size: 12px;
@@ -1104,8 +1134,8 @@
 }
 
 .booking-design-thumb {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 8px;
     background-size: cover;
     background-position: center;
@@ -1118,7 +1148,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .input-row {
@@ -1134,7 +1164,7 @@
     background: #fdfaf5;
     border: 1.5px solid #e0d5c0;
     border-radius: 12px;
-    padding: 11px 12px;
+    padding: 12px 12px;
     transition: all 0.3s ease;
     position: relative;
 }
@@ -1146,15 +1176,16 @@
     left: 12px;
     background: #fdfaf5;
     padding: 0 6px;
-    font-size: 10px;
+    font-size: 11px;
     color: #999;
     font-weight: 600;
     letter-spacing: 0.5px;
+    z-index: 1;
 }
 
 .input-box:focus-within {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(201,169,110,0.06);
+    box-shadow: 0 0 0 3px rgba(201,169,110,0.08), 0 0 20px rgba(201,169,110,0.06);
     background: white;
 }
 
@@ -1163,7 +1194,7 @@
 }
 
 .input-icon {
-    font-size: 16px;
+    font-size: 17px;
     flex-shrink: 0;
 }
 
@@ -1175,23 +1206,25 @@
     width: 100%;
     outline: none;
     color: #333;
+    font-weight: 500;
 }
 
 .input-box input::placeholder {
     color: #bbb;
     font-size: 13px;
+    font-weight: 400;
 }
 
 /* Time Slots */
 .time-slots {
     justify-content: center;
     gap: 5px;
-    padding: 4px 6px;
+    padding: 5px 6px;
 }
 
 .time-chip {
     padding: 7px 12px;
-    border-radius: 18px;
+    border-radius: 20px;
     border: 1.5px solid #e0d5c0;
     background: transparent;
     font-size: 12px;
@@ -1199,6 +1232,12 @@
     transition: all 0.25s ease;
     font-family: var(--font-body);
     color: #999;
+    font-weight: 500;
+}
+
+.time-chip:hover {
+    border-color: var(--accent);
+    color: var(--primary);
 }
 
 .time-chip.active {
@@ -1218,23 +1257,23 @@
 /* Selfie */
 .selfie-box { cursor: pointer; }
 .selfie-box .selfie-text { font-size: 13px; color: #999; }
-.selfie-preview { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+.selfie-preview { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
 
 /* Total */
 .booking-total {
     text-align: center;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--primary);
     margin-bottom: 10px;
 }
 
-/* Submit Button */
+/* Submit */
 .btn-whatsapp-submit {
     width: 100%;
-    padding: 13px;
+    padding: 14px;
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     background: linear-gradient(135deg, #25D366, #1DA851);
     color: white;
     font-family: var(--font-body);
@@ -1244,7 +1283,6 @@
     transition: all 0.3s ease;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 15px rgba(37,211,102,0.2);
-    display: block;
 }
 
 .btn-whatsapp-submit:hover {
@@ -1255,4 +1293,6 @@
 @media (max-width: 480px) {
     .booking-modal { max-width: 95%; }
     .input-row { flex-direction: column; }
+    .input-box { padding: 10px 12px; }
+    .input-box input { font-size: 13px; }
 }
