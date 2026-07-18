@@ -1065,6 +1065,8 @@
     padding: 10px 14px 12px;
     position: relative;
     border-radius: 0 0 20px 20px;
+    overflow-y: auto;
+    max-height: 70vh;
 }
 
 /* Design Preview */
@@ -1185,6 +1187,8 @@
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .modal-close {
