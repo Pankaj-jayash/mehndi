@@ -26,6 +26,16 @@ function isModalOpen() {
     return document.querySelector('.modal-overlay:not(.hidden)') ||
            document.querySelector('.zoom-overlay');
 }
+let soundEnabled = false;
+
+// User ke first click par sound enable
+document.addEventListener('click', function() {
+    if (!soundEnabled) {
+        soundEnabled = true;
+        // Test sound (almost silent)
+        playNotificationSound();
+    }
+}, { once: false });
 
 function playNotificationSound() {
     try {
@@ -64,9 +74,9 @@ function playNotificationSound() {
 function showRecentBookingPopup() {
     if (popupActive || isModalOpen()) return;
     popupActive = true;
-
+    if (soundEnabled) {
     playNotificationSound();
-
+    }
     const booking = recentBookings[Math.floor(Math.random() * recentBookings.length)];
 
     const popup = document.createElement('div');
@@ -138,4 +148,4 @@ document.addEventListener('click', function(e) {
     }
 });
 
-document.addEventListener('DOMContentLoaded', () => { initRecentBookings(); }); 
+document.addEventListener('DOMContentLoaded', () => { initRecentBookings(); });
