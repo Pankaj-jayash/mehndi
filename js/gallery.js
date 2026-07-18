@@ -457,6 +457,7 @@ function addRipple(btn, e) {
     ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
     btn.appendChild(ripple);
     ripple.addEventListener('animationend', () => ripple.remove());
+}
 // ============================================
 //  PRICE SLIDER — Fixed
 // ============================================
