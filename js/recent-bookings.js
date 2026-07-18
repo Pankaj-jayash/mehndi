@@ -134,9 +134,9 @@ function hidePopup(popup) {
 }
 
 function initRecentBookings() {
-    setTimeout(() => { showRecentBookingPopup(); }, 9000);
+    setTimeout(() => { showRecentBookingPopup(); }, 8000);
     // Second popup after 35 seconds
-setTimeout(() => { showRecentBookingPopup(); }, 41000);
+setTimeout(() => { showRecentBookingPopup(); }, 37000);
 setTimeout(() => { showRecentBookingPopup(); }, 88000);
 
 // Then every 2-3.5 minutes
