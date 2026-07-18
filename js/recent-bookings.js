@@ -41,33 +41,26 @@ function playNotificationSound() {
     try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
-        // Bell 1
-        const osc1 = audioCtx.createOscillator();
-        const gain1 = audioCtx.createGain();
-        osc1.connect(gain1); gain1.connect(audioCtx.destination);
-        osc1.type = 'sine';
-        osc1.frequency.setValueAtTime(1200, audioCtx.currentTime);
-        osc1.frequency.setValueAtTime(1400, audioCtx.currentTime + 0.08);
-        osc1.frequency.setValueAtTime(1200, audioCtx.currentTime + 0.15);
-        gain1.gain.setValueAtTime(0.12, audioCtx.currentTime);
-        gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
-        osc1.start(audioCtx.currentTime);
-        osc1.stop(audioCtx.currentTime + 0.2);
+        // iPhone-style "Tri-Tone"
+        const notes = [1000, 1200, 1400];
         
-        // Bell 2
-        setTimeout(() => {
-            const osc2 = audioCtx.createOscillator();
-            const gain2 = audioCtx.createGain();
-            osc2.connect(gain2); gain2.connect(audioCtx.destination);
-            osc2.type = 'sine';
-            osc2.frequency.setValueAtTime(1000, audioCtx.currentTime);
-            osc2.frequency.setValueAtTime(1200, audioCtx.currentTime + 0.08);
-            osc2.frequency.setValueAtTime(1000, audioCtx.currentTime + 0.15);
-            gain2.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
-            osc2.start(audioCtx.currentTime);
-            osc2.stop(audioCtx.currentTime + 0.2);
-        }, 200);
+        notes.forEach((freq, i) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            const startTime = audioCtx.currentTime + (i * 0.08);
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, startTime);
+            
+            gain.gain.setValueAtTime(0.12, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.08);
+            
+            osc.start(startTime);
+            osc.stop(startTime + 0.08);
+        });
     } catch(e) {}
 }
 
