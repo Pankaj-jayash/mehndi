@@ -130,7 +130,7 @@ function saveBooking(booking) {
 }
 function generateWhatsAppMessage(booking) {
     let msg = `🌿 *NIRAJ WITH MEHNDI - NEW BOOKING* 🌿\n`;
-    msg += `━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+    msg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
     msg += `👤 *Customer Details*\n`;
     msg += `👤 *Name:* ${booking.customerName}\n`;
     msg += `📱 *Phone:* ${booking.phone}\n`;
@@ -144,21 +144,19 @@ function generateWhatsAppMessage(booking) {
     }
     
     if (booking.location) {
-        msg += `\n📍 *Location*\n`;
-        msg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+        msg += `📍 *Location*\n`;
+        msg += `━━━━━━━━━━━━━━━━━━━━━━`;
         msg += `📍 ${booking.location}\n`;
     }
-    
-    msg += `\n📋 *Selected Designs*\n`;
+    msg += `📋 *Selected Designs*\n`;
     booking.selectedDesigns.forEach((d, i) => {
-        msg += `\n💍 *${i+1}. ${d.name}*\n`;
+        msg += `💍 *${i+1}. ${d.name}*\n`;
         msg += `   💰 *Price:* Rs.${d.price.toLocaleString('en-IN')}\n`;
         msg += `   🖼️ *Image:* ${d.image}\n`;
     });
-    msg += `\n━━━━━━━━━━━━━━━━━━━━━━\n`;
+    msg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
     msg += `💰 *TOTAL:* Rs.${booking.totalPrice.toLocaleString('en-IN')}\n`;
     msg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
-    
     msg += `✅ *Please confirm the booking.*\n`;
     msg += `🙏 *Thank you for choosing Niraj With Mehndi!* 🪷\n`;
     msg += `📞 *Contact:* 9719312956\n`;
