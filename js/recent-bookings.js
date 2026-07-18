@@ -28,12 +28,21 @@ function isModalOpen() {
 }
 let soundEnabled = false;
 
-// User ke first click par sound enable
+// First click — silent sound enable
 document.addEventListener('click', function() {
     if (!soundEnabled) {
         soundEnabled = true;
-        // Test sound (almost silent)
-        playNotificationSound();
+        // Silent test — enable audio context only
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            gain.gain.setValueAtTime(0, audioCtx.currentTime); // Volume = 0
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.001);
+        } catch(e) {}
     }
 }, { once: false });
 
