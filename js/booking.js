@@ -39,22 +39,27 @@ function initBooking() {
     });
 
     // Location
-    const locationBox = document.getElementById('locationBox');
-    if (locationBox) {
-        locationBox.addEventListener('click', function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(pos) {
-                    const lat = pos.coords.latitude.toFixed(4);
-                    const lng = pos.coords.longitude.toFixed(4);
-                    document.getElementById('locationText').textContent = `${lat}, ${lng}`;
-                    locationBox.classList.add('shared');
-                    document.getElementById('locationStatus').textContent = '✅';
-                }, function() {
-                    document.getElementById('locationText').textContent = 'Location denied';
-                });
-            }
-        });
-    }
+    // Location
+const locationBox = document.getElementById('locationBox');
+if (locationBox) {
+    locationBox.addEventListener('click', function() {
+        if (navigator.geolocation) {
+            document.getElementById('locationText').textContent = 'Getting location...';
+            navigator.geolocation.getCurrentPosition(function(pos) {
+                const lat = pos.coords.latitude.toFixed(4);
+                const lng = pos.coords.longitude.toFixed(4);
+                document.getElementById('locationText').textContent = `${lat}, ${lng}`;
+                document.getElementById('locationStatus').textContent = '✅';
+                locationBox.classList.add('shared');
+            }, function() {
+                document.getElementById('locationText').textContent = 'Tap to share';
+                document.getElementById('locationStatus').textContent = '❌';
+            });
+        } else {
+            document.getElementById('locationText').textContent = 'Not supported';
+        }
+    });
+}
 
     // Selfie
     const selfieBox = document.getElementById('selfieBox');
@@ -114,7 +119,9 @@ async function handleBookingSubmit() {
     const phone = document.getElementById('customerPhone').value.trim();
     const eventDate = document.getElementById('eventDate').value;
     const locationText = document.getElementById('locationText').textContent;
-    const location = locationText !== 'Tap to share location' && locationText !== 'Location denied' ? locationText : '';
+    const locationBox = document.getElementById('locationBox');
+const location = locationBox && locationBox.classList.contains('shared') ? 
+    document.getElementById('locationText').textContent : '';
     const selfieSrc = document.getElementById('selfiePreview').src;
     const selfie = selfieSrc && !document.getElementById('selfiePreview').classList.contains('hidden') ? selfieSrc : '';
 
