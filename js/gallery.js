@@ -457,13 +457,15 @@ function addRipple(btn, e) {
     ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
     btn.appendChild(ripple);
     ripple.addEventListener('animationend', () => ripple.remove());
-}
 // ============================================
-//  PRICE SLIDER — Auto Refresh
+//  PRICE SLIDER — Fixed
 // ============================================
 function setupPriceSlider() {
     const priceSlider = document.getElementById('priceSlider');
     const priceDisplay = document.getElementById('priceDisplay');
+    const priceBtns = document.querySelectorAll('#priceSwitch .switch-btn');
+    const priceHighlight = document.getElementById('priceHighlight');
+    const priceSidebarInner = document.getElementById('priceSidebarInner');
 
     if (!priceSlider || !priceDisplay) return;
 
@@ -474,28 +476,58 @@ function setupPriceSlider() {
 
     priceSlider.addEventListener('input', function() {
         const val = parseInt(this.value);
+        let priceKey = 'all';
 
         if (val >= 10000) {
-            currentPrice = 'all';
+            priceKey = 'all';
             priceDisplay.textContent = 'All Prices';
         } else if (val >= 5000) {
-            currentPrice = 'above5000';
+            priceKey = 'above5000';
             priceDisplay.textContent = 'Above ₹5,000';
         } else if (val >= 3000) {
-            currentPrice = '3000to5000';
+            priceKey = '3000to5000';
             priceDisplay.textContent = '₹3,000 - ₹5,000';
         } else if (val >= 1000) {
-            currentPrice = '1000to3000';
+            priceKey = '1000to3000';
             priceDisplay.textContent = '₹1,000 - ₹3,000';
         } else {
-            currentPrice = 'under1000';
+            priceKey = 'under1000';
             priceDisplay.textContent = 'Under ₹1,000';
         }
 
-        // Switch sync
-        updatePriceSwitch(currentPrice);
-        
-        // Gallery refresh
+        currentPrice = priceKey;
+
+        // Update switch buttons
+        if (priceBtns.length) {
+            priceBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.price === priceKey) btn.classList.add('active');
+            });
+        }
+
+        // Move highlight
+        if (priceHighlight) {
+            setTimeout(() => {
+                const active = document.querySelector('#priceSwitch .switch-btn.active');
+                if (active) {
+                    priceHighlight.style.top = active.offsetTop + 'px';
+                    priceHighlight.style.height = active.offsetHeight + 'px';
+                }
+            }, 50);
+        }
+
+        // Update sidebar glow
+        if (priceSidebarInner) {
+            const priceColors = {
+                'all': 'glow-all', 'under1000': 'glow-under1000',
+                '1000to3000': 'glow-1000to3000', '3000to5000': 'glow-3000to5000',
+                'above5000': 'glow-above5000'
+            };
+            Object.values(priceColors).forEach(c => priceSidebarInner.classList.remove(c));
+            if (priceColors[priceKey]) priceSidebarInner.classList.add(priceColors[priceKey]);
+        }
+
+        // Refresh gallery
         renderGallery();
     });
 }
