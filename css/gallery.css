@@ -1171,9 +1171,6 @@
 .location-box.shared { border-color: #22c55e; background: #f0fdf4; }
 .location-box.shared .location-text { color: #22c55e; }
 
-.selfie-box { cursor: pointer; }
-.selfie-text { font-size: 12px; color: #999; }
-.selfie-preview { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
 
 .booking-total { text-align: center; font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
 
