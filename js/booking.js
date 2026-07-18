@@ -39,27 +39,26 @@ function initBooking() {
     });
 
     // Location
-    // Location
-const locationBox = document.getElementById('locationBox');
-if (locationBox) {
-    locationBox.addEventListener('click', function() {
-        if (navigator.geolocation) {
-            document.getElementById('locationText').textContent = 'Getting location...';
-            navigator.geolocation.getCurrentPosition(function(pos) {
-                const lat = pos.coords.latitude.toFixed(4);
-                const lng = pos.coords.longitude.toFixed(4);
-                document.getElementById('locationText').textContent = `${lat}, ${lng}`;
-                document.getElementById('locationStatus').textContent = '✅';
-                locationBox.classList.add('shared');
-            }, function() {
-                document.getElementById('locationText').textContent = 'Tap to share';
-                document.getElementById('locationStatus').textContent = '❌';
-            });
-        } else {
-            document.getElementById('locationText').textContent = 'Not supported';
-        }
-    });
-}
+    const locationBox = document.getElementById('locationBox');
+    if (locationBox) {
+        locationBox.addEventListener('click', function() {
+            if (navigator.geolocation) {
+                document.getElementById('locationText').textContent = 'Getting location...';
+                navigator.geolocation.getCurrentPosition(function(pos) {
+                    const lat = pos.coords.latitude.toFixed(4);
+                    const lng = pos.coords.longitude.toFixed(4);
+                    document.getElementById('locationText').textContent = `${lat}, ${lng}`;
+                    document.getElementById('locationStatus').textContent = '✅';
+                    locationBox.classList.add('shared');
+                }, function() {
+                    document.getElementById('locationText').textContent = 'Tap to share';
+                    document.getElementById('locationStatus').textContent = '❌';
+                });
+            } else {
+                document.getElementById('locationText').textContent = 'Not supported';
+            }
+        });
+    }
 
     // Selfie
     const selfieBox = document.getElementById('selfieBox');
@@ -86,7 +85,6 @@ function openBookingModal() {
     const summaryDiv = document.getElementById('modalSelectedDesigns');
     const totalPrice = getTotalPrice();
 
-    // Design previews
     summaryDiv.innerHTML = selectedDesigns.map(d => `
         <div class="booking-design-item">
             <div class="booking-design-thumb" style="background-image:url('${d.image}');"></div>
@@ -98,11 +96,8 @@ function openBookingModal() {
     `).join('');
 
     document.getElementById('bookingTotal').textContent = `💰 Total: ₹${totalPrice.toLocaleString('en-IN')}`;
-
-    // Load saved details
     loadSavedDetails();
     
-    // Reset optional
     selectedTime = '';
     document.querySelectorAll('.time-chip').forEach(c => c.classList.remove('active'));
     document.getElementById('locationBox').classList.remove('shared');
@@ -118,31 +113,51 @@ async function handleBookingSubmit() {
     const name = document.getElementById('customerName').value.trim();
     const phone = document.getElementById('customerPhone').value.trim();
     const eventDate = document.getElementById('eventDate').value;
-    const locationText = document.getElementById('locationText').textContent;
     const locationBox = document.getElementById('locationBox');
-const location = locationBox && locationBox.classList.contains('shared') ? 
-    document.getElementById('locationText').textContent : '';
+    const location = locationBox && locationBox.classList.contains('shared') ? 
+        document.getElementById('locationText').textContent : '';
     const selfieSrc = document.getElementById('selfiePreview').src;
     const selfie = selfieSrc && !document.getElementById('selfiePreview').classList.contains('hidden') ? selfieSrc : '';
 
     if (!name || !phone || !eventDate) { alert('⚠️ Please fill required fields!'); return; }
     if (phone.length !== 10 || !/^\d{10}$/.test(phone)) { alert('⚠️ Valid 10-digit phone number!'); return; }
 
+    // Upload selfie to ImgBB
+    let selfieLink = '';
+    if (selfie) {
+        document.querySelector('.btn-whatsapp-submit').textContent = '⏳ Uploading photo...';
+        document.querySelector('.btn-whatsapp-submit').disabled = true;
+        try {
+            const formData = new FormData();
+            formData.append('image', selfie.split(',')[1]);
+            const res = await fetch('https://api.imgbb.com/1/upload?key=6910f0739a8cf85883df9e9457549de4', {
+                method: 'POST', body: formData
+            });
+            const data = await res.json();
+            if (data.success) {
+                selfieLink = data.data.url;
+            }
+        } catch(e) {
+            selfieLink = '';
+        }
+        document.querySelector('.btn-whatsapp-submit').textContent = '💬 Send on WhatsApp';
+        document.querySelector('.btn-whatsapp-submit').disabled = false;
+    }
+
     const booking = {
-        id: Date.now(),
-        date: new Date().toISOString(),
+        id: Date.now(), date: new Date().toISOString(),
         customerName: name, phone, eventDate,
-        time: selectedTime, location, selfie,
+        time: selectedTime, location, selfieLink,
         selectedDesigns: selectedDesigns.map(d => ({ id: d.id, name: d.name, price: d.price, image: d.image })),
         totalPrice: getTotalPrice()
     };
 
     saveBooking(booking);
+    saveUserDetails(name, phone, '');
     const message = generateWhatsAppMessage(booking);
-
     document.getElementById('bookingModal').classList.add('hidden');
     showConfirmation(booking);
-openWhatsApp(message);
+    openWhatsApp(message);
 }
 
 function saveBooking(booking) {
@@ -150,47 +165,27 @@ function saveBooking(booking) {
     bookings.push(booking);
     localStorage.setItem('mehndiBookings', JSON.stringify(bookings));
 }
+
 function generateWhatsAppMessage(booking) {
-    let msg = `*NIRAJ WITH MEHNDI - NEW BOOKING*\n`;
-    msg += `━━━━━━━━━━━━━━━━━━\n`;
-    
-    msg += `Customer Details:\n`;
-    msg += `Name: ${booking.customerName}\n`;
-    msg += `Phone: ${booking.phone}\n`;
-    msg += `Date: ${booking.eventDate}\n`;
-    
+    let msg = `*Niraj With Mehndi - New Booking*%0A%0A`;
+    msg += `*Name:* ${booking.customerName}%0A`;
+    msg += `*Phone:* ${booking.phone}%0A`;
+    msg += `*Event Date:* ${booking.eventDate}%0A`;
     if (booking.time) {
-        const timeLabel = booking.time === 'morning' ? 'Morning (8AM-12PM)' : 
-                         booking.time === 'afternoon' ? 'Afternoon (12PM-4PM)' : 
-                         'Evening (4PM-8PM)';
-        msg += `Time: ${timeLabel}\n`;
+        const timeLabel = booking.time === 'morning' ? 'Morning (8AM-12PM)' : booking.time === 'afternoon' ? 'Afternoon (12PM-4PM)' : 'Evening (4PM-8PM)';
+        msg += `*Time:* ${timeLabel}%0A`;
     }
-    
-    if (booking.location) {
-        msg += `\nLocation: ${booking.location}\n`;
-    }
-    
-    msg += `━━━━━━━━━━━━━━━━━━\n`;
-    msg += `Selected Designs:\n`;
-    
+    if (booking.location) msg += `*Location:* ${booking.location}%0A`;
+    msg += `%0A*Selected Designs:*%0A`;
     booking.selectedDesigns.forEach((d, i) => {
-        msg += `${i+1}. ${d.name} - Rs.${d.price.toLocaleString('en-IN')}\n`;
-        msg += `   Image: ${d.image}\n`;
+        msg += `  ${i+1}. ${d.name} - Rs.${d.price.toLocaleString('en-IN')}%0A`;
+        msg += `  Image: ${d.image}%0A`;
     });
-    
-    msg += `━━━━━━━━━━━━━━━━━━\n`;
-    msg += `Total: Rs.${booking.totalPrice.toLocaleString('en-IN')}\n`;
-    
-    if (booking.selfie) {
-        msg += `Customer Photo: ${booking.selfie}\n\n`;
-    }
-    
-    msg += `Please confirm the booking.\n`;
-    msg += `Thank you for using our service.`;
-    
+    msg += `%0A*Total:* Rs.${booking.totalPrice.toLocaleString('en-IN')}%0A`;
+    if (booking.selfieLink) msg += `%0A*Selfie:* ${booking.selfieLink}`;
+    msg += `%0A%0APlease confirm booking.`;
     return msg;
 }
-
 
 function showConfirmation(booking) {
     const modal = document.getElementById('confirmationModal');
