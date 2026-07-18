@@ -138,7 +138,7 @@ function loadFooter() {
 }
 
 // ============================================
-//  WHATSAPP FUNCTION
+//  WHATSAPP FUNCTION — FIXED NO BLOCK
 // ============================================
 function openWhatsApp(message) {
     const phone = CONFIG.whatsapp || '919719312956';
@@ -152,10 +152,14 @@ function openWhatsApp(message) {
     if (isMobile) {
         window.location.href = whatsappURL;
     } else {
-        const newWindow = window.open(whatsappWebURL, '_blank', 'noopener,noreferrer');
-        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-            window.location.href = whatsappWebURL;
-        }
+        // Desktop — safe method, no popup blocker
+        const link = document.createElement('a');
+        link.href = whatsappWebURL;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 }
 
