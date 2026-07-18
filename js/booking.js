@@ -142,8 +142,7 @@ const location = locationBox && locationBox.classList.contains('shared') ?
 
     document.getElementById('bookingModal').classList.add('hidden');
     showConfirmation(booking);
-
-    setTimeout(() => { openWhatsApp(message); }, 500);
+openWhatsApp(message);
 }
 
 function saveBooking(booking) {
