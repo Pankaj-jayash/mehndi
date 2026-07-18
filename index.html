@@ -365,38 +365,62 @@
     </div>
 
     <!-- Booking Form Modal -->
-    <div class="modal-overlay hidden" id="bookingModal">
-        <div class="modal">
-            <button class="modal-close" id="closeModal">&times;</button>
-            <div class="modal-header">
-                <h2>📋 Book Your Mehndi</h2>
-                <p>Fill your details & send on WhatsApp</p>
-            </div>
-            <div class="modal-body">
-                <div class="selected-designs-summary" id="modalSelectedDesigns"></div>
-                <form id="bookingForm">
-                    <div class="form-group">
-                        <label for="customerName">👤 Full Name *</label>
-                        <input type="text" id="customerName" placeholder="Enter your full name" required>
+<div class="modal-overlay hidden" id="bookingModal">
+    <div class="modal booking-modal">
+        <button class="modal-close" id="closeModal">&times;</button>
+        <div class="booking-header">
+            <span class="booking-icon">🪷</span>
+            <h3>Book Your Mehndi</h3>
+        </div>
+        <div class="booking-body">
+            <!-- Selected Designs Preview -->
+            <div class="booking-designs" id="modalSelectedDesigns"></div>
+            
+            <form id="bookingForm">
+                <div class="booking-inputs">
+                    <div class="input-row">
+                        <div class="input-box">
+                            <span class="input-icon">👤</span>
+                            <input type="text" id="customerName" placeholder="Full Name *" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="input-icon">📱</span>
+                            <input type="tel" id="customerPhone" placeholder="Phone *" pattern="[0-9]{10}" maxlength="10" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="customerPhone">📱 Phone Number *</label>
-                        <input type="tel" id="customerPhone" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
+                    <div class="input-row">
+                        <div class="input-box">
+                            <span class="input-icon">📅</span>
+                            <input type="date" id="eventDate" required>
+                        </div>
+                        <div class="input-box time-slots">
+                            <button type="button" class="time-chip" data-time="morning">🌅 AM</button>
+                            <button type="button" class="time-chip" data-time="afternoon">☀️ PM</button>
+                            <button type="button" class="time-chip" data-time="evening">🌙 Eve</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="customerAddress">📍 Address *</label>
-                        <input type="text" id="customerAddress" placeholder="Your full address" required>
+                    <div class="input-row">
+                        <div class="input-box location-box" id="locationBox">
+                            <span class="input-icon">📍</span>
+                            <span class="location-text" id="locationText">Tap to share location</span>
+                            <span class="location-status" id="locationStatus"></span>
+                        </div>
+                        <div class="input-box selfie-box" id="selfieBox">
+                            <span class="input-icon">📸</span>
+                            <span class="selfie-text">Add photo (optional)</span>
+                            <input type="file" id="selfieInput" accept="image/*" capture="user" style="display:none;">
+                            <img id="selfiePreview" class="selfie-preview hidden" src="" alt="Preview">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="eventDate">📅 Event Date *</label>
-                        <input type="date" id="eventDate" required>
-                    </div>
-                    <button type="submit" class="btn btn-whatsapp btn-full">💬 Send on WhatsApp</button>
-                </form>
-            </div>
+                </div>
+                <div class="booking-total" id="bookingTotal">💰 Total: ₹0</div>
+                <button type="submit" class="btn-whatsapp-submit">
+                    <span>💬 Send on WhatsApp</span>
+                </button>
+            </form>
         </div>
     </div>
-
+</div>
     <!-- Confirmation Modal -->
     <div class="modal-overlay hidden" id="confirmationModal">
         <div class="modal modal-confirm">
