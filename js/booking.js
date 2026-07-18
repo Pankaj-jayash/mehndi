@@ -153,23 +153,47 @@ function saveBooking(booking) {
 }
 
 function generateWhatsAppMessage(booking) {
-    let msg = `*Niraj With Mehndi - New Booking*%0A%0A`;
-    msg += `*Name:* ${booking.customerName}%0A`;
-    msg += `*Phone:* ${booking.phone}%0A`;
-    msg += `*Event Date:* ${booking.eventDate}%0A`;
+    let msg = `🌿 *NIRAJ WITH MEHNDI — NEW BOOKING* 🌿%0A`;
+    msg += `━━━━━━━━━━━━━━━━━━━━━%0A%0A`;
+    
+    msg += `👤 *Customer Details*%0A`;
+    msg += `   Name    : ${booking.customerName}%0A`;
+    msg += `   Phone   : ${booking.phone}%0A`;
+    msg += `   Date    : ${booking.eventDate}%0A`;
+    
     if (booking.time) {
-        const timeLabel = booking.time === 'morning' ? 'Morning (8AM-12PM)' : booking.time === 'afternoon' ? 'Afternoon (12PM-4PM)' : 'Evening (4PM-8PM)';
-        msg += `*Time:* ${timeLabel}%0A`;
+        const timeLabel = booking.time === 'morning' ? '🌅 Morning (8AM-12PM)' : 
+                         booking.time === 'afternoon' ? '☀️ Afternoon (12PM-4PM)' : 
+                         '🌙 Evening (4PM-8PM)';
+        msg += `   Time    : ${timeLabel}%0A`;
     }
-    if (booking.location) msg += `*Location:* ${booking.location}%0A`;
-    msg += `%0A*Selected Designs:*%0A`;
+    
+    if (booking.location) {
+        msg += `%0A📍 *Location*%0A`;
+        msg += `   ${booking.location}%0A`;
+    }
+    
+    msg += `%0A━━━━━━━━━━━━━━━━━━━━━%0A%0A`;
+    msg += `🎨 *Selected Mehndi Designs*%0A%0A`;
+    
     booking.selectedDesigns.forEach((d, i) => {
-        msg += `  ${i+1}. ${d.name} - Rs.${d.price.toLocaleString('en-IN')}%0A`;
-        msg += `  Image: ${d.image}%0A`;
+        msg += `   ${i+1}. ${d.name}%0A`;
+        msg += `      💰 Rs.${d.price.toLocaleString('en-IN')}%0A`;
+        msg += `      🖼️ ${d.image}%0A%0A`;
     });
-    msg += `%0A*Total:* Rs.${booking.totalPrice.toLocaleString('en-IN')}%0A`;
-    if (booking.selfie) msg += `%0A*Selfie:* ${booking.selfie}`;
-    msg += `%0A%0APlease confirm booking.`;
+    
+    msg += `━━━━━━━━━━━━━━━━━━━━━%0A%0A`;
+    msg += `💰 *TOTAL AMOUNT : Rs.${booking.totalPrice.toLocaleString('en-IN')}*%0A%0A`;
+    
+    if (booking.selfie) {
+        msg += `📸 *Customer Photo* : ${booking.selfie}%0A%0A`;
+    }
+    
+    msg += `━━━━━━━━━━━━━━━━━━━━━%0A%0A`;
+    msg += `🙏 *Please confirm the booking at your earliest convenience.*%0A`;
+    msg += `📞 *Contact me at 9719312956 for any queries.*%0A%0A`;
+    msg += `✨ _Thank you for choosing Niraj With Mehndi!_ ✨`;
+    
     return msg;
 }
 
