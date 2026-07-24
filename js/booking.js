@@ -116,19 +116,23 @@ async function handleBookingSubmit() {
     const phone = document.getElementById('customerPhone').value.trim();
     const eventDate = document.getElementById('eventDate').value;
  const locationEl = document.getElementById('locationText');
-const location = (locationEl && locationEl.textContent !== 'Detecting...' && locationEl.textContent !== 'Not available' && locationEl.textContent !== 'Not supported') ? locationEl.textContent : '';
-    
+let location = '';
+let mapsLink = '';
+if (locationEl && locationEl.textContent !== 'Detecting...' && locationEl.textContent !== 'Not available' && locationEl.textContent !== 'Not supported') {
+    location = locationEl.textContent;
+    mapsLink = `https://maps.google.com/?q=${location}`;
+}
     if (!name || !phone || !eventDate) { alert('⚠️ Please fill required fields!'); return; }
     if (phone.length !== 10 || !/^\d{10}$/.test(phone)) { alert('⚠️ Valid 10-digit phone number!'); return; }
 
     const booking = {
-        id: Date.now(),
-        date: new Date().toISOString(),
-        customerName: name, phone, eventDate,
-        time: selectedTime, location, 
-        selectedDesigns: selectedDesigns.map(d => ({ id: d.id, name: d.name, price: d.price, image: d.image })),
-        totalPrice: getTotalPrice()
-    };
+    id: Date.now(),
+    date: new Date().toISOString(),
+    customerName: name, phone, eventDate,
+    time: selectedTime, location, mapsLink,
+    selectedDesigns: selectedDesigns.map(d => ({ id: d.id, name: d.name, price: d.price, image: d.image })),
+    totalPrice: getTotalPrice()
+};
 
     saveBooking(booking);
     const message = generateWhatsAppMessage(booking);
@@ -160,10 +164,11 @@ function generateWhatsAppMessage(booking) {
     }
     
     if (booking.location) {
-        msg += `📍 *Location*\n`;
-        msg += `━━━━━━━━━━━━━━━━━━━━━━`;
-        msg += `📍 ${booking.location}\n`;
-    }
+    msg += `\n📍 *Location*\n`;
+    msg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+    msg += `📍 ${booking.location}\n`;
+    msg += `🗺️ *Open in Maps:* ${booking.mapsLink}\n`;
+}
     msg += `📋 *Selected Designs*\n`;
     booking.selectedDesigns.forEach((d, i) => {
         msg += `💍 *${i+1}. ${d.name}*\n`;
