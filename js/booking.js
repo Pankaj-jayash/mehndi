@@ -105,10 +105,8 @@ async function handleBookingSubmit() {
     const name = document.getElementById('customerName').value.trim();
     const phone = document.getElementById('customerPhone').value.trim();
     const eventDate = document.getElementById('eventDate').value;
-    const locationText = document.getElementById('locationText').textContent;
-    const locationBox = document.getElementById('locationBox');
-const location = locationBox && locationBox.classList.contains('shared') ? 
-    document.getElementById('locationText').textContent : '';
+ const locationEl = document.getElementById('locationText');
+const location = (locationEl && locationEl.textContent !== 'Detecting...' && locationEl.textContent !== 'Not available' && locationEl.textContent !== 'Not supported') ? locationEl.textContent : '';
     
     if (!name || !phone || !eventDate) { alert('⚠️ Please fill required fields!'); return; }
     if (phone.length !== 10 || !/^\d{10}$/.test(phone)) { alert('⚠️ Valid 10-digit phone number!'); return; }
