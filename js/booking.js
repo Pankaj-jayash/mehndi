@@ -39,12 +39,13 @@ function initBooking() {
     });
 
     // Location
-    // Location
-// Location - Auto detect
+ // Location - Auto detect on booking form open
 const locationBox = document.getElementById('locationBox');
+let locationDetected = false;
+
 if (locationBox) {
-    // Auto-detect on form open
     function autoDetectLocation() {
+        if (locationDetected) return;
         if (navigator.geolocation) {
             document.getElementById('locationText').textContent = 'Detecting...';
             document.getElementById('locationStatus').textContent = '📍';
@@ -54,6 +55,7 @@ if (locationBox) {
                 document.getElementById('locationText').textContent = `${lat}, ${lng}`;
                 document.getElementById('locationStatus').textContent = '✅';
                 locationBox.classList.add('shared');
+                locationDetected = true;
             }, function() {
                 document.getElementById('locationText').textContent = 'Not available';
                 document.getElementById('locationStatus').textContent = '📍';
@@ -63,14 +65,22 @@ if (locationBox) {
             document.getElementById('locationStatus').textContent = '📍';
         }
     }
-    
-    // Auto-detect when form opens
-    autoDetectLocation();
+
+    // Detect when booking modal opens
+    const bookingModal = document.getElementById('bookingModal');
+    const openBtn = document.getElementById('openBookingForm');
+    if (openBtn) {
+        openBtn.addEventListener('click', function() {
+            setTimeout(autoDetectLocation, 500);
+        });
+    }
+}
     
     // Re-detect on click
-    locationBox.addEventListener('click', autoDetectLocation);
-}
-
+    locationBox.addEventListener('click', function() {
+        locationDetected = false;
+        autoDetectLocation();
+    });
 }
 
 function openBookingModal() {
